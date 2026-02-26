@@ -7,6 +7,7 @@
 const FormSubmit = {
   // FormSubmit 서비스 엔드포인트
   FORMSUBMIT_URL: 'https://formsubmit.co/ajax/channel@arklink.co.kr',
+  MARKETING_URL: 'https://formsubmit.co/ajax/marketing@arklink.co.kr',
   
   // 제출 상태
   isSubmitting: false,
@@ -140,8 +141,8 @@ const FormSubmit = {
    * FormSubmit 서비스 또는 자체 API 사용
    */
   submitForm: async function(formData) {
-    // FormSubmit 서비스용 데이터 포맷
-    const submitData = {
+    // channel@ 전체 데이터
+    const channelData = {
       name: formData.name,
       contact: formData.contact,
       damageType: formData.damageType || '미선택',
@@ -151,18 +152,31 @@ const FormSubmit = {
       _template: 'table'
     };
 
-    try {
-      const response = await fetch(this.FORMSUBMIT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(submitData)
-      });
+    // marketing@ 필요한 필드만
+    const marketingData = {
+      damageType: formData.damageType || '미선택',
+      message: formData.message || '내용 없음',
+      submittedAt: new Date().toISOString(),
+      _subject: '[아크링크] 새로운 상담 신청',
+      _template: 'table'
+    };
 
-      if (response.ok) {
-        const data = await response.json();
+    try {
+      const [channelRes, marketingRes] = await Promise.all([
+        fetch(this.FORMSUBMIT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(channelData)
+        }),
+        fetch(this.MARKETING_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(marketingData)
+        })
+      ]);
+
+      if (channelRes.ok) {
+        const data = await channelRes.json();
         return { success: true, data: data };
       } else {
         return { 
@@ -171,7 +185,6 @@ const FormSubmit = {
         };
       }
     } catch (error) {
-      // 네트워크 오류 또는 오프라인 상태
       if (!navigator.onLine) {
         return { 
           success: false, 

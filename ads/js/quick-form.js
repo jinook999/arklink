@@ -46,26 +46,44 @@
     submitBtn.innerHTML = '신청 중...';
 
     try {
-      // FormSubmit으로 전송
-      const response = await fetch('https://formsubmit.co/ajax/channel@arklink.co.kr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          contact: contact,
-          damageType: damageType || '미선택',
-          message: '내용 없음',
-          type: '간편상담',
-          submittedAt: new Date().toISOString(),
-          _subject: '[아크링크] 간편 상담 신청',
-          _template: 'table'
-        })
-      });
+      const now = new Date().toISOString();
+      const dtype = damageType || '미선택';
 
-      if (response.ok) {
+      // channel@ 전체 데이터
+      const channelData = {
+        name: name,
+        contact: contact,
+        damageType: dtype,
+        message: '내용 없음',
+        type: '간편상담',
+        submittedAt: now,
+        _subject: '[아크링크] 간편 상담 신청',
+        _template: 'table'
+      };
+
+      // marketing@ 필요한 필드만
+      const marketingData = {
+        damageType: dtype,
+        message: '내용 없음',
+        submittedAt: now,
+        _subject: '[아크링크] 간편 상담 신청',
+        _template: 'table'
+      };
+
+      const [channelRes] = await Promise.all([
+        fetch('https://formsubmit.co/ajax/channel@arklink.co.kr', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(channelData)
+        }),
+        fetch('https://formsubmit.co/ajax/marketing@arklink.co.kr', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(marketingData)
+        })
+      ]);
+
+      if (channelRes.ok) {
         // 신청완료 페이지로 이동
         window.location.href = '/ads/complete';
       } else {
