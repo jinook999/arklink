@@ -149,21 +149,21 @@
 				</td>
 			</tr>
             <?php if($board_info["thumbnail"] == 'y') : ?>
-				<?php if(count($board_view["board_file"]["thumbnail"])) : ?>
+				<?php if(count($board_view["board_file"]["thumbnail"] ?? [])) : ?>
 				<tr>
 					<th class="ta_left">썸네일</th>
 					<td colspan="5">
-						<?php for($i = 0; count($board_view["board_file"]["thumbnail"]) > $i; $i++) : ?><span class="thumb_link"><a href="/fileRequest/download?file=<?=urlencode("/board/". $board_view["upload_path"] ."/". $board_view["board_file"]["thumbnail"][$i]["fname"])?>&save=<?=urlencode($board_view["board_file"]["thumbnail"][$i]["oname"])?>" target="_blank" download><?=$board_view["board_file"]["thumbnail"][$i]["oname"]?> (다운로드)</a></span><?php endfor ?>
+						<?php for($i = 0; count($board_view["board_file"]["thumbnail"] ?? []) > $i; $i++) : ?><span class="thumb_link"><a href="/fileRequest/download?file=<?=urlencode("/board/". $board_view["upload_path"] ."/". $board_view["board_file"]["thumbnail"][$i]["fname"])?>&save=<?=urlencode($board_view["board_file"]["thumbnail"][$i]["oname"])?>" target="_blank" download><?=$board_view["board_file"]["thumbnail"][$i]["oname"]?> (다운로드)</a></span><?php endfor ?>
 					</td>
 				</tr>
 				<?php endif ?>
             <?php endif ?>
 			<?php if($board_info["files"] == 'y') : ?>
-				<?php if(count($board_view["board_file"]["file"])) : ?>
+				<?php if(count($board_view["board_file"]["file"] ?? [])) : ?>
 				<tr>
 					<th class="ta_left">첨부파일</th>
 					<td colspan="5">
-						<?php for($i = 0; count($board_view["board_file"]["file"]) > $i; $i++) : ?><span class="thumb_link"><a href="/fileRequest/download?file=<?=urlencode("/board/". $board_view["upload_path"] ."/". $board_view["board_file"]["file"][$i]["fname"])?>&save=<?=urlencode($board_view["board_file"]["file"][$i]["oname"])?>" target="_blank" download><?=$board_view["board_file"]["file"][$i]["oname"]?> (다운로드)</a></span><?php endfor ?>
+						<?php for($i = 0; count($board_view["board_file"]["file"] ?? []) > $i; $i++) : ?><span class="thumb_link"><a href="/fileRequest/download?file=<?=urlencode("/board/". $board_view["upload_path"] ."/". $board_view["board_file"]["file"][$i]["fname"])?>&save=<?=urlencode($board_view["board_file"]["file"][$i]["oname"])?>" target="_blank" download><?=$board_view["board_file"]["file"][$i]["oname"]?> (다운로드)</a></span><?php endfor ?>
 					</td>
 				</tr>
 				<?php endif ?>

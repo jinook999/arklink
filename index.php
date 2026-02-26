@@ -3,8 +3,18 @@
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING);
 ini_set('display_errors', 0);
 
+// Fatal error 디버깅용 (임시)
+register_shutdown_function(function() {
+	$error = error_get_last();
+	if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+		file_put_contents('/tmp/arklink_php_errors.log', date('Y-m-d H:i:s') . ' FATAL: ' . $error['message'] . ' in ' . $error['file'] . ':' . $error['line'] . "\n\n", FILE_APPEND);
+	}
+});
+
 // PHP 8.3 호환: TypeError/ValueError 예외를 경고로 변환 (CI3가 500으로 처리하는 것 방지)
 set_exception_handler(function($e) {
+	// 모든 예외를 파일에 로그
+	file_put_contents('/tmp/arklink_php_errors.log', date('Y-m-d H:i:s') . ' ' . get_class($e) . ': ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() . "\n" . $e->getTraceAsString() . "\n\n", FILE_APPEND);
 	if ($e instanceof TypeError || $e instanceof ValueError) {
 		// 로그만 남기고 무시 (CI3 에러 핸들러가 500 반환하는 것 방지)
 		error_log('PHP 8 compat: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());

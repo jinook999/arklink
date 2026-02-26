@@ -222,12 +222,12 @@ $blocked_ip = explode('|', $manage['blocked_ip']);
 									<?php if($value["is_secret"] == "y") : ?><img src="/lib/images/icon_secret.gif" alt="비밀글"><?php endif ?>
 									<a href="board_view?code=<?=$value["code"]?>&no=<?=$value["no"]?>"><?=$value["title"]?></a> <?php if($board_info["comment"] == "y" && $value["comment"] > "0") : ?>[<?=$value["comment"]?>]<?php endif ?>
 									<?php if($board_info['files'] == 'y') : ?>
-										<?php if(count($value["board_file"]["file"])) : ?><!-- 첨부파일이 있을 때 -->
+										<?php if(count($value["board_file"]["file"] ?? [])) : ?><!-- 첨부파일이 있을 때 -->
 											&nbsp;<img src="/lib/images/icon_attach_file.png" alt="첨부파일">
 										<?php endif ?>
 									<?php endif ?>
 									<?php if($board_info['thumbnail'] == 'y') : ?>
-										<?php if(count($value["board_file"]["thumbnail"])) : ?><!-- 섬네일이 있을 때 -->
+										<?php if(count($value["board_file"]["thumbnail"] ?? [])) : ?><!-- 섬네일이 있을 때 -->
 											&nbsp;<img src="/lib/images/icon_attach_img.png" alt="썸네일">
 										<?php endif ?>
 									<?php endif ?>

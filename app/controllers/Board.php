@@ -234,7 +234,7 @@ class Board extends FRONT_Controller {
 			}
 
 			//2020-05-27 Inbet Matthew 썸네일 복수 등록할때 대표 이미지 등록이 안되 있을시 첫번째 이미지를 대표이미지로 변경
-			if(count($board_view['board_view']['board_file']['thumbnail']) > 0 && empty($board_view['board_view']['thumbnail_image'])) {
+			if(count($board_view['board_view']['board_file']['thumbnail'] ?? []) > 0 && empty($board_view['board_view']['thumbnail_image'])) {
 				$board_view['board_view']['thumbnail_image'] = $board_view['board_view']['board_file']['thumbnail'][0]['fname'];
 			}
 			//Matthew end
