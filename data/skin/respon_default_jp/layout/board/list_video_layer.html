@@ -1,0 +1,121 @@
+<style>
+.sub_board, #contents_wrap {position:static;}
+</style>
+
+<!--{ ? isset(board_list['notice_list']) }-->
+<!--{ ? count(board_list['notice_list']) > 0 }-->
+<ul class="gallery_notice">
+	<!--{ @ board_list['notice_list'] }-->
+	<li class="<!--{ ? ((.index_%3)+1) == '3' }-->last<!--{ / }-->">
+		<div class="thumb">
+			<!--{ ? .video_thumbnail_url }-->
+			<img src="{.video_thumbnail_url}" alt="{.title}" onerror="this.src='../../images/common/noimg.gif'">
+			<!--{ : }-->
+			<img src="../../images/common/noimg.gif" onerror="this.src='../../images/common/noimg.gif'" alt="no image">
+			<!--{ / }-->
+		</div>
+		<div class="txt_info">
+			<b>공지</b>
+			<div class="board_tit">
+				<h3>
+					<strong><!--{ ? .preface }-->[{.preface}]<!--{ / }--> {=mb_strimwidth((.title), 0, 150, "...")}</strong>
+				</h3>
+			</div>
+			<p>{.name}<span></span>{.regdt_date}</p>
+		</div>
+	</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }-->
+<!--{ / }-->
+<!--{ ? isset(board_list['board_list']) }-->
+<ul class="bbs_gallery bbs_video gallery_list_top">
+	<!--{ @ board_list['board_list'] }-->
+	<li class="<!--{ ? ((.index_%3)+1) == '3' }-->last<!--{ / }-->" data-video="{ .video_url }">
+		<div class="thumb">
+			<!--{ ? .video_thumbnail_url }-->
+			<img src="{.video_thumbnail_url}" alt="{.title}" onerror="this.src='../../images/common/noimg.gif'">
+			<!--{ : }-->
+			<img src="../../images/common/noimg.gif" onerror="this.src='../../images/common/noimg.gif'" alt="no image">
+			<!--{ / }-->
+		</div>
+		<div class="txt_info">
+			<div class="board_tit">
+				<h3>
+					<strong><!--{ ? .preface }-->[{.preface}]<!--{ / }--> {=mb_strimwidth((.title), 0, 70, "...")}</strong>
+				</h3>
+			</div>
+			<p>{.name}<span></span>{.regdt_date}</p>
+		</div>
+	</li>
+	<!--{ / }-->
+</ul><!--gallery_list-->
+<!--{ : }-->
+<!--{ ? count(board_list['notice_list']) > 1 }-->
+<ul class="gallery_list gallery_list_top ta_center">게시글이 없습니다.</ul>
+<!--{ / }-->
+<!--{ / }-->
+<div class="video_layer">
+	<div class="btn_closed"><span></span><span></span></div>
+	<div class="video_layer_box"><iframe id="video" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	//
+	/*
+		var itval;
+		$('.bbs_video > li').each(function(e){
+			$(this).on('click', function(e){
+				e.preventDefault();
+				var youTube = $(this).find('.video_layer_box iframe').attr('src');
+				var youTubeOpen = $(this).find('.video_layer_box iframe')[0].src += "?mute=1&autoplay=1";
+				if ($(this).find('.video_layer').hasClass('on')) {
+					$('.layer_dim, .video_layer').removeClass('on');
+					clearTimeout(itval);
+					itval = setTimeout(function () {
+						$('body').css({'overflow':'inherit','height':'auto'});
+					}, 800);
+					$(this).find('.video_layer_box iframe').attr('src', '');//Then assign the src to null, this then stops the video been playing
+					$(this).find('.video_layer_box iframe').attr('src', youTube);// Finally you reasign the URL back to your iframe, so when you hide and load it again you still have the link
+				} else {
+					$('.layer_dim').addClass('on');
+					$(this).find('.video_layer').addClass('on');
+					clearTimeout(itval);
+					$('body').css({'overflow':'hidden','height':'100%'});
+					itval = setTimeout(function () { }, 20);
+					youTube.attr('src', '');//$(this).find('.video_layer_box iframe')[0].src += "?mute=1&autoplay=1";
+				}
+			});
+			$('.layer_dim').on('click', function(){
+				var youTube = $('.video_layer.on').find('.video_layer_box iframe').attr('src');
+				var UrlList = youTube.split("?");
+				var youTubeUrl = UrlList[0];
+				$('.video_layer.on .video_layer_box iframe').attr('src', '');//Then assign the src to null, this then stops the video been playing
+				$('.video_layer.on .video_layer_box iframe').attr('src', youTubeUrl);// Finally you reasign the URL back to your iframe, so when you hide and load it again you still have the link
+				$('.layer_dim, .video_layer').removeClass('on');
+				clearTimeout(itval);
+				itval = setTimeout(function () {
+					$('body').css({'overflow':'inherit','height':'auto'});
+				}, 800);
+			});
+		});
+	*/
+
+	$(".bbs_video > li").on("click", function(e) {
+		e.preventDefault();
+		var video = $(this).data("video"),
+			regexp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/,
+			match = video.match(regexp);
+
+		if(match[2].length == 11) {
+			$("#video").attr("src", "https://www.youtube.com/embed/" + match[2]);
+			$(".layer_dim, .video_layer").addClass("on");
+		}
+	});
+
+	$(".btn_closed").on("click", function() {
+		$(".layer_dim, .video_layer").removeClass("on");
+		$("#video").attr("src", "");
+	});
+});
+</script>

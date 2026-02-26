@@ -1,0 +1,8 @@
+<!--{ ? count(instagram->data) > 0 }-->
+<h1><a href="{ instagram->url }" target="_blank">Designart 인스타그램 피드</a></h1>
+<ul>
+	<!--{ @ instagram->data }-->
+	<li style="display: inline-block;"><a href="{ .value_->permalink }" target="_blank"><img src="{ .value_->media_url }" style="width: 100px;"></a></li>
+	<!--{ / }-->
+</ul>
+<!--{ / }-->

@@ -1,0 +1,53 @@
+<table class="bbs_table" summary="게시글 제목, 작성자, 작성일, 조회수, 게시글 내용 등..">
+	<caption>게시글 내용</caption>
+	<colgroup>
+		<col width="10%">
+		<col>
+		<col width="14.3%">
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col">번호</th>
+			<th scope="col">제목</th>
+			<th scope="col">작성일</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!--{ ? isset(board_list['notice_list']) }-->
+		<!--{ ? count(board_list['notice_list']) > 0 }-->
+		<!--{ @ board_list['notice_list'] }-->
+		<tr class="board_notice">
+			<td>공지</td>
+			<td class="left">
+				<!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}&search_type={ req['search_type'] }&search={ req['search'] }"><!--{ / }-->
+                    <!--{ ? .preface }--><em>[{.preface}]</em><!--{ / }-->{.title}
+                    <!--{ ? .display_read == 's' }--><img src="../../images/common/icon_secret.gif" alt="비밀글"><!--{ / }-->
+                </a>
+			</td>
+            <td>{=date("Y.m.d", strtotime(.regdt_date))}</td>
+		</tr>
+		<!--{ / }-->
+		<!--{ / }-->
+		<!--{ / }-->
+		<!--{ ? isset(board_list['board_list']) }-->
+		<!--{ @ board_list['board_list'] }-->
+		<tr>
+			<td>{=board_list['total_rows'] - .key_ -  board_info['offset']}</td>
+			<td class="left">
+                <!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}&search_type={ req['search_type'] }&search={ req['search'] }"><!--{ / }-->
+                    <!--{ ? .preface }--><em>[{.preface}]</em><!--{ / }-->{.title}
+                </a>
+                <!--{ ? .display_read == 's' }--><img src="/data/skin/respon_default/images/sub/icon_secret.svg" alt="비밀글"><!--{ / }-->
+			</td>
+            <td>{ .fdate }</td>
+		</tr>
+		<!--{ / }-->
+		<!--{ : }-->
+		<!--{ ? count(board_list['notice_list']) < 1 }-->
+		<tr>
+			<td colspan="3">게시글이 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		<!--{ / }-->
+	</tbody>
+</table><!--board_list-->

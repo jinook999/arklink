@@ -1,0 +1,43 @@
+<div class="faq_box">
+	<!--{ ? isset(board_list['board_list']) }-->
+	<ul class="faq_list">
+		<!--{ @ board_list['board_list'] }-->
+		<li class="faq_q">
+			<span>Q</span>
+			<em class="cate">{ extra[.no]['ex1'] }</em>
+			<p class="title">{.title}</p>
+		</li>
+		<li class="faq_a">
+			<span>A</span>
+			<!-- <div>{.answer_title}</div> -->
+			<div>
+				<div class="yui3-cssreset">
+					{.content}
+				</div>
+			</div>
+		</li>
+		<!--{ / }-->
+	</ul>
+	<!--{ / }-->
+</div>
+
+<script>
+	$(document).ready(function(){
+		$('.faq_box .faq_list li.faq_q').each(function(){
+			$(this).click(function(){
+				if($(this).hasClass('on')){
+					$('.faq_box .faq_list li.faq_q').removeClass('on');	
+					$('.faq_box .faq_list li.faq_a').stop().slideUp();
+					$(this).removeClass('on').next('.faq_a').stop().slideUp();	
+				}
+				else{
+					$('.faq_box .faq_list li.faq_q').removeClass('on');	
+					$('.faq_box .faq_list li.faq_a').stop().slideUp();
+					$(this).addClass('on').next('.faq_a').stop().slideDown();	
+				}
+				
+			});
+		});
+	});
+</script>
+

@@ -1,0 +1,62 @@
+<div id="header" class="">
+	<div class="header_cont">
+		<h1 class="hd_logo"><a href="/" title="Logo"><img src="/data/skin/respon_default/images/skin/hd_logo.svg" alt="{cfg_site.compName}"></a></h1>
+		<div class="hd_right">
+			<!--{ ? isset(cfg_menu)}-->
+			<ul class="hd_lnb">
+				<!--{ @ cfg_menu}-->
+				<!--{ ? .use == 'y'}-->
+				<li class="<!--{ ? on != '' }--><!--{ ? on == .name }-->on <!--{ / }--><!--{ : }--><!--{ ? lm.name == .name }-->on <!--{ / }--><!--{ / }--><!--{ ? strpos(.url, '/goods/') > -1 }--><!--{ ? strpos(.url, substr(req.cate, 0, 3)) > -1 }--> on<!--{ / }--><!--{ / }-->">
+					<a href="{.url}"<!--{ ? strpos(.url, 'http://') === 0 || strpos(.url, 'https://') === 0 }--> target="_blank"<!--{ / }-->>{.name}</a>
+						<!--{ ? isset(.menu) }-->
+						<ul class="hd_lnb_dep2">
+							<!--{ @ .menu}-->
+							<!--{ ? ..use == 'y'}-->
+							<li class="dep2"><a href="{..url}">{..name}</a></li>
+							<!--{ / }-->
+							<!--{ / }-->
+						</ul>
+						<!--{ / }-->
+					</li>
+					<!--{ : }-->
+					<li class="hd_lnb_dep1_li"><a href="{.url}" class="dep1_a"<!--{ ? strpos(.url, 'http://') === 0 || strpos(.url, 'https://') === 0 }--> target="_blank"<!--{ / }-->>{.name}</a></li>
+				<!--{ / }-->
+				<!--{ / }-->
+			</ul>	
+			<!--{ / }-->
+			<div class="all_cate">
+				<a class="menu-trigger" href="#"><span></span><span></span><span></span></a>	
+			</div>
+		</div>
+	</div>
+</div>
+<aside id="aside">
+    <div class="utility">
+        <a href="" class="close_btn" title="닫기">
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+    <div class="main_w_custom">
+        <!--{ ? isset(cfg_menu)}-->
+		<ul class="gnb">
+			<!--{ @ cfg_menu}-->
+			<!--{ ? .use == 'y'}-->
+			<li class="<!--{ ? on != '' }--><!--{ ? on == .name }-->on <!--{ / }--><!--{ : }--><!--{ ? lm.name == .name }-->on <!--{ / }--><!--{ / }--><!--{ ? strpos(.url, '/goods/') > -1 }--><!--{ ? strpos(.url, substr(req.cate, 0, 3)) > -1 }--> on<!--{ / }--><!--{ / }-->">
+				<a href="{.url}"<!--{ ? strpos(.url, 'http://') === 0 || strpos(.url, 'https://') === 0 }--> target="_blank"<!--{ / }-->>{.name}</a>
+				<!--{ ? isset(.menu) }-->
+				<ul class="dep02">
+					<!--{ @ .menu}-->
+					<!--{ ? ..use == 'y'}-->
+					<li><a href="{..url}">{..name}</a></li>
+					<!--{ / }-->
+					<!--{ / }-->
+				</ul>
+				<!--{ / }-->
+			</li>
+			<!--{ / }-->
+			<!--{ / }-->
+		</ul>
+		<!--{ / }-->
+    </div>
+</aside>

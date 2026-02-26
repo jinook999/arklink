@@ -1,0 +1,21 @@
+<!--{ ? isset(display_main_data['display_main_list']) }-->
+<!-- 리스트타입 -->
+진열 명 : { display_main_data.display_main.theme_name }<br/>
+진열 설명 : { display_main_data.display_main.theme_description }
+<div class="list_cont list_Listform">
+	<ul>
+		<!--{ @ display_main_data['display_main_list'] }-->
+		<li>
+			<a href="/goods/goods_view?no={.no}">
+				<div class="thumb"><img src="/upload/goods/img2/{.img2}" onerror="this.src='../../images/noimg.gif'" alt="{.name}"></div>
+				<div class="info">
+					<p class="name">{.name}</em>
+				</div>
+			</a>
+		</li>
+		<!--{ / }-->
+	</ul>
+</div><!-- .list_Listform -->
+<!--{ : }-->
+<div class="list_no"><div class="no_data">검색된 결과가 없습니다.</div></div>
+<!--{ / }-->

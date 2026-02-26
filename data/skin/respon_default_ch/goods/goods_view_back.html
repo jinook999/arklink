@@ -1,0 +1,54 @@
+{#header}
+<style>
+.nav_wrap .nav_box {border-bottom:0;}
+.nav_wrap .nav_box h2 {display:none;}
+</style>
+<div class="sub_cont">
+	<div class="sub_view">
+		<div class="info">
+			<dl>
+				<dd class="goods_tit">{goods_view['goods_view']['name']}</dd>
+				<dt class="thumb_box"><img src="{C._UPLOAD}/goods/img1/{goods_view['goods_view']['img1']}" onerror="this.src='../images/common/noimg.gif'" alt="{goods_view['goods_view']['name']}"></dt>
+			</dl>
+		</div><!-- .info -->
+		<div class="info_wrap">
+			<!--{ ? goods_view['goods_view']['upload_fname'] }-->
+			<dl class="info_li">
+				<dt class="info_tit">{goodsField['name'][cfg_site['language']]['upload_fname']}</dt>
+				<dd class="info_cont"><a href="/fileRequest/download?file={=urlencode('/goods/file'+'/'+ goods_view['goods_view']['upload_fname'])}&save={=urlencode(goods_view['goods_view']['upload_oname'])}" target="_blank" style="color:cornflowerblue;" download>{goods_view['goods_view']['upload_oname']}</a></dd>
+			</dl>
+			<!--{ / }-->
+			<!--{ ? goods_view['goods_view']['info'] }-->
+			<dl class="info_li">
+				<dt class="info_tit">{goodsField['name'][cfg_site['language']]['info']}</dt>
+				<dd class="info_cont">{=htmlspecialchars_decode(goods_view['goods_view']['info'])}</dd>
+			</dl>
+			<!--{ / }-->
+		<!--예비필드 노출-->
+		<!--{ ? extraFieldData }-->
+			<!--{ @ extraFieldData }-->
+			<dl class="info_li">
+				<dt class="info_tit">{=.name}</dt>
+				<dd class="info_cont">{=.value}</dd>
+			</dl>
+			<!--{ / }-->
+		<!--{ / }-->
+			<dl class="info_li">
+				<dt class="info_tit">{goodsField['name'][cfg_site['language']]['detail_img']}</h4>
+				<dd class="info_cont">
+					<ul>
+					<!--{ @ goods_view['goods_view']['detail_img'] }-->
+						<li>
+							<img src="{C._UPLOAD}/goods/detail_img/{.value_}" onerror="this.src='../images/common/noimg.gif'">
+						</li>
+					<!--{ / }-->
+					</ul>
+				</dd>
+			</dl>
+		</div>
+	</div><!--/ info_wrap -->
+	<div class="view_btn">
+		<div class="btn_wrap ta_center"><a href="goods_list?cate={=parent_category.current}" class="btn_point btn">목록</a></div>
+	</div><!--/ view_btn-->
+</div><!-- .sub_cont -->
+{#footer}

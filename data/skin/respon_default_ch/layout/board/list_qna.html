@@ -1,0 +1,31 @@
+
+<!--{ ? isset(board_list['notice_list']) }-->
+<ul class="qa_list">
+    <!--{ ? count(board_list['notice_list']) > 0 }-->
+    <!--{ @ board_list['notice_list'] }-->
+    <li>
+        <!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" title="{.title}" class="link"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" title="{.title}" class="link"><!--{ / }--></a>
+        <dl class="desc">
+            <dt>[공지]</dt>
+            <dd>{.title}</dd>
+        </dl>
+    </li>
+    <!--{ / }-->
+    <!--{ / }-->
+</ul>
+<!--{ / }-->
+<!--{ ? isset(board_list['board_list']) }-->
+<ul class="qa_list">
+    <!--{ @ board_list['board_list'] }-->
+    <li>
+        <!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" title="{.title}" class="link"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" title="{.title}" class="link"><!--{ / }--></a>
+        <dl class="desc">
+            <dt>[<!--{? .preface }-->{.preface}<!--{:}-->{cfg_site.nameEng}<!--{/}-->]</dt>
+            <dd>{.title}</dd>
+        </dl>
+    </li>
+    <!--{ / }-->
+</ul>
+<!--{ : }-->
+<div class="no_data">게시글이 없습니다.</div>
+<!--{ / }-->

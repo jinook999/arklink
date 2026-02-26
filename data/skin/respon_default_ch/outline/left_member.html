@@ -1,0 +1,16 @@
+<div class="sub_menu">
+    <!--leftmenu영역시작-->
+    <dl>
+		<dt class=""><!--{ ? defined('_IS_LOGIN') }-->마이페이지<!--{ : }-->회원관련<!--{ / }--></dt>
+		<dd class="menu01 { ? ((CI->uri->rsegments[2]) == 'login')}on{/}"><!--{ ? defined('_IS_LOGIN') }--><a href="/member/logout" class="">로그아웃</a><!--{ : }--><a href="/member/login" class="">로그인</a><!--{ / }--></dd>
+		<dd class="menu02 { ? ((CI->uri->rsegments[2]) == 'find_id') || ((CI->uri->rsegments[2]) == 'mypage')}on{/}"><!--{ ? defined('_IS_LOGIN') }--><a href="/member/mypage" class="">정보수정</a><!--{ : }--><a href="/member/find_id" class="">아이디 찾기</a><!--{ / }--></dd>
+		<dd class="menu03 { ? ((CI->uri->rsegments[2]) == 'find_pw') || ((CI->uri->rsegments[2]) == 'change_pw') || ((CI->uri->rsegments[2]) == 'periodic_change_pw') }on{/}"><!--{ ? defined('_IS_LOGIN') }--><a href="/member/change_pw" class="">비밀번호 변경</a><!--{ : }--><a href="/member/find_pw" class="">비밀번호 찾기</a><!--{ / }--></dd>
+		<dd class="menu04 { ? ((CI->uri->rsegments[2]) == 'join_agreement') || ((CI->uri->rsegments[2]) == 'join') || ((CI->uri->rsegments[2]) == 'join_ok') || ((CI->uri->rsegments[2]) == 'withdrawal')}on{/}"><!--{ ? defined('_IS_LOGIN') }--><a href="/member/withdrawal" class="">회원탈퇴</a><!--{ : }--><a href="/member/join_agreement" class="">회원가입</a><!--{ / }--></dd>
+		<dd class="menu05 { ? ((CI->uri->rsegments[2]) == 'agreement')}on{/}"><a href="/service/agreement" class="">이용약관</a></dd>
+		<dd class="last menu06 { ? ((CI->uri->rsegments[2]) == 'usepolicy')}on{/}"><a href="/service/usepolicy" class="">개인정보처리방침</a></dd>
+	</dl>
+    <!--leftmenu영역끝-->
+</div><!-- .sub_menu -->
+
+
+

@@ -1,0 +1,41 @@
+{#header}
+<script type="text/javascript">
+	$(function() {
+		$("form[name='frm']").validate({
+			rules : {
+				agree : {required : true},
+				agree2 : {required : true}
+			}, messages : {
+				agree : {required : "이용약관에 동의해주세요."},
+				agree2 : {required : "개인정보 수집에 동의해주세요."}
+			}
+		});
+	});
+</script>
+
+<div class="sub_content">
+	{=form_open('member/join', 'name=frm')}
+	<fieldset>
+	<legend>회원가입 약관 동의</legend>
+	<div class="sub_agree">
+		<div class="agree_box line">
+			<h3 class="bbs_write_title">{terms['agreement']['title']}</h3>
+			<textarea title="{terms['agreement']['title']}">{terms['agreement']['text']}</textarea>
+			<p><input type="checkbox" name="agree" id="agree" value="y" /> <label for="agree">이용약관에 동의합니다.</label></p>
+		</div><!--agree_box-->
+		<div class="agree_box">
+			<h3 class="bbs_write_title">{terms['usePolicy']['title']}</h3>
+			<textarea title="{terms['usePolicy']['title']}">{terms['usePolicy']['text']}</textarea>
+			<p><input type="checkbox" name="agree2" id="agree2" value="y" /> <label for="agree2">개인정보 수집 및 이용에 대한 정책에 동의 합니다.</label></p>
+		</div><!--agree_box-->
+		<div class="btn_wrap ta_center">
+			<button type="submit"><a class="btn btn_point">확인</a></button>
+			<button onclick="history.back();"><a href="javascript://" class="btn btn_basic">취소</a></button>
+		</div><!--btn_center-->
+	</div><!--sub_agree-->
+	</fieldset>
+	{=form_close()}
+
+</div><!--sub_content-->
+
+{#footer}

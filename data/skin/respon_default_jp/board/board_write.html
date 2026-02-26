@@ -1,0 +1,15 @@
+{#header}
+<div class="sub_content">
+	<div class="sub_board">
+		<!--{ ? board_info['mode'] == 'write'  || board_info['mode'] == 'modify' || board_info['mode'] == 'answer' }-->
+			<!--{ ? board_info.code === 'diagnosis' }-->
+			{=include_('board_write', 'board/write_diagnosis.html')}
+			<!--{ : }-->
+			{=include_('board_write', 'board/_form_board_write.html')}
+			<!--{ / }-->
+		<!--{ : board_info['mode'] == 'answer_write' || board_info['mode'] == 'answer_modify' }-->
+		{=include_('board_answer_write', 'board/_form_board_answer_write.html')}
+		<!--{ / }-->
+	</div><!-- .sub_cont -->
+</div><!--content_sub-->
+{#footer}

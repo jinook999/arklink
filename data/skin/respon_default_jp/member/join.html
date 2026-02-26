@@ -1,0 +1,559 @@
+{#header}
+
+	<!-- <script type="text/javascript" src="/lib/js/common_member.js"></script> -->
+	<script type="text/javascript" src="{js}/js/common_member.js"></script>
+	<script type="text/javascript">
+		var Common_Member = new common_member({});
+		$(function() {
+			$("form[name='frm']").validate({
+				rules : {
+					userid : {required : true, rangelength: [4, 14], onlyNumEngValid : true},
+					userid_duplicate : {required : function(ele){return !(ele.value == "y");}},
+					name  : {required : true, maxlength : 10},
+					password : {required : true, rangelength : [10, 16], equalTo : "#password2", passwordValid : true},
+					sex : {required : <!--{ ? memberField['require'][cfg_site['language']]['sex'] }-->true<!--{ : }-->false<!--{ / }-->},
+					birth : {required : <!--{ ? memberField['require'][cfg_site['language']]['birth'] }-->true<!--{ : }-->false<!--{ / }-->, rangelength : [8, 8], number : true, man14Valid : true},
+					email_duplicate : {required : <!--{ ? memberField['require'][cfg_site['language']]['email'] }-->function(ele){return $("[name='email_id']").val() && $("[name='email_domain']").val() && !(ele.value == "y");}<!--{ : }-->false<!--{ / }-->},
+					email : {required : <!--{ ? memberField['require'][cfg_site['language']]['email'] }-->true<!--{ : }-->false<!--{ / }-->, email : true},
+					zip : {required : <!--{ ? memberField['require'][cfg_site['language']]['address'] }-->true<!--{ : }-->false<!--{ / }-->},
+					address : {required : <!--{ ? memberField['require'][cfg_site['language']]['address'] }--> true <!--{ : }-->false<!--{ / }-->},
+					address2 : {required : <!--{ ? memberField['require'][cfg_site['language']]['address2'] }--> true <!--{ : }-->false<!--{ / }-->},
+					mobile : {required : <!--{ ? memberField['require'][cfg_site['language']]['mobile'] }-->true<!--{ : }-->false<!--{ / }-->, phoneValid : <!--{ ? memberField['require'][cfg_site['language']]['mobile'] }-->true<!--{ : }-->false<!--{ / }-->},
+					fax : {required : <!--{ ? memberField['require'][cfg_site['language']]['fax'] }-->true<!--{ : }-->false<!--{ / }-->, phoneValid : <!--{ ? memberField['require'][cfg_site['language']]['fax'] }-->true<!--{ : }-->false<!--{ / }-->},
+					yn_mailling : {required : <!--{ ? memberField['require'][cfg_site['language']]['yn_mailling'] }-->true<!--{ : }-->false<!--{ / }-->},
+					yn_sms : {required : <!--{ ? memberField['require'][cfg_site['language']]['yn_sms'] }-->true<!--{ : }-->false<!--{ / }-->},
+					<!--{ @ (range(1,20)) }-->
+						ex{=.value_} : {
+							required : {	
+								depends : function(){
+									<!--{ ? memberField['require'][cfg_site['language']]['ex' + '' + .value_] }-->
+										<!--{ ? memberField['type'][cfg_site['language']]['ex' + '' + .value_] == 'email' }-->
+											if($("[name=ex{=.value_}_id]").val() || $("[name=ex{=.value_}_domain]").val()){
+												return false;
+											}else{
+												return true;
+											}
+										<!--{ / }-->
+
+										return true;
+									<!--{ : }-->
+										return false;
+									<!--{ / }-->
+								}
+							},addFieldCheckEmail :{
+								depends : function(element){
+									<!--{ ? memberField['type'][cfg_site['language']]['ex' + '' + .value_] == 'email' }-->
+										if ($("[name=ex{=.value_}_id]").val() && $("[name=ex{=.value_}_domain]").val()){
+												var chkEmail = $("[name=ex{=.value_}_id]").val() + "@" + $("[name=ex{=.value_}_domain]").val();
+											if(email_rule.test(chkEmail)){
+												return false;
+											}else{
+												return true;
+											}
+										}
+									<!--{ : }-->
+										return false;
+									<!--{ / }-->
+								}
+							}
+						},
+					<!--{ / }-->
+				}, messages : {
+					userid : {required : "{memberField['name'][cfg_site['language']]['userid']}를 입력해주세요.", rangelength: $.validator.format("{memberField['name'][cfg_site['language']]['userid']}는 {0}~{1}자입니다."), onlyNumEngValid : "{memberField['name'][cfg_site['language']]['userid']}는 영어, 숫자만 사용 가능합니다."},
+					userid_duplicate : {required : "{memberField['name'][cfg_site['language']]['userid']} 중복확인을 해주세요."},
+					name : {required : "{memberField['name'][cfg_site['language']]['name']}를 입력해주세요.", maxlength: $.validator.format("{memberField['name'][cfg_site['language']]['name']}은 {0}자 이하입니다.")},
+					password : {required : "{memberField['name'][cfg_site['language']]['password']}를 입력해주세요.", rangelength: $.validator.format("{memberField['name'][cfg_site['language']]['password']}는 {0}~{1}자입니다."), equalTo : "비밀번호가 일치하지 않습니다.", passwordValid : "{memberField['name'][cfg_site['language']]['password']}는 영어/숫자/특수문자를 2종류 이상 혼용하여 사용해야 합니다."},
+					sex : {required : "{memberField['name'][cfg_site['language']]['sex']}를 선택해주세요."},
+					birth : {required : "{memberField['name'][cfg_site['language']]['birth']}를 <!--{ ? in_array(memberField['type'][cfg_site['language']]['birth'], array('text', 'email')) }-->입력<!--{ : }-->선택<!--{ / }-->해주세요.", rangelength: $.validator.format("{memberField['name'][cfg_site['language']]['birth']}을 입력해주세요. ex)19900101"), number : "숫자만 입력가능합니다.", man14Valid : "14세 미만 회원가입 시 법정대리인의 동의가 필요합니다. 고객센터로 문의해주세요."},
+					email_duplicate : {required : "{memberField['name'][cfg_site['language']]['email']} 중복확인을 해주세요."},
+					email : {required : "{memberField['name'][cfg_site['language']]['email']}를 <!--{ ? in_array(memberField['type'][cfg_site['language']]['email'], array('text', 'email')) }-->입력<!--{ : }-->선택<!--{ / }-->해주세요.", email : "올바른 {memberField['name'][cfg_site['language']]['email']}을 입력해주세요."},
+					zip : {required : "우편번호를 선택해주세요."},
+					address : {required : "{memberField['name'][cfg_site['language']]['address']}를 <!--{ ? in_array(memberField['type'][cfg_site['language']]['address'], array('text', 'email')) }-->입력<!--{ : }-->선택<!--{ / }-->해주세요."},
+					address2 : {required : "{memberField['name'][cfg_site['language']]['address2']}를 <!--{ ? in_array(memberField['type'][cfg_site['language']]['address2'], array('text', 'email')) }-->입력<!--{ : }-->선택<!--{ / }-->해주세요."},
+					mobile : {required : "{memberField['name'][cfg_site['language']]['mobile']}를 <!--{ ? in_array(memberField['type'][cfg_site['language']]['mobile'], array('text', 'email')) }-->입력<!--{ : }-->선택<!--{ / }-->해주세요.", phoneValid : "올바른 {memberField['name'][cfg_site['language']]['mobile']}를 입력해주세요. ex)000-0000-0000)"},
+					fax : {required : "{memberField['name'][cfg_site['language']]['fax']}를 <!--{ ? in_array(memberField['type'][cfg_site['language']]['fax'], array('text', 'email')) }-->입력<!--{ : }-->선택<!--{ / }-->해주세요.", phoneValid : "올바른 {memberField['name'][cfg_site['language']]['fax']}를 입력해주세요. ex)000-0000-0000)"},
+					yn_mailling : {required : "{memberField['name'][cfg_site['language']]['yn_mailling']}를 선택해주세요."},
+					yn_sms : {required : "{memberField['name'][cfg_site['language']]['yn_sms']}를 선택해주세요."},
+					<!--{ @ range(1,20)}-->
+						ex{=.value_} : {required : "{memberField['name'][cfg_site['language']]['ex' + '' + .value_]}를 <!--{ ? in_array(memberField['type'][cfg_site['language']]['ex' + '' + .value_], array('text', 'email')) }-->입력<!--{ : }-->선택<!--{ / }-->해주세요.", addFieldCheckEmail : "올바른 {memberField['name'][cfg_site['language']]['email']}을 입력해주세요."},
+					<!--{ / }-->
+				}
+			});
+		});
+
+		function join_chk(form) {
+			if(!$(form).valid()){
+				return false;
+			}
+			form.target = "ifr_processor";
+			form.submit();
+		}
+	</script>
+<div class="sub_content">
+	<div class="sub_agree">
+		<div class="sub_join">
+			{=form_open('member/join_ok', 'name=frm')}
+			<fieldset>
+			<legend>회원가입 정보 기입</legend>
+			<h2 class="bbs_write_title">기본정보</h2>
+			<!--{ ? isset(memberField['name'][cfg_site['language']]) }-->
+			<table class="bbs_write" summary="회원가입 정보 입력,아이디,이름,비밀번호,비밀번호확인,이메일 등등..">
+				<caption>회원가입 정보 입력</caption>
+				<colgroup>
+					<col width="15%">
+					<col >
+				</colgroup>
+				<tbody>
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['name']}<span class="require_dot"></span></th>
+						<td><input type="text" name="name" id="name" /><label for="name" class="dn">{memberField['name'][cfg_site['language']]['name']}</label></td>
+					</tr>
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['userid']}<span class="require_dot"></span></th>
+						<td>
+							<input type="text" name="userid" id="userid" onkeyup="Common_Member.duplicate_init(this.form.userid_duplicate);" />
+							<label for="userid" class="dn">{memberField['name'][cfg_site['language']]['userid']}</label>
+							<input type="hidden" name="userid_duplicate" />
+							<a href="javascript://" onclick="Common_Member.userid_duplicate_check(document.frm.userid);" class="btn_sm">아이디 중복확인</a>
+						</td>
+					</tr>
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['password']}<span class="require_dot"></span></th>
+						<td><input type="password" name="password" id="password" /><label for="password" class="dn">{memberField['name'][cfg_site['language']]['password']}</label><br/>영문 대·소문자/숫자/특수문자 중 2가지 이상을 혼용하여 10~16자 이내로 작성해주세요.</td>
+					</tr>
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['password']} 확인<span class="require_dot"></span></th>
+						<td><input type="password" name="password2" id="password2" /><label for="password2" class="dn">{memberField['name'][cfg_site['language']]['password']} 확인</label></td>
+					</tr>
+					<!--{ ? isset(memberField['use'][cfg_site['language']]) }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['sex']) && memberField['use'][cfg_site['language']]['sex'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['sex']} <!--{ ? isset(memberField['require'][cfg_site['language']]['sex']) && memberField['require'][cfg_site['language']]['sex'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['sex'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['sex']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['sex']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['sex']}" id="sex-{.key_}" name="sex" value="{.key_}" />
+							<label for="sex-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['sex'] == 'email' }-->
+							<input type="hidden" name="sex" />
+							<input type="text" name="sex_id"/> @
+							<input type="text" name="sex_domain"/>
+							<!--{ ? isset(memberField['option']['sex']['item'][cfg_site['language']]) }-->
+							<select name="sex_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('sex');">
+								<!--{ @ memberField['option']['sex']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['sex'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['sex']['item'][cfg_site['language']]) }-->
+							<select name="sex" title="선택해주세요">
+								<!--{ @ memberField['option']['sex']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" name="sex" id="sex" /><label for="sex" class="dn">{memberField['name'][cfg_site['language']]['sex']}</label>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['birth']) && memberField['use'][cfg_site['language']]['birth'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['birth']} <!--{ ? isset(memberField['require'][cfg_site['language']]['birth']) && memberField['require'][cfg_site['language']]['birth'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['birth'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['birth']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['birth']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['birth']}" id="birth-{.key_}" name="birth" value="{.key_}" />
+							<label for="birth-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['birth'] == 'email' }-->
+							<input type="hidden" name="birth" />
+							<input type="text" name="birth_id"/> @
+							<input type="text" name="birth_domain"/>
+							<!--{ ? isset(memberField['option']['birth']['item'][cfg_site['language']]) }-->
+							<select name="birth_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('birth');">
+								<!--{ @ memberField['option']['birth']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['birth'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['birth']['item'][cfg_site['language']]) }-->
+							<select name="birth" title="선택해주세요">
+								<!--{ @ memberField['option']['birth']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" name="birth" id="birth" placeholder="예) 19950301" /><label for="birth" class="dn">{memberField['name'][cfg_site['language']]['birth']}</label>
+							<!--{ / }-->
+							<br>14세 미만 회원가입 시 법정대리인의 동의가 필요합니다. 고객센터로 문의해주세요.
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['email']) && memberField['use'][cfg_site['language']]['email'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['email']} <!--{ ? isset(memberField['require'][cfg_site['language']]['email']) && memberField['require'][cfg_site['language']]['email'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['email'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['email']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['email']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['email']}" id="email-{.key_}" name="email" value="{.key_}" />
+							<label for="email-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['email'] == 'email' }-->
+							<input type="hidden" name="email_duplicate" />
+							<input type="hidden" name="email" />
+							<input type="text" name="email_id" onkeyup="Common_Member.duplicate_init(this.form.email_duplicate, this.form.email);"/><span class="at">@</span>
+							<input type="text" name="email_domain" onchange="Common_Member.duplicate_init(this.form.email_duplicate, this.form.email);"/>
+							<!--{ ? isset(memberField['option']['email']['item'][cfg_site['language']]) }-->
+							<select name="email_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('email');Common_Member.duplicate_init(this.form.email_duplicate, this.form.email);">
+								<!--{ @ memberField['option']['email']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<a href="javascript://" onclick="Common_Member.email_duplicate_check(document.frm.email);" class="btn_sm">이메일 중복확인</a>
+							<!--{ : memberField['type'][cfg_site['language']]['email'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['email']['item'][cfg_site['language']]) }-->
+							<select name="email" title="선택해주세요">
+								<!--{ @ memberField['option']['email']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" name="email" id="email" /><label for="email" class="dn">{memberField['name'][cfg_site['language']]['email']}</label>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? memberField['use'][cfg_site['language']]['address'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">우편번호 <!--{ ? isset(memberField['require'][cfg_site['language']]['address']) && memberField['require'][cfg_site['language']]['address'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['zip'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['zip']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['zip']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['zip']}" id="zip-{.key_}" name="zip" value="{.key_}" />
+							<label for="zip-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['zip'] == 'email' }-->
+							<input type="hidden" name="zip" />
+							<input type="text" name="zip_id"/><span class="at">@</span>
+							<input type="text" name="zip_domain"/>
+							<!--{ ? isset(memberField['option']['zip']['item'][cfg_site['language']]) }-->
+							<select name="zip_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('zip');">
+								<!--{ @ memberField['option']['zip']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['zip'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['zip']['item'][cfg_site['language']]) }-->
+							<select name="zip" title="선택해주세요">
+								<!--{ @ memberField['option']['zip']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" name="zip" id="zip" readonly /><label for="zip" class="dn">{memberField['name'][cfg_site['language']]['zip']}</label>
+							<a href="javascript://" onclick="searchAddress(document.frm.zip, document.frm.address, document.frm.address2)"  class="btn_sm">주소검색</a>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['address']) && memberField['use'][cfg_site['language']]['address'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['address']} <!--{ ? isset(memberField['require'][cfg_site['language']]['address']) && memberField['require'][cfg_site['language']]['address'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['address'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['address']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['address']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['address']}" id="address-{.key_}" name="address" value="{.key_}" />
+							<label for="address-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['address'] == 'email' }-->
+							<input type="hidden" name="address" />
+							<input type="text" name="address_id"/><span class="at">@</span>
+							<input type="text" name="address_domain"/>
+							<!--{ ? isset(memberField['option']['address']['item'][cfg_site['language']]) }-->
+							<select name="address_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('address');">
+								<!--{ @ memberField['option']['address']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['address'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['address']['item'][cfg_site['language']]) }-->
+							<select name="address" title="선택해주세요">
+								<!--{ @ memberField['option']['address']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" name="address" id="address" readonly /><label for="address" class="dn">{memberField['name'][cfg_site['language']]['address']}</label>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['address2']) && memberField['use'][cfg_site['language']]['address2'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['address2']} <!--{ ? isset(memberField['require'][cfg_site['language']]['address2']) && memberField['require'][cfg_site['language']]['address2'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['address2'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['address2']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['address2']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['address2']}" id="address2-{.key_}" name="address2" value="{.key_}" />
+							<label for="address2-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['address2'] == 'email' }-->
+							<input type="hidden" name="address2" />
+							<input type="text" name="address2_id"/><span class="at">@</span>
+							<input type="text" name="address2_domain"/>
+							<!--{ ? isset(memberField['option']['address2']['item'][cfg_site['language']]) }-->
+							<select name="address2_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('address2');">
+								<!--{ @ memberField['option']['address2']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['address2'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['address2']['item'][cfg_site['language']]) }-->
+							<select name="address2" title="선택해주세요">
+								<!--{ @ memberField['option']['address2']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" name="address2" id="address2"/><label for="address2" class="dn">{memberField['name'][cfg_site['language']]['address2']}</label>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['mobile']) && memberField['use'][cfg_site['language']]['mobile'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['mobile']} <!--{ ? isset(memberField['require'][cfg_site['language']]['mobile']) && memberField['require'][cfg_site['language']]['mobile'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['mobile'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['mobile']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['mobile']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['mobile']}" id="mobile-{.key_}" name="mobile" value="{.key_}" />
+							<label for="mobile-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['mobile'] == 'email' }-->
+							<input type="hidden" name="mobile" />
+							<input type="text" name="mobile_id"/><span class="at">@</span>
+							<input type="text" name="mobile_domain"/>
+							<!--{ ? isset(memberField['option']['mobile']['item'][cfg_site['language']]) }-->
+							<select name="mobile_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('mobile');">
+								<!--{ @ memberField['option']['mobile']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['mobile'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['mobile']['item'][cfg_site['language']]) }-->
+							<select name="mobile" title="선택해주세요">
+								<!--{ @ memberField['option']['mobile']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" id="mobile" name="mobile" value="" placeholder="예) 010-1234-1234"/><label for="mobile" class="dn">{memberField['name'][cfg_site['language']]['mobile']}</label>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['fax']) && memberField['use'][cfg_site['language']]['fax'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['fax']} <!--{ ? isset(memberField['require'][cfg_site['language']]['fax']) && memberField['require'][cfg_site['language']]['fax'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['fax'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['fax']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['fax']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['fax']}" id="fax-{.key_}" name="fax" value="{.key_}" />
+							<label for="fax-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['fax'] == 'email' }-->
+							<input type="hidden" name="fax" />
+							<input type="text" name="fax_id"/><span class="at">@</span>
+							<input type="text" name="fax_domain"/>
+							<!--{ ? isset(memberField['option']['fax']['item'][cfg_site['language']]) }-->
+							<select name="fax_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('fax');">
+								<!--{ @ memberField['option']['fax']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['fax'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['fax']['item'][cfg_site['language']]) }-->
+							<select name="fax" title="선택해주세요">
+								<!--{ @ memberField['option']['fax']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" id="fax" name="fax" value="" placeholder="예) 010-1234-1234"/><label for="fax" class="dn">{memberField['name'][cfg_site['language']]['fax']}</label>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['yn_mailling']) && memberField['use'][cfg_site['language']]['yn_mailling'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['yn_mailling']} <!--{ ? isset(memberField['require'][cfg_site['language']]['yn_mailling']) && memberField['require'][cfg_site['language']]['yn_mailling'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['yn_mailling'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['yn_mailling']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['yn_mailling']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['yn_mailling']}" id="yn_mailling-{.key_}" name="yn_mailling" value="{.key_}" />
+							<label for="yn_mailling-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['yn_mailling'] == 'email' }-->
+							<input type="hidden" name="yn_mailling" />
+							<input type="text" name="yn_mailling_id"/><span class="at">@</span>
+							<input type="text" name="yn_mailling_domain"/>
+							<!--{ ? isset(memberField['option']['yn_mailling']['item'][cfg_site['language']]) }-->
+							<select name="yn_mailling_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('yn_mailling');">
+								<!--{ @ memberField['option']['yn_mailling']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['yn_mailling'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['yn_mailling']['item'][cfg_site['language']]) }-->
+							<select name="yn_mailling" title="선택해주세요">
+								<!--{ @ memberField['option']['yn_mailling']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" id="yn_mailling" name="yn_mailling" value="" placeholder="예) 010-1234-1234"/><label for="yn_mailling" class="dn">{memberField['name'][cfg_site['language']]['yn_mailling']}</label>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['yn_sms']) && memberField['use'][cfg_site['language']]['yn_sms'] == "checked" }-->
+					<tr>
+						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['yn_sms']} <!--{ ? isset(memberField['require'][cfg_site['language']]['yn_sms']) && memberField['require'][cfg_site['language']]['yn_sms'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
+						<td>
+							<!--{ ? in_array(memberField['type'][cfg_site['language']]['yn_sms'], array('checkbox', 'radio')) }-->
+							<!--{ ? isset(memberField['option']['yn_sms']['item'][cfg_site['language']]) }-->
+							<!--{ @ memberField['option']['yn_sms']['item'][cfg_site['language']] }-->
+							<input type="{memberField['type'][cfg_site['language']]['yn_sms']}" id="yn_sms-{.key_}" name="yn_sms" value="{.key_}" />
+							<label for="yn_sms-{.key_}">{.value_}</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['yn_sms'] == 'email' }-->
+							<input type="hidden" name="yn_sms" />
+							<input type="text" name="yn_sms_id"/><span class="at">@</span>
+							<input type="text" name="yn_sms_domain"/>
+							<!--{ ? isset(memberField['option']['yn_sms']['item'][cfg_site['language']]) }-->
+							<select name="yn_sms_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('yn_sms');">
+								<!--{ @ memberField['option']['yn_sms']['item'][cfg_site['language']] }-->
+								<option value="{.value_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : memberField['type'][cfg_site['language']]['yn_sms'] == 'select' }-->
+							<!--{ ? isset(memberField['option']['yn_sms']['item'][cfg_site['language']]) }-->
+							<select name="yn_sms" title="선택해주세요">
+								<!--{ @ memberField['option']['yn_sms']['item'][cfg_site['language']] }-->
+								<option value="{.key_}">{.value_}</option>
+								<!--{ / }-->
+							</select>
+							<!--{ / }-->
+							<!--{ : }-->
+							<input type="text" id="yn_sms" name="yn_sms" value="" placeholder="예) 010-1234-1234"/><label for="yn_sms" class="dn">{memberField['name'][cfg_site['language']]['yn_sms']}</label>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ @ arr_ex }-->
+						<!--{ ? isset(memberField['use'][cfg_site['language']][.value_]) && memberField['use'][cfg_site['language']][.value_] == "checked" }-->
+						<tr class="<!--{ ? memberField['type'][cfg_site['language']][.value_] == 'email' }-->input_email <!--{/}-->">
+							<th class="join_tit" scope="row">
+								{memberField['name'][cfg_site['language']][.value_]}
+								<!--{ ? isset(memberField['require'][cfg_site['language']][.value_]) && memberField['require'][cfg_site['language']][.value_] == "checked" }-->
+									<span class="require_dot"></span>
+								<!--{ / }-->
+							</th>
+							<td>
+								<!--{ ? in_array(memberField['type'][cfg_site['language']][.value_], array('checkbox', 'radio')) }-->
+								<!--{ ? isset(memberField['option'][.value_]['item'][cfg_site['language']]) }-->
+								<!--{ @ memberField['option'][.value_]['item'][cfg_site['language']] }-->
+								<input type="{memberField['type'][cfg_site['language']][.value_]}" id="{.value_}-{..key_}" name="{.value_}" value="{..key_}" />
+								<label for="{.value_}-{..key_}" class="ex_radio">{..value_}</label>
+								<!--{ / }-->
+								<!--{ / }-->
+								<!--{ : memberField['type'][cfg_site['language']][.value_] == 'email' }-->
+								<input type="hidden" name="{.value_}" />
+								<input type="text" name="{.value_}_id"/><span class="at">@</span>
+								<input type="text" name="{.value_}_domain"/>
+								<!--{ ? isset(memberField['option'][.value_]['item'][cfg_site['language']]) }-->
+								<select name="{.value_}_domain_select" title="선택해주세요" class="mail_select" onchange="domain_select_change('{.value_}');">
+									<!--{ @ memberField['option'][.value_]['item'][cfg_site['language']] }-->
+									<option value="{..value_}">{..value_}</option>
+									<!--{ / }-->
+								</select>
+								<!--{ / }-->
+								<!--{ : memberField['type'][cfg_site['language']][.value_] == 'select' }-->
+								<!--{ ? isset(memberField['option'][.value_]['item'][cfg_site['language']]) }-->
+								<select name="{.value_}" title="선택해주세요">
+									<!--{ @ memberField['option'][.value_]['item'][cfg_site['language']] }-->
+									<option value="{..key_}">{..value_}</option>
+									<!--{ / }-->
+								</select>
+								<!--{ / }-->
+								<!--{ : }-->
+								<input type="text" name="{.value_}" id="{.value_}"/><label for="{.value_}" class="dn">{memberField['name'][cfg_site['language']][.value_]}</label>
+								<!--{ / }-->
+							</td>
+						</tr>
+						<!--{ / }-->
+					<!--{ / }-->
+					<!--{ / }-->
+					<!--{ ? isset(memberField['use'][cfg_site['language']]['auto_regist_prevention_text']) && memberField['use'][cfg_site['language']]['auto_regist_prevention_text'] == "checked" }-->
+						<tr>
+							<th>자동등록방지</th>
+							<td>
+								<span id="captcha_box">{captcha['image']}</span>
+								<input type="text" name="captcha" id="captcha" class="input"><label for="captcha" class="dn">자동가입방지 문자입력</label> <span class="ml_5 btn_sm btn_reset" onclick="Common_Member.captcha_refresh();"> 다시생성</span>
+							</td>
+						</tr>
+					<!--{ / }-->
+				</tbody>
+			</table><!--board_write-->
+			<!--{ / }-->
+			<!-- Matthew end -->
+			<div class="btn_wrap ta_center">
+				<button onclick="join_chk(this.form); return false;"><a href="javascript://" class="btn_point btn">회원가입</a></button>
+				<button onclick="history.back(); return false;"><a href="javascript://" class="btn btn_basic">취소</a></button>
+			</div><!--btn_center-->
+			</fieldset>
+			{=form_close()}
+		 </div>
+	</div>
+</div><!-- sub_content -->
+{#footer}
