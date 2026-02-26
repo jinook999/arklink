@@ -70,18 +70,18 @@
         _template: 'table'
       };
 
-      const [channelRes] = await Promise.all([
-        fetch('https://formsubmit.co/ajax/channel@arklink.co.kr', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(channelData)
-        }),
-        fetch('https://formsubmit.co/ajax/marketing@arklink.co.kr', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(marketingData)
-        })
-      ]);
+      const channelRes = await fetch('https://formsubmit.co/ajax/channel@arklink.co.kr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(channelData)
+      });
+
+      // 마케팅 전송은 별도 처리 (실패 무시)
+      fetch('https://formsubmit.co/ajax/marketing@arklink.co.kr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(marketingData)
+      }).catch(function() {});
 
       if (channelRes.ok) {
         // 신청완료 페이지로 이동

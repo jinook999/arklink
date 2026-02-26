@@ -162,18 +162,19 @@ const FormSubmit = {
     };
 
     try {
-      const [channelRes, marketingRes] = await Promise.all([
-        fetch(this.FORMSUBMIT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(channelData)
-        }),
-        fetch(this.MARKETING_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(marketingData)
-        })
-      ]);
+      // 마케팅 전송은 실패해도 메인 폼에 영향 없도록 분리
+      const channelRes = await fetch(this.FORMSUBMIT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(channelData)
+      });
+
+      // 마케팅 전송은 별도 처리 (실패 무시)
+      fetch(this.MARKETING_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(marketingData)
+      }).catch(function() {});
 
       if (channelRes.ok) {
         const data = await channelRes.json();
