@@ -52,7 +52,7 @@ class Front_Goods_model extends Goods_model {
 	 *	@pamra int $offset 시작
 	 *	@pamra array $arr_orderby 정렬
 	 */
-	public function get_list_goods($cate = null, $arr_where = null, $arr_like = null, $limit = null, $offset = null, $arr_orderby = null) {
+	public function get_list_goods($cate = null, $arr_where = null, $arr_like = null, $limit = null, $offset = null, $arr_orderby = null, $day = null, $goodsno = null) {
 
 		$arr_where[] = array("Go.yn_state", "y");
 		$get_data = parent::get_list_goods($cate, $arr_where, $arr_like, $limit, $offset, $arr_orderby);

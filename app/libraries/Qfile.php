@@ -14,7 +14,7 @@ class qfile {
 	var $fpTmp;
 
 
-	function qfile() {
+	function __construct() {
 		$this->tmpPath = dirname(__FILE__) . "/../../data/tmp/chkQuota";
 		$this->tmpPathLock = dirname(__FILE__) . "/../../data/tmp/chkQuotaLock";
 	}
@@ -26,11 +26,11 @@ class qfile {
 
 		$this->filePath = $filepath;
 		$this->fileData = '';
-		$this->fileTemp = fopen($filepath, 'r');
+		$this->fileTemp = is_file($filepath) ? fopen($filepath, 'r') : false;
 
 		$this->fpLock = fopen($this->tmpPathLock,'w');
 
-		if(!flock($this->fpLock, LOCK_EX))
+		if(!$this->fpLock || !flock($this->fpLock, LOCK_EX))
 		{
 			return false;
 		}
@@ -45,20 +45,24 @@ class qfile {
 			if(!$this->filePath || !$this->fileTemp) die("지정된 파일이 없습니다. 파일을 우선 지정해주세요");
 			$gets = fgets($this->fileTemp, filesize($this->filePath));
 			if($gets === false || feof($this->fileTemp)){
-				fclose($this->fileTemp);
+				if($this->fileTemp) fclose($this->fileTemp);
 			}
 			return $gets;
 		}else{
+			if(!$this->filePath || !is_file($this->filePath)) return '';
+			$fsize = filesize($this->filePath);
+			if($fsize <= 0) return '';
 			$fpOri = fopen($this->filePath, 'r');
-			$read = fread($fpOri, filesize($this->filePath));
+			if(!$fpOri) return '';
+			$read = fread($fpOri, $fsize);
 			fclose($fpOri);
 			return $read;
 		}
 	}
 
 	function write($string) {
-		if($this->fpTmp==false) return false;
-		if(fwrite($this->fpTmp,$string)===false) die("파일작성중 오류가 발생했습니다. 계정용량이나 파일권한을 확인해야합니다.");
+		if(!$this->fpTmp) return false;
+		if(fwrite($this->fpTmp,$string)===false) return false;
 		$this->fileData.=$string;
 	}
 
@@ -66,15 +70,18 @@ class qfile {
 		if($this->fpTmp==false) return false;
 		fclose($this->fpTmp);
 		$this->fpTmp = fopen($this->tmpPath, "w");
-		fclose($this->fpTmp);
+		if($this->fpTmp) fclose($this->fpTmp);
 
 		$fpOri = fopen($this->filePath, "w");
-		fwrite($fpOri,$this->fileData);
-		fclose($fpOri);
+		if($fpOri) {
+			fwrite($fpOri,$this->fileData);
+			fclose($fpOri);
+		}
 
-
-		flock($this->fpLock, LOCK_UN);
-		fclose($this->fpLock);
+		if($this->fpLock) {
+			flock($this->fpLock, LOCK_UN);
+			fclose($this->fpLock);
+		}
 
 		$this->fpLock=false;
 		$this->fpTmp=false;

@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 include_once(APPPATH."/models/Goods_model.php");
 
 class Admin_Goods_model extends Goods_model {
-	public function get_view_goods($arr_where) {
+	public function get_view_goods($arr_where = null) {
 		$get_data = parent::get_view_goods($arr_where);
 		// 메인페이지 상품진열 셋팅
 		if(ib_isset($get_data["goods_view"])) {

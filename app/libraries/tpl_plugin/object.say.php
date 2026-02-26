@@ -5,7 +5,7 @@
 class tpl_object_say
 {
 
-	function tpl_object_say($user='guest')
+	function __construct($user='guest')
 	{
 		$this->user= $user;
 	}

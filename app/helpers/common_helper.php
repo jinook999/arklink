@@ -369,43 +369,42 @@ if ( ! function_exists('get_active_menu'))
 	 * @return	 array $menu
 	 */
 	function get_active_menu($menu) {
-		if(isset($menu)) {
+		if(isset($menu) && is_array($menu)) {
 			foreach($menu as $first_key=> $first) {
-				if(isset($first["menu"])) {
+				if(isset($first["menu"]) && is_array($first["menu"])) {
 					foreach($first["menu"] as $second_key => $second) {
-						if(isset($second["menu"])) {
+						if(isset($second["menu"]) && is_array($second["menu"])) {
 							foreach($second["menu"] as $thrid_key => $thrid) {
-								if(isset($thrid["menu"])) {
+								if(isset($thrid["menu"]) && is_array($thrid["menu"])) {
 									foreach($thrid["menu"] as $fourth_key => $fourth) {
-										if(($fourth["use"] != "y")) {
+										if(isset($fourth["use"]) && $fourth["use"] != "y") {
 											unset($menu[$first_key]["menu"][$second_key]["menu"][$thrid_key]["menu"][$fourth_key]);
 										}
 									}
 								}
-								if(($thrid["use"] != "y")) {
+								if(isset($thrid["use"]) && $thrid["use"] != "y") {
 									unset($menu[$first_key]["menu"][$second_key]["menu"][$thrid_key]);
 									continue;
 								}
-								if(!count($menu[$first_key]["menu"][$second_key]["menu"][$thrid_key]["menu"])) {
+								if(isset($menu[$first_key]["menu"][$second_key]["menu"][$thrid_key]["menu"]) && !count($menu[$first_key]["menu"][$second_key]["menu"][$thrid_key]["menu"])) {
 									unset($menu[$first_key]["menu"][$second_key]["menu"][$thrid_key]["menu"]);
 								}
 							}
 						}
-						if(($second["use"] != "y")) {
+						if(isset($second["use"]) && $second["use"] != "y") {
 							unset($menu[$first_key]["menu"][$second_key]);
 							continue;
 						}
-						if(!count($menu[$first_key]["menu"][$second_key]["menu"])) {
+						if(isset($menu[$first_key]["menu"][$second_key]["menu"]) && !count($menu[$first_key]["menu"][$second_key]["menu"])) {
 							unset($menu[$first_key]["menu"][$second_key]["menu"]);
-
 						}
 					}
 				}
-				if(($first["use"] != "y")) {
+				if(isset($first["use"]) && $first["use"] != "y") {
 					unset($menu[$first_key]);
 					continue;
 				}
-				if(!count($menu[$first_key]["menu"])) {
+				if(isset($menu[$first_key]["menu"]) && !count($menu[$first_key]["menu"])) {
 					unset($menu[$first_key]["menu"]);
 				}
 			}

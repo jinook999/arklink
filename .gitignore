@@ -1,1 +1,8 @@
 app/logs/
+_compile/
+upload/
+data/tmp/
+
+# === Autonomous Framework (Claude Code) ===
+.claude/hooks/
+.claude/settings.local.json

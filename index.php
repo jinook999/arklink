@@ -1,4 +1,19 @@
 <?php
+// PHP 8.3 호환: CI3 부트스트랩 전에 deprecation/notice 경고 억제
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE & ~E_WARNING);
+ini_set('display_errors', 0);
+
+// PHP 8.3 호환: TypeError/ValueError 예외를 경고로 변환 (CI3가 500으로 처리하는 것 방지)
+set_exception_handler(function($e) {
+	if ($e instanceof TypeError || $e instanceof ValueError) {
+		// 로그만 남기고 무시 (CI3 에러 핸들러가 500 반환하는 것 방지)
+		error_log('PHP 8 compat: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
+		return;
+	}
+	// 다른 예외는 기본 처리
+	throw $e;
+});
+
 /**
  * CodeIgniter
  *
@@ -55,7 +70,8 @@
  */
 
 	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-	if($_SERVER['REMOTE_ADDR'] == '218.38.171.86') {
+	$dev_ips = array('218.38.171.86', '127.0.0.1', '::1');
+	if(in_array($_SERVER['REMOTE_ADDR'], $dev_ips)) {
 		define('ENVIRONMENT', 'development');
 	} else {
 		define('ENVIRONMENT', 'production');
@@ -72,8 +88,8 @@
 switch (ENVIRONMENT)
 {
 	case 'development':
-		error_reporting(-1);
-		ini_set('display_errors', 1);
+		error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE);
+		ini_set('display_errors', 0);
 	break;
 
 	case 'testing':

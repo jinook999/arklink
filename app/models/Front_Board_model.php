@@ -821,11 +821,11 @@ class Front_Board_model extends Board_model {
 		return false;
 	}
 
-	public function board_file_delete($data) {
+	public function board_file_delete($data = null) {
 		return parent::board_file_delete($data);
 	}
 
-	public function board_global_delete($data) {
+	public function board_global_delete($data = null) {
 		return parent::board_global_delete($data);
 	}
 }

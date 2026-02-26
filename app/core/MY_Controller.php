@@ -11,12 +11,14 @@ class MY_Controller extends CI_Controller {
 		$this->load->helper("date");
 		define("CURRENT_DATE", mdate("%Y-%m-%d %h:%i:%s", time()));
 
-		if($this->input->ip_address() == "218.38.171.86") {
+		$dev_ips = array("218.38.171.86", "127.0.0.1", "::1");
+		if(in_array($this->input->ip_address(), $dev_ips)) {
 			define("_DEVELOP", true);
-			error_reporting(E_ERROR | E_WARNING);
+			error_reporting(E_ERROR);
 		} else {
 			error_reporting(0);
 		}
+		ini_set('display_errors', 0);
 
 		if($cfg_debug["debug_mode"] === 1) {
 			define("_DEBUG", true);

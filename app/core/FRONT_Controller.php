@@ -107,17 +107,21 @@ class FRONT_Controller extends MY_Controller {
 
 		// 언어 관련 재정의 @20250103
 		$this->_skin_language = 'kor';
-		if(in_array($this->uri->segments[1], ['en', 'cn', 'jp']) === true) {
+		$seg1 = isset($this->uri->segments[1]) ? $this->uri->segments[1] : '';
+		if(in_array($seg1, ['en', 'cn', 'jp']) === true) {
 			$languages = ['en' => 'eng', 'cn' => 'chn', 'jp' => 'jpn'];
-			$this->_skin_language = $languages[$this->uri->segments[1]];
+			$this->_skin_language = $languages[$seg1];
 		}
 		$this->_site_language = $this->_skin_language;
 
-		ksort($cfg_menu[$this->_site_language]);
+		if(isset($cfg_menu[$this->_site_language]) && is_array($cfg_menu[$this->_site_language])) {
+			ksort($cfg_menu[$this->_site_language]);
 
-		foreach($cfg_menu[$this->_site_language] as $fkey => $fval){
-			if(is_array($fval['menu'])){
-				ksort($cfg_menu[$this->_site_language]['menu']);
+			foreach($cfg_menu[$this->_site_language] as $fkey => $fval){
+				if(isset($fval['menu']) && is_array($fval['menu'])){
+					ksort($fval['menu']);
+					$cfg_menu[$this->_site_language][$fkey]['menu'] = $fval['menu'];
+				}
 			}
 		}
 
@@ -227,28 +231,34 @@ class FRONT_Controller extends MY_Controller {
 		$menus = [];
 		$lm = [];
 		$current = "";
-		$curr = $this->uri->rsegments[1] == "board" ? "code=".$this->input->get("code", true) : implode("/", $this->uri->rsegments);
+		$curr = isset($this->uri->rsegments[1]) && $this->uri->rsegments[1] == "board" ? "code=".$this->input->get("code", true) : implode("/", (array)$this->uri->rsegments);
 		$on = "";// 개선
-		foreach($cfg_menu[$this->_skin_language] as $key => $value) {
-			foreach($value['menu'] as $k => $v) {
-				$menus[$v['url']] = $v['name'];
-				if(strpos($v['url'], "code=") > -1) {
-					$url = explode("?", $v['url']);
-					$keys = $url[1];
-				} else {
-					$keys = $v['url'];
+		$idx = null;
+		$page_name = "";
+		if(isset($cfg_menu[$this->_skin_language]) && is_array($cfg_menu[$this->_skin_language])) {
+			foreach($cfg_menu[$this->_skin_language] as $key => $value) {
+				if(isset($value['menu']) && is_array($value['menu'])) {
+					foreach($value['menu'] as $k => $v) {
+						$menus[$v['url']] = $v['name'];
+						if(strpos($v['url'], "code=") > -1) {
+							$url = explode("?", $v['url']);
+							$keys = $url[1];
+						} else {
+							$keys = $v['url'];
+						}
+						if(strpos($this->input->server('REQUEST_URI'), $keys) > -1){
+							$idx = $key;
+							$current = $keys;
+						}
+					}
 				}
-				if(strpos($this->input->server('REQUEST_URI'), $keys) > -1){
-					$idx = $key;
-					$current = $keys;
-				}
-			}
-			if(strpos($value['url'], $this->input->get("code", true)) > -1) $on = $value['name'];// 개선
-		}// 일반 페이지 제외하고 현재 게시판에 해당하는 메뉴 on
+				if(isset($value['url']) && strpos($value['url'], $this->input->get("code", true)) > -1) $on = $value['name'];// 개선
+			}// 일반 페이지 제외하고 현재 게시판에 해당하는 메뉴 on
+		}
 
 		$this->template_->assign("on", $on);// 개선
-		$lm = $cfg_menu[$this->_skin_language][$idx];
-		if($this->uri->rsegments[1] != "board") $page_name = $menus["/".implode("/", $this->uri->rsegments)];
+		$lm = ($idx !== null && isset($cfg_menu[$this->_skin_language][$idx])) ? $cfg_menu[$this->_skin_language][$idx] : array();
+		if(isset($this->uri->rsegments[1]) && $this->uri->rsegments[1] != "board") $page_name = isset($menus["/".implode("/", (array)$this->uri->rsegments)]) ? $menus["/".implode("/", (array)$this->uri->rsegments)] : "";
 		$this->template_->assign("current_page_name", $page_name);
 		$this->template_->assign("lm", $lm);
 		$this->template_->assign("current", $current);
