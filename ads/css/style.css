@@ -1,0 +1,3226 @@
+/* CSS Reset - 모던 리셋 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 성능 최적화: 시스템 폰트 스택 사용 (웹폰트 로딩 불필요) */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+  background-color: var(--bg-color);
+  /* 성능 최적화: 텍스트 렌더링 */
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 성능 최적화: 이미지 lazy loading 지원 */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"].loaded,
+img[loading="lazy"]:not([src=""]) {
+  opacity: 1;
+}
+
+/* 성능 최적화: contain 속성으로 레이아웃 격리 */
+.solution-card,
+.award-item,
+.cert-item,
+.stat-item,
+.channel-btn,
+.faq-item {
+  contain: layout style;
+}
+
+/* 성능 최적화: will-change 힌트 (호버 애니메이션 요소) */
+.solution-card,
+.channel-btn,
+.btn-floating {
+  will-change: transform;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* CSS Variables - 새로운 컬러 팔레트 */
+:root {
+  --primary-color: #347BF7;
+  --primary-hover: #2563eb;
+  --primary-light: #85b0fa;
+  --primary-lighter: #e8f0fe;
+  --success-color: #347BF7;
+  --error-color: #dc2626;
+  --text-color: #000001;
+  --text-light: #4a5568;
+  --bg-color: #ffffff;
+  --bg-light: #f8faff;
+  --border-color: #85b0fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Header */
+.header {
+  background: var(--bg-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 36px;
+  width: auto;
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #347BF7;
+}
+
+.header-phone {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #347BF7;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(52, 123, 247, 0.1);
+  transition: background 0.2s ease;
+}
+
+.header-phone:hover {
+  background: rgba(52, 123, 247, 0.2);
+}
+
+.phone-badge {
+  background: var(--error-color);
+  color: white;
+  font-size: 0.625rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.phone-icon {
+  font-size: 1rem;
+}
+
+.phone-number {
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* 모바일에서 전화번호 간소화 */
+@media (max-width: 480px) {
+  .phone-badge {
+    display: none;
+  }
+  
+  .header-phone {
+    padding: 8px;
+  }
+  
+  .phone-number {
+    font-size: 0.875rem;
+  }
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #347BF7 0%, #85b0fa 50%, #347BF7 100%);
+  color: white;
+  padding: 48px 0 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.hero-title {
+  font-size: 1.75rem;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.hero-title .highlight {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  opacity: 0.95;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.hero-feature {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.btn-icon {
+  font-size: 1.125rem;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-reassurance {
+  font-size: 0.8125rem;
+  opacity: 0.85;
+  margin-top: 8px;
+}
+
+/* 태블릿 이상 */
+@media (min-width: 768px) {
+  .hero {
+    padding: 80px 0 100px;
+  }
+  
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    max-width: 600px;
+  }
+  
+  .hero-cta {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .hero-btn {
+    width: auto;
+    max-width: none;
+    padding: 16px 32px;
+  }
+  
+  .hero-feature {
+    font-size: 0.875rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-large {
+  padding: 16px 32px;
+  font-size: 1.125rem;
+}
+
+/* Trust Section */
+.trust-section {
+  padding: 48px 0;
+  background: var(--bg-color);
+}
+
+.trust-section .section-title {
+  margin-bottom: 32px;
+}
+
+.subsection-title {
+  font-size: 1.125rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.stat-item {
+  background: #ffffff;
+  padding: 20px 16px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #85b0fa;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #347BF7;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+/* Awards Gallery */
+.awards-section {
+  margin-bottom: 32px;
+}
+
+.awards-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.award-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.award-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.award-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.award-title {
+  display: block;
+  padding: 12px 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+  background: #f8f9fa;
+}
+
+/* Legacy awards-grid (keep for compatibility) */
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.award-item {
+  background: linear-gradient(135deg, #e8f0fe 0%, #85b0fa 100%);
+  padding: 16px 12px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.award-icon {
+  font-size: 1.5rem;
+}
+
+.award-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.award-desc {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+/* Certifications Gallery */
+.certifications-section {
+  margin-bottom: 0;
+}
+
+.cert-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.cert-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.cert-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.cert-title {
+  display: block;
+  padding: 12px 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+  background: #f8f9fa;
+}
+
+/* Legacy certifications-grid */
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.cert-item {
+  background: linear-gradient(135deg, #ffffff 0%, #e8f0fe 100%);
+  padding: 16px 8px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid #85b0fa;
+}
+
+.cert-icon {
+  font-size: 1.5rem;
+}
+
+.cert-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.cert-desc {
+  font-size: 0.6875rem;
+  color: var(--text-light);
+}
+
+/* Trust Section Responsive */
+@media (min-width: 768px) {
+  .trust-section {
+    padding: 64px 0;
+  }
+  
+  .cert-gallery {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  
+  .stat-item {
+    padding: 28px 20px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .stat-label {
+    font-size: 1rem;
+  }
+  
+  .awards-gallery {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  
+  .awards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  
+  .award-item {
+    padding: 20px 16px;
+  }
+  
+  .award-name {
+    font-size: 0.875rem;
+  }
+  
+  .award-desc {
+    font-size: 0.8125rem;
+  }
+  
+  .certifications-grid {
+    gap: 16px;
+  }
+  
+  .cert-item {
+    padding: 20px 16px;
+  }
+  
+  .cert-name {
+    font-size: 0.875rem;
+  }
+  
+  .cert-desc {
+    font-size: 0.75rem;
+  }
+  
+  .subsection-title {
+    font-size: 1.25rem;
+    margin-bottom: 24px;
+  }
+}
+
+/* Services Section */
+.services-section {
+  padding: 48px 0;
+  background: #f8faff;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 32px;
+  font-size: 0.9375rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.solution-card {
+  background: white;
+  padding: 20px 16px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.solution-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.solution-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.solution-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 8px;
+}
+
+.solution-desc {
+  font-size: 0.8125rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* Services Section Responsive */
+@media (min-width: 768px) {
+  .services-section {
+    padding: 64px 0;
+  }
+  
+  .section-subtitle {
+    font-size: 1.0625rem;
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  
+  .solutions-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  
+  .solution-card {
+    padding: 28px 20px;
+  }
+  
+  .solution-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+  
+  .solution-name {
+    font-size: 1.125rem;
+    margin-bottom: 10px;
+  }
+  
+  .solution-desc {
+    font-size: 0.875rem;
+  }
+}
+
+/* Process Section */
+.process-section {
+  padding: 48px 0;
+  background: var(--bg-color);
+}
+
+.process-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.process-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 0;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: #347BF7;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.step-title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.step-desc {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.process-connector {
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(to bottom, #347BF7, #85b0fa);
+  margin-left: 21px;
+}
+
+/* Process Section Responsive */
+@media (min-width: 768px) {
+  .process-section {
+    padding: 64px 0;
+  }
+  
+  .process-timeline {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 900px;
+    gap: 0;
+  }
+  
+  .process-step {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: auto;
+    flex: 1;
+    padding: 0;
+  }
+  
+  .step-number {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  
+  .step-content {
+    padding-top: 0;
+  }
+  
+  .step-title {
+    font-size: 1.125rem;
+    margin-bottom: 8px;
+  }
+  
+  .step-desc {
+    font-size: 0.9375rem;
+    max-width: 180px;
+    margin: 0 auto;
+  }
+  
+  .process-connector {
+    width: auto;
+    height: 2px;
+    flex: 0.5;
+    margin: 28px 0 0 0;
+    background: linear-gradient(to right, #347BF7, #85b0fa);
+  }
+}
+
+/* Channels Section */
+.channels-section {
+  padding: 48px 0;
+  background: var(--bg-color);
+}
+
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.channel-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 100px;
+  text-align: center;
+}
+
+.channel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.channel-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.channel-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.channel-logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.channel-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.channel-desc {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Channel Button Colors - 새로운 컬러 팔레트 */
+.channel-phone,
+.channel-kakao,
+.channel-line,
+.channel-navertalk,
+.channel-channeltalk,
+.channel-form {
+  background: #f5f5f5;
+  color: #333;
+}
+
+/* 6개 버튼 레이아웃 */
+.channels-grid .channel-btn:last-child {
+  grid-column: auto;
+  max-width: none;
+  justify-self: auto;
+}
+
+/* Channels Section Responsive */
+@media (min-width: 768px) {
+  .channels-section {
+    padding: 64px 0;
+  }
+  
+  .channels-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    max-width: 1000px;
+  }
+  
+  .channel-btn {
+    padding: 24px 16px;
+    min-height: 120px;
+  }
+  
+  .channel-icon {
+    margin-bottom: 12px;
+  }
+  
+  .channel-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .channel-logo-img {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .channel-name {
+    font-size: 1rem;
+  }
+  
+  .channel-desc {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 48px 0;
+  background: #f8faff;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 1.5rem;
+}
+
+/* Form Styles */
+.inquiry-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  background-color: #fff;
+}
+
+.form-group select:invalid {
+  color: #999;
+}
+
+.form-group select option {
+  color: var(--text-color);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.form-group select:focus:invalid {
+  color: #999;
+}
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+  border-color: var(--error-color);
+}
+
+.required {
+  color: var(--error-color);
+}
+
+.error-message {
+  display: block;
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 4px;
+  min-height: 20px;
+}
+
+.form-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.form-checkbox input[type="checkbox"] {
+  width: auto;
+  margin-top: 4px;
+}
+
+.form-checkbox label {
+  flex: 1;
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+.privacy-link {
+  color: var(--primary-color);
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.125rem;
+}
+
+.btn-submit:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+}
+
+.btn-submit.loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn-submit.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success Message */
+.success-message {
+  text-align: center;
+  padding: 40px 24px;
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--success-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 16px;
+}
+
+.success-message h3 {
+  color: var(--success-color);
+  margin-bottom: 12px;
+}
+
+.success-message p {
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+
+.success-message a {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Error Alert */
+.error-alert {
+  text-align: center;
+  padding: 20px;
+  background: #fef2f2;
+  border: 1px solid var(--error-color);
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 20px auto 0;
+}
+
+.error-alert p {
+  color: var(--error-color);
+  margin-bottom: 8px;
+}
+
+.error-alert a {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Floating CTA - 우측 세로 배치 */
+.floating-cta {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  padding: 8px;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+  border-radius: 12px 0 0 12px;
+}
+
+.btn-floating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 65px;
+  min-height: 65px;
+}
+
+.btn-floating:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.btn-floating .btn-icon {
+  font-size: 1.5rem;
+}
+
+.btn-floating .btn-svg-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.btn-floating .btn-img-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.btn-floating .btn-text {
+  font-size: 0.6875rem;
+  white-space: nowrap;
+}
+
+.btn-phone {
+  background: linear-gradient(135deg, #347BF7 0%, #2563eb 100%);
+  color: white;
+}
+
+.btn-kakao {
+  background: linear-gradient(135deg, #fee500 0%, #f5d800 100%);
+  color: #3c1e1e;
+}
+
+.btn-naver {
+  background: linear-gradient(135deg, #03c75a 0%, #02b350 100%);
+  color: white;
+}
+
+.btn-channel {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  color: white;
+}
+
+.btn-consult {
+  background: linear-gradient(135deg, #347BF7 0%, #85b0fa 100%);
+  color: white;
+}
+
+/* 모바일: 플로팅 CTA 하단 배치 */
+.floating-mobile {
+  display: flex;
+}
+
+.floating-desktop {
+  display: none;
+}
+
+/* 모바일에서 우측 세로 배치 (작게) */
+@media (max-width: 767px) {
+  .floating-cta.desktop-only {
+    display: none;
+  }
+  
+  /* 모바일 플로팅 버튼 */
+  .mobile-floating-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 100px;
+    right: 16px;
+    z-index: 1002;
+    cursor: pointer;
+  }
+  
+  .mobile-floating-badge {
+    background: #347BF7;
+    color: white;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 16px;
+    margin-bottom: 6px;
+    white-space: nowrap;
+  }
+  
+  .mobile-floating-icon {
+    width: 52px;
+    height: 52px;
+    background: white;
+    border: 2px solid #347BF7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  
+  .mobile-floating-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #347BF7;
+  }
+  
+  .mobile-floating-icon .icon-close {
+    color: #666;
+  }
+  
+  .mobile-floating-btn.active .mobile-floating-badge {
+    display: none;
+  }
+  
+  .mobile-floating-btn.active .mobile-floating-icon {
+    background: #e5e5e5;
+    border-color: #e5e5e5;
+  }
+  
+  .mobile-floating-btn.active .icon-consult {
+    display: none;
+  }
+  
+  .mobile-floating-btn.active .icon-close {
+    display: block !important;
+  }
+  
+  .mobile-floating-btn.active .floating-24 {
+    display: none;
+  }
+  
+  .floating-24 {
+    position: absolute;
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #347BF7;
+    bottom: 10px;
+  }
+  
+  /* 모바일 채널 오버레이 */
+  .mobile-channels-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  
+  .mobile-channels-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    padding-bottom: 170px;
+  }
+  
+  .mobile-channel-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    text-decoration: none;
+  }
+  
+  .mobile-channel-label {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  
+  .mobile-channel-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #347BF7;
+    position: relative;
+    flex-shrink: 0;
+  }
+  
+  .mobile-channel-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: white;
+  }
+  
+  .mobile-channel-icon.phone svg {
+    fill: none;
+    stroke: #347BF7;
+  }
+  
+  .mobile-channel-icon.phone {
+    background: white;
+    border: 2px solid #347BF7;
+  }
+  
+  .mobile-channel-icon .icon-24 {
+    position: absolute;
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #347BF7;
+    bottom: 9px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-floating-btn,
+  .mobile-channels-overlay {
+    display: none !important;
+  }
+}
+
+/* 태블릿/데스크톱: 우측 세로 배치 */
+@media (min-width: 768px) {
+  .floating-cta {
+    right: 0;
+    top: 50%;
+    bottom: auto;
+    left: auto;
+    transform: translateY(-50%);
+    flex-direction: column;
+    border-radius: 10px 0 0 10px;
+    padding: 8px 6px;
+  }
+  
+  .floating-mobile {
+    display: flex;
+  }
+  
+  .floating-desktop {
+    display: none;
+  }
+  
+  .btn-floating {
+    min-width: 56px;
+    min-height: 56px;
+    padding: 8px 6px;
+  }
+  
+  .btn-floating .btn-icon {
+    font-size: 1.25rem;
+  }
+  
+  .btn-floating .btn-svg-icon {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .btn-floating .btn-img-icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .btn-floating .btn-text {
+    font-size: 0.625rem;
+  }
+}
+
+/* Reviews Section */
+.reviews-section {
+  padding: 48px 0;
+  background: #f8f9fa;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.review-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.review-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+}
+
+.review-author {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.review-name {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.875rem;
+}
+
+.review-type {
+  font-size: 0.75rem;
+  color: var(--primary-color);
+  background: #e8f0fe;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.reviews-subsection {
+  margin-bottom: 48px;
+}
+
+/* Video Section */
+.video-section {
+  margin-bottom: 48px;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 360px;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .video-wrapper {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  
+  .video-wrapper iframe {
+    height: 200px;
+  }
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.video-play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  transition: background 0.2s ease;
+}
+
+.video-wrapper:hover .video-play-overlay {
+  background: rgba(0,0,0,0.4);
+}
+
+.video-play-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  padding-left: 6px;
+  transition: transform 0.2s ease;
+}
+
+.video-wrapper:hover .video-play-icon {
+  transform: scale(1.1);
+}
+
+.reviews-more {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.btn-more-reviews {
+  display: inline-block;
+  padding: 12px 28px;
+  background: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-more-reviews:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .review-card {
+    padding: 28px;
+  }
+}
+
+/* FAQ Section */
+.faq-section {
+  padding: 48px 0;
+  background: var(--bg-color);
+}
+
+.faq-list {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  transition: background 0.2s ease;
+}
+
+.faq-question:hover {
+  background: var(--bg-light);
+}
+
+.faq-question-text {
+  flex: 1;
+  padding-right: 16px;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8f0fe;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #347BF7;
+  transition: transform 0.3s ease, background 0.2s ease;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+  background: #347BF7;
+  color: white;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 300px;
+  border-top: 1px solid #e8f0fe;
+}
+
+.faq-answer p {
+  padding: 16px 20px 20px;
+  color: var(--text-light);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* FAQ Section Responsive */
+@media (min-width: 768px) {
+  .faq-section {
+    padding: 64px 0;
+  }
+  
+  .faq-item {
+    margin-bottom: 16px;
+  }
+  
+  .faq-question {
+    padding: 22px 24px;
+    font-size: 1.0625rem;
+  }
+  
+  .faq-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1.375rem;
+  }
+  
+  .faq-answer p {
+    padding: 0 24px 24px;
+    font-size: 1rem;
+  }
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(135deg, #000001 0%, #1a1a1a 100%);
+  color: #d1d5db;
+  padding: 40px 0 180px; /* 하단 배너 + 플로팅 CTA 공간 확보 */
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footer-company {
+  text-align: center;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.footer-logo .logo-icon {
+  font-size: 1.5rem;
+}
+
+.footer-logo .logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+
+.footer-info {
+  font-size: 0.8125rem;
+  line-height: 1.8;
+  color: #9ca3af;
+}
+
+.footer-info p {
+  margin-bottom: 4px;
+}
+
+.footer-info a {
+  color: #85b0fa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-info a:hover {
+  color: #347BF7;
+  text-decoration: underline;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px 0;
+  border-top: 1px solid #374151;
+  border-bottom: 1px solid #374151;
+}
+
+.footer-link {
+  color: #d1d5db;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+.footer-divider {
+  color: #4b5563;
+  font-size: 0.75rem;
+}
+
+.footer-copyright {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #6b7280;
+}
+
+/* Footer Responsive */
+@media (min-width: 768px) {
+  .footer {
+    padding: 48px 0 32px; /* 데스크톱에서는 플로팅 CTA가 우측에 있으므로 하단 패딩 줄임 */
+  }
+  
+  .footer-content {
+    gap: 28px;
+  }
+  
+  .footer-info {
+    font-size: 0.875rem;
+  }
+  
+  .footer-links {
+    gap: 16px;
+    padding: 20px 0;
+  }
+  
+  .footer-link {
+    font-size: 0.9375rem;
+  }
+  
+  .footer-copyright {
+    font-size: 0.875rem;
+  }
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* ========================================
+   반응형 스타일 완성
+   - 모바일: 320px ~ 480px
+   - 태블릿: 768px ~ 1024px
+   - 데스크톱: 1024px 이상
+   ======================================== */
+
+/* 매우 작은 모바일 (320px ~ 360px) */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  /* 헤더 */
+  .logo-text {
+    font-size: 1.25rem;
+  }
+  
+  .header-phone {
+    padding: 6px 8px;
+    gap: 4px;
+  }
+  
+  .phone-number {
+    font-size: 0.8125rem;
+  }
+  
+  /* 히어로 */
+  .hero {
+    padding: 36px 0 48px;
+  }
+  
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+  
+  .hero-title {
+    font-size: 1.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9375rem;
+  }
+  
+  .hero-features {
+    gap: 8px;
+  }
+  
+  .hero-feature {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+  
+  .hero-btn {
+    max-width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+  
+  /* 통계 */
+  .stats-grid {
+    gap: 10px;
+  }
+  
+  .stat-item {
+    padding: 16px 12px;
+  }
+  
+  .stat-number {
+    font-size: 1.25rem;
+  }
+  
+  .stat-label {
+    font-size: 0.75rem;
+  }
+  
+  /* 수상/인증 */
+  .awards-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .awards-grid {
+    gap: 8px;
+  }
+  
+  .award-item {
+    padding: 12px 8px;
+  }
+  
+  .award-icon {
+    font-size: 1.25rem;
+  }
+  
+  .award-name {
+    font-size: 0.6875rem;
+  }
+  
+  .award-desc {
+    font-size: 0.625rem;
+  }
+  
+  .certifications-grid {
+    gap: 8px;
+  }
+  
+  .cert-item {
+    padding: 12px 6px;
+  }
+  
+  .cert-icon {
+    font-size: 1.25rem;
+  }
+  
+  .cert-name {
+    font-size: 0.6875rem;
+  }
+  
+  .cert-desc {
+    font-size: 0.5625rem;
+  }
+  
+  /* 솔루션 카드 */
+  .solutions-grid {
+    gap: 10px;
+  }
+  
+  .solution-card {
+    padding: 16px 12px;
+  }
+  
+  .solution-icon {
+    font-size: 1.75rem;
+    margin-bottom: 8px;
+  }
+  
+  .solution-name {
+    font-size: 0.875rem;
+  }
+  
+  .solution-desc {
+    font-size: 0.75rem;
+  }
+  
+  /* 진행 과정 */
+  .process-step {
+    gap: 12px;
+    padding: 12px 0;
+  }
+  
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.125rem;
+  }
+  
+  .step-title {
+    font-size: 1rem;
+  }
+  
+  .step-desc {
+    font-size: 0.8125rem;
+  }
+  
+  .process-connector {
+    margin-left: 19px;
+    height: 20px;
+  }
+  
+  /* 상담 채널 */
+  .channels-grid {
+    gap: 10px;
+  }
+  
+  .channel-btn {
+    padding: 16px 10px;
+    min-height: 90px;
+  }
+  
+  .channel-icon {
+    margin-bottom: 6px;
+  }
+  
+  .channel-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .channel-logo-img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .channel-name {
+    font-size: 0.8125rem;
+  }
+  
+  .channel-desc {
+    font-size: 0.6875rem;
+  }
+  
+  /* 문의 폼 */
+  .inquiry-form {
+    padding: 20px 16px;
+  }
+  
+  .form-group label {
+    font-size: 0.9375rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px;
+    font-size: 0.9375rem;
+  }
+  
+  .btn-submit {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  
+  /* FAQ */
+  .faq-question {
+    padding: 14px 16px;
+    font-size: 0.9375rem;
+  }
+  
+  .faq-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 1.125rem;
+  }
+  
+  .faq-answer p {
+    padding: 0 16px 16px;
+    font-size: 0.875rem;
+  }
+  
+  /* 플로팅 CTA */
+  .floating-cta {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  
+  .btn-floating {
+    padding: 12px 10px;
+    font-size: 0.875rem;
+  }
+  
+  .btn-floating .btn-icon {
+    font-size: 1.125rem;
+  }
+  
+  .btn-floating .btn-text {
+    font-size: 0.8125rem;
+  }
+  
+  /* 푸터 */
+  .footer {
+    padding: 32px 0 90px;
+  }
+  
+  .footer-info {
+    font-size: 0.75rem;
+  }
+  
+  .footer-link {
+    font-size: 0.8125rem;
+  }
+  
+  .footer-copyright {
+    font-size: 0.75rem;
+  }
+}
+
+/* 일반 모바일 (361px ~ 480px) */
+@media (min-width: 361px) and (max-width: 480px) {
+  .hero-title {
+    font-size: 1.625rem;
+  }
+  
+  .hero-btn {
+    max-width: 260px;
+  }
+  
+  .stat-number {
+    font-size: 1.375rem;
+  }
+}
+
+/* 큰 모바일 ~ 작은 태블릿 (481px ~ 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .container {
+    padding: 0 20px;
+  }
+  
+  /* 히어로 */
+  .hero {
+    padding: 56px 0 72px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.0625rem;
+  }
+  
+  .hero-cta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .hero-btn {
+    width: auto;
+    max-width: none;
+    padding: 14px 24px;
+  }
+  
+  /* 통계 */
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  
+  .stat-item {
+    padding: 18px 12px;
+  }
+  
+  .stat-number {
+    font-size: 1.375rem;
+  }
+  
+  /* 수상/인증 */
+  .awards-gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .awards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  
+  .certifications-grid {
+    gap: 10px;
+  }
+  
+  /* 솔루션 */
+  .solutions-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  
+  /* 상담 채널 */
+  .channels-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  
+  .channels-grid .channel-btn:nth-child(4),
+  .channels-grid .channel-btn:nth-child(5) {
+    grid-column: auto;
+    max-width: none;
+    justify-self: auto;
+  }
+  
+  .channels-grid .channel-btn:last-child {
+    grid-column: auto;
+    max-width: none;
+  }
+  
+  /* 문의 폼 */
+  .inquiry-form {
+    padding: 28px;
+  }
+}
+
+/* 태블릿 (768px ~ 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding: 0 24px;
+  }
+  
+  /* 헤더 */
+  .logo-text {
+    font-size: 1.625rem;
+  }
+  
+  .header-phone {
+    padding: 10px 16px;
+  }
+  
+  .phone-number {
+    font-size: 1.0625rem;
+  }
+  
+  /* 히어로 */
+  .hero {
+    padding: 64px 0 80px;
+  }
+  
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .hero-btn {
+    padding: 14px 28px;
+    font-size: 1.0625rem;
+  }
+  
+  /* 섹션 타이틀 */
+  .section-title {
+    font-size: 1.625rem;
+    margin-bottom: 28px;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 36px;
+  }
+  
+  /* 통계 */
+  .stats-grid {
+    gap: 20px;
+  }
+  
+  .stat-item {
+    padding: 24px 16px;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+  }
+  
+  /* 솔루션 */
+  .solutions-grid {
+    gap: 20px;
+  }
+  
+  .solution-card {
+    padding: 24px 16px;
+  }
+  
+  .solution-icon {
+    font-size: 2.25rem;
+  }
+  
+  .solution-name {
+    font-size: 1.0625rem;
+  }
+  
+  .solution-desc {
+    font-size: 0.8125rem;
+  }
+  
+  /* 진행 과정 */
+  .process-timeline {
+    max-width: 800px;
+  }
+  
+  .step-number {
+    width: 52px;
+    height: 52px;
+    font-size: 1.375rem;
+  }
+  
+  .step-title {
+    font-size: 1.0625rem;
+  }
+  
+  .step-desc {
+    font-size: 0.875rem;
+    max-width: 160px;
+  }
+  
+  /* 상담 채널 */
+  .channels-grid {
+    max-width: 800px;
+  }
+  
+  .channel-btn {
+    padding: 22px 14px;
+    min-height: 110px;
+  }
+  
+  .channel-icon svg {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .channel-logo-img {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .channel-name {
+    font-size: 0.9375rem;
+  }
+  
+  /* 문의 폼 */
+  .inquiry-form {
+    padding: 32px;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 14px;
+  }
+  
+  .btn-submit {
+    padding: 16px;
+    font-size: 1.125rem;
+  }
+  
+  /* FAQ */
+  .faq-question {
+    padding: 20px 22px;
+  }
+  
+  .faq-answer p {
+    padding: 0 22px 22px;
+  }
+  
+  /* 푸터 */
+  .footer {
+    padding: 44px 0 28px;
+  }
+}
+
+/* 데스크톱 (1024px 이상) */
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 32px;
+  }
+  
+  /* 헤더 */
+  .header-content {
+    padding: 16px 0;
+  }
+  
+  .logo-text {
+    font-size: 1.75rem;
+  }
+  
+  .header-phone {
+    padding: 12px 20px;
+  }
+  
+  .phone-badge {
+    display: inline-block;
+    font-size: 0.6875rem;
+    padding: 3px 8px;
+  }
+  
+  .phone-number {
+    font-size: 1.125rem;
+  }
+  
+  /* 히어로 */
+  .hero {
+    padding: 100px 0 120px;
+  }
+  
+  .hero-badge {
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin-bottom: 24px;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.375rem;
+    max-width: 700px;
+    margin-bottom: 24px;
+  }
+  
+  .hero-features {
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  
+  .hero-feature {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+  
+  .hero-btn {
+    padding: 18px 36px;
+    font-size: 1.1875rem;
+  }
+  
+  .hero-reassurance {
+    font-size: 0.9375rem;
+    margin-top: 12px;
+  }
+  
+  /* 섹션 공통 */
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 36px;
+  }
+  
+  .section-subtitle {
+    font-size: 1.125rem;
+    margin-bottom: 48px;
+    max-width: 700px;
+  }
+  
+  .subsection-title {
+    font-size: 1.375rem;
+    margin-bottom: 28px;
+  }
+  
+  /* 신뢰 섹션 */
+  .trust-section {
+    padding: 80px 0;
+  }
+  
+  .stats-grid {
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+  
+  .stat-item {
+    padding: 32px 24px;
+  }
+  
+  .stat-number {
+    font-size: 2.25rem;
+    margin-bottom: 8px;
+  }
+  
+  .stat-label {
+    font-size: 1.0625rem;
+  }
+  
+  .awards-section {
+    margin-bottom: 40px;
+  }
+  
+  .awards-gallery {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .awards-grid {
+    gap: 20px;
+  }
+  
+  .award-item {
+    padding: 24px 20px;
+  }
+  
+  .award-icon {
+    font-size: 1.75rem;
+  }
+  
+  .award-name {
+    font-size: 1rem;
+  }
+  
+  .award-desc {
+    font-size: 0.875rem;
+  }
+  
+  .certifications-grid {
+    gap: 20px;
+  }
+  
+  .cert-item {
+    padding: 24px 20px;
+  }
+  
+  .cert-icon {
+    font-size: 1.75rem;
+  }
+  
+  .cert-name {
+    font-size: 1rem;
+  }
+  
+  .cert-desc {
+    font-size: 0.8125rem;
+  }
+  
+  /* 서비스 섹션 */
+  .services-section {
+    padding: 80px 0;
+  }
+  
+  .solutions-grid {
+    gap: 28px;
+  }
+  
+  .solution-card {
+    padding: 32px 24px;
+  }
+  
+  .solution-icon {
+    font-size: 2.75rem;
+    margin-bottom: 20px;
+  }
+  
+  .solution-name {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+  }
+  
+  .solution-desc {
+    font-size: 0.9375rem;
+  }
+  
+  /* 진행 과정 */
+  .process-section {
+    padding: 80px 0;
+  }
+  
+  .process-timeline {
+    max-width: 1000px;
+  }
+  
+  .step-number {
+    width: 64px;
+    height: 64px;
+    font-size: 1.625rem;
+    margin-bottom: 20px;
+  }
+  
+  .step-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+  
+  .step-desc {
+    font-size: 1rem;
+    max-width: 200px;
+  }
+  
+  .process-connector {
+    margin: 32px 0 0 0;
+  }
+  
+  /* 상담 채널 */
+  .channels-section {
+    padding: 80px 0;
+  }
+  
+  .channels-grid {
+    max-width: 1000px;
+    gap: 20px;
+  }
+  
+  .channel-btn {
+    padding: 28px 20px;
+    min-height: 140px;
+  }
+  
+  .channel-icon {
+    margin-bottom: 14px;
+  }
+  
+  .channel-icon svg {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .channel-logo-img {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .channel-name {
+    font-size: 1.0625rem;
+    margin-bottom: 6px;
+  }
+  
+  .channel-desc {
+    font-size: 0.875rem;
+  }
+  
+  /* 문의 폼 */
+  .contact-section {
+    padding: 80px 0;
+  }
+  
+  .inquiry-form {
+    max-width: 560px;
+    padding: 40px;
+  }
+  
+  .form-group {
+    margin-bottom: 24px;
+  }
+  
+  .form-group label {
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 16px;
+    font-size: 1rem;
+  }
+  
+  .btn-submit {
+    padding: 18px;
+    font-size: 1.1875rem;
+    margin-top: 8px;
+  }
+  
+  /* FAQ */
+  .faq-section {
+    padding: 80px 0;
+  }
+  
+  .faq-list {
+    max-width: 800px;
+  }
+  
+  .faq-item {
+    margin-bottom: 20px;
+  }
+  
+  .faq-question {
+    padding: 24px 28px;
+    font-size: 1.125rem;
+  }
+  
+  .faq-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+  }
+  
+  .faq-answer p {
+    padding: 0 28px 28px;
+    font-size: 1.0625rem;
+  }
+  
+  /* 플로팅 CTA */
+  .floating-cta {
+    max-width: 360px;
+    padding: 10px;
+  }
+  
+  .btn-floating {
+    padding: 18px 28px;
+    font-size: 1.0625rem;
+  }
+  
+  .btn-floating .btn-icon {
+    font-size: 1.5rem;
+  }
+  
+  .btn-floating .btn-text {
+    font-size: 1.0625rem;
+  }
+  
+  /* 푸터 */
+  .footer {
+    padding: 56px 0 40px;
+  }
+  
+  .footer-content {
+    gap: 32px;
+  }
+  
+  .footer-logo .logo-text {
+    font-size: 1.375rem;
+  }
+  
+  .footer-info {
+    font-size: 0.9375rem;
+  }
+  
+  .footer-links {
+    gap: 20px;
+    padding: 24px 0;
+  }
+  
+  .footer-link {
+    font-size: 1rem;
+  }
+  
+  .footer-copyright {
+    font-size: 0.9375rem;
+  }
+}
+
+/* 대형 데스크톱 (1440px 이상) */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1320px;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2.25rem;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+}
+
+/* CTA 버튼 최소 터치 영역 보장 (44x44px) */
+.btn,
+.btn-floating,
+.channel-btn,
+.faq-question {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* 가로 스크롤 방지 */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* 이미지 반응형 */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 텍스트 오버플로우 방지 */
+.hero-title,
+.section-title,
+.solution-name,
+.step-title,
+.channel-name,
+.faq-question-text {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* 개인정보 처리방침 모달 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-light);
+}
+
+.modal-body h4 {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin: 20px 0 10px;
+}
+
+.modal-body h4:first-child {
+  margin-top: 0;
+}
+
+.modal-body p {
+  margin: 8px 0;
+}
+
+/* 접근성: 포커스 스타일 */
+.btn:focus,
+.btn-floating:focus,
+.channel-btn:focus,
+.faq-question:focus,
+a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* 접근성: 고대비 모드 지원 */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    border: 2px solid white;
+  }
+  
+  .btn-secondary {
+    border: 2px solid white;
+  }
+  
+  .faq-item {
+    border: 1px solid var(--border-color);
+  }
+}
+
+/* 접근성: 모션 감소 선호 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+
+/* ========================================
+   하단 플로팅 간편 상담 배너
+   ======================================== */
+
+.floating-bottom-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #347BF7 0%, #2563eb 100%);
+  color: white;
+  z-index: 1001;
+  box-shadow: 0 -2px 10px rgba(52, 123, 247, 0.3);
+}
+
+.banner-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.banner-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.banner-badge {
+  font-size: 0.6875rem;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+.banner-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.banner-form {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.banner-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.banner-field label {
+  font-size: 0.6875rem;
+  opacity: 0.9;
+}
+
+.banner-field input,
+.banner-field select {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  min-width: 160px;
+  background: white;
+  color: #333;
+}
+
+.banner-field input::placeholder {
+  color: #999;
+}
+
+.banner-field select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+.banner-field select:invalid {
+  color: #999;
+}
+
+.banner-field select option {
+  color: #333;
+}
+
+.banner-submit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.banner-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6875rem;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.banner-checkbox input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: #fff;
+}
+
+.banner-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: white;
+  color: #347BF7;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.banner-btn:hover {
+  background: #f0f7ff;
+  transform: translateX(2px);
+}
+
+.btn-arrow {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+/* 모바일 하단 배너 */
+.mobile-bottom-banner {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #347BF7 0%, #2563eb 100%);
+  padding: 16px 20px;
+  z-index: 999;
+  cursor: pointer;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-banner-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-banner-badge {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.85);
+}
+
+.mobile-banner-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: white;
+}
+
+.mobile-banner-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-banner-btn {
+  font-size: 0.9375rem;
+  color: white;
+  font-weight: 600;
+}
+
+.mobile-banner-arrow {
+  font-size: 1.25rem;
+  color: white;
+}
+
+/* 모바일 문의 폼 모달 */
+.quick-form-modal {
+  max-width: 400px;
+  width: 90%;
+}
+
+.quick-form-modal .modal-body {
+  padding: 24px;
+}
+
+.modal-form .form-group {
+  margin-bottom: 16px;
+}
+
+.modal-form select {
+  color: #333;
+}
+
+.modal-form select:invalid,
+.modal-form select option[value=""][disabled] {
+  color: #adb5bd;
+}
+
+.modal-form .btn-submit {
+  width: 100%;
+  margin-top: 8px;
+}
+
+@media (max-width: 1023px) {
+  .mobile-bottom-banner {
+    display: flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-bottom-banner {
+    display: none;
+  }
+}
+
+/* 모바일: 배너 숨김, 플로팅 CTA 하단 */
+@media (max-width: 1023px) {
+  .floating-bottom-banner {
+    display: none;
+  }
+  
+  .floating-cta {
+    bottom: 70px;
+  }
+}
+
+/* 태블릿: 배너 2줄 레이아웃 */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .floating-bottom-banner {
+    bottom: 0;
+  }
+  
+  .banner-container {
+    flex-wrap: wrap;
+    padding: 8px 16px;
+  }
+  
+  .banner-left {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .banner-form {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .banner-field input,
+  .banner-field select {
+    min-width: 140px;
+  }
+  
+  .footer {
+    padding-bottom: 140px;
+  }
+}
+
+/* 대형 데스크톱 */
+@media (min-width: 1280px) {
+  .floating-bottom-banner {
+    bottom: 0;
+  }
+  
+  .banner-container {
+    padding: 12px 32px;
+  }
+  
+  .banner-title {
+    font-size: 1.25rem;
+  }
+  
+  .banner-field input,
+  .banner-field select {
+    min-width: 180px;
+    padding: 10px 14px;
+  }
+  
+  .banner-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .footer {
+    padding-bottom: 120px;
+  }
+}

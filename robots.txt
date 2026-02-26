@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+Disallow: /app/
+Disallow: /system/
+Disallow: /_compile/
+Disallow: /data/log/
+Disallow: /admin/
+Disallow: /member/member_login
+Disallow: /member/member_join
+Disallow: /board/board_list?code=diagnosis
+Disallow: /board/board_view?code=diagnosis
+Disallow: /board/board_list?code=download
+Disallow: /board/board_view?code=download
+Disallow: /board/board_list?code=gallery
+Disallow: /board/board_view?code=gallery
+Disallow: /board/board_list?code=notice
+Disallow: /board/board_view?code=notice
+Disallow: /page/usepolicy
+
+# Sitemap
+Sitemap: https://www.arklink.co.kr/sitemap.xml
+
+# 크롤 속도 조절 (선택사항)
+Crawl-delay: 1

@@ -1,0 +1,41 @@
+{#header}
+<script type="text/javascript">
+	$(function() {
+		$("form[name='frm']").validate({
+			rules : {
+				userid : {required : true},
+				name : {required : true},
+				email : {required : true, email : true}
+			}, messages : {
+				userid : {required : "아이디를 입력해주세요."},
+				name : {required : "이름을 입력해주세요."},
+				email : {required : "이메일을 입력해주세요.", email : "올바른 {memberField['name'][cfg_site['language']]['email']}을 입력해주세요."}
+			}
+		});
+	});
+</script>
+
+<div class="sub_content">
+	<div class="sub_login">
+		<div class="login_box">
+			{=form_open('member/find', 'name=frm')}
+			<fieldset>
+			<legend>회원 아이디, 이름, 이메일 정보로 분실한 비밀번호 찾기</legend>
+			<input type="hidden" name="mode" value="find_pw" />
+			<ul>
+				<li><input type="text" name="userid" id="userid" value="" placeholder="아이디"><label for="userid" class="dn">회원아이디</label></li>
+				<li><input type="text" name="name" id="name" value="" placeholder="이름"><label for="name" class="dn">회원이름</label></li>
+				<li><input type="text" name="email" id="email" value="" placeholder="이메일"><label for="email" class="dn">회원이메일</label></li>
+				<li><button type="submit" class="btn_wd btn_point">SEARCH</button></li>
+			</ul>
+			</fieldset>
+			{=form_close()}
+			<ul class="login_link">
+				<li class="first"><a href="/member/login">로그인</a></li>
+				<li><a href="/member/find_id">아이디찾기</a></li>
+				<li><a href="/member/join_agreement">회원가입</a></li>
+			</ul>
+		</div><!--login_box-->
+	 </div>
+</div><!--sub_content-->
+{#footer}

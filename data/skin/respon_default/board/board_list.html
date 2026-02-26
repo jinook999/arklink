@@ -1,0 +1,155 @@
+{#header}
+<!--{ ? board_info['code'] == 'content' && CI->input->get('category') == '리포트'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('report');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'content' && CI->input->get('category') == '소식'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('news');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'content' && CI->input->get('category') == '인터뷰'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('interview');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'content' && CI->input->get('category') == '칼럼'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('column');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'content' && CI->input->get('category') == '캠페인'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('campaign');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'content' && !CI->input->get('category')}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('Contents');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'patent'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('수상');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'inquiry'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('실시간문의');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'cert'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('인증');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'qna'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('QnA');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'campaign'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('피해지원캠페인');
+</script>
+<!--{ / }-->
+<!--{ ? board_info['code'] == 'review'}-->
+<!-- 카카오 픽셀 스크립트 -->
+<script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+<script type="text/javascript">
+  kakaoPixel('5590299396849158438').pageView('해결후기');
+</script>
+<!--{ / }-->
+
+<script type="text/javascript">
+	$(function() {
+		$("form[name='frm']").validate({
+			rules : {
+				search : {required : true}
+			}, messages : {
+				search : {required : "검색어를 입력해주세요."}
+			}
+		});
+	});
+</script>
+
+
+
+<div class="sub_cont">
+	<!--{ ? board_info['code'] == 'content'}-->
+	<!--{ ? count(preface) > 0 }-->
+	<ul class="sub_nav">
+		<li><a href="/board/board_list?code=content">전체</a></li>
+		<!--{ @ preface }-->
+		<li {=set_select('category', .value_)}><a href="/board/board_list?code={board_info['code']}&category={.value_}">{.value_}</a></li>
+		<!--{ / }-->
+	</ul>
+	<!--{ / }-->
+	<!--{ / }-->
+	<div class="sub_board <!--{? board_info['code'] == 'patent'}-->sub_patent<!--{ / }-->">
+        <!--{ ? board_info['code'] != 'patent' && board_info['code'] != 'cert' }-->
+		<div class="search_wrap">
+			{=form_open('', form_attribute)}
+            <fieldset>
+                <legend>게시글 검색</legend>
+                <input type="hidden" name="code" value="{board_info['code']}" />
+                <!--{ ? board_info['code'] != 'content'}-->
+                <!--{ ? count(preface) > 0 }-->
+                <ul class="preface_list">
+                    <li><a href="/board/board_list?code={board_info['code']}">전체</a></li>
+                    <!--{ @ preface }-->
+                    <li { =set_select('category', .value_) }><a href="/board/board_list?code={board_info['code']}&category={.value_}">{.value_}</a></li>
+                    <!--{ / }-->
+                </ul>
+                <!--{ / }-->
+                <!--{ / }-->
+                <div class="cont">
+                    <select name="search_type" id="search_type" title="검색할 항목을 선택하세요." class="select">
+                        <option value="title" selected="selected">제목</option>
+                        <option value="content" { =set_select('search_type', 'content') }>내용</option>
+                        <option value="name" { =set_select('search_type', 'name') }>작성자</option>
+                        <option value="userid" { =set_select('search_type', 'userid') }>아이디</option>
+                    </select>
+                    <div class="inp_box">
+                        <label for="search" class="dn">검색어를 입력하세요.</label>
+                        <input type="text" name="search" id="search" value="{=set_value('search')}" class="input_text" placeholder="검색어를 입력해주세요."/>
+                        <input type="submit" value="검색" />
+                    </div>
+                </div>
+            </fieldset>
+			{=form_close()}
+		</div>
+        <!--{ / }-->
+		{#board_display}
+		<div class="view_btn clear">
+			{board_list['pagination']}
+			<!--{ ? board_info['is_write']}-->
+			<div class="btn_wrap ta_right"><a href="/board/board_write?code={board_info['code']}" class="btn">{? board_info['code'] == 'review'}작성하기{:}문의하기{/}</a></div>
+			<!--{ / }-->
+		</div>
+	</div><!-- .sub_board -->
+</div><!-- .sub_content -->
+{#footer}

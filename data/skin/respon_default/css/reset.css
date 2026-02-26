@@ -1,0 +1,180 @@
+@charset "utf-8";
+
+/* Noto Sans KR (korean) http://www.google.com/fonts/earlyaccess */ 
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+/* @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css'); */
+
+* {margin:0; padding:0; border:0;}
+body {background:var(--point-white); color:var(--black-color01); font-style:normal; font-size:max(13px, var(--title-15)); font-family:var(--font-type01); line-height: 1.3; letter-spacing:0; word-break: keep-all; text-wrap: pretty; overflow-wrap: anywhere;}
+
+div, ul, ol, li, dl, dt, dd, form, fieldset, input,textarea, button, p, h1, h2, h3, h4, h5, h6, blockquote, iframe, th, td { -webkit-text-size-adjust:none}
+img {vertical-align:middle; max-width:100%; max-height: 100%;}
+li {list-style:none;}
+button{background:transparent; cursor:pointer; vertical-align:middle; font-size: inherit; font-family: inherit;}
+button, input[type="submit"], input[type="button"] {background:transparent; cursor:pointer; font-family:var(--font-type01);}
+button span{display:none;}
+input, button {-webkit-appearance: none; -webkit-border-radius: 0; }
+h1, h2, h3, h4, h5, h6{font-size:100%; font-style:normal;}
+dl :is(dt, dd){font-weight: inherit;}
+:is(input, select, textarea):focus{outline: none;}
+
+/* table */
+table { border-collapse:unset; border-spacing:0; width:100%;table-layout: fixed;}
+th {vertical-align:middle;}
+th, td { border-collapse:collapse; }
+legend, hr { display:none; }
+caption{text-indent:-9999em;overflow:hidden;height:0;font-size:0;line-height:0; }
+
+/* form */
+form { display:inline; }
+select, input, textarea { color:inherit; font-family:inherit; font-size:inherit; vertical-align:middle; }
+fieldset, blockquote, iframe, button { border:none; }
+
+/* font */
+i, em, u, cite {font-style:normal;}
+em{font-weight:bold;}
+
+/* link */
+a {color:inherit; text-decoration:none; cursor:pointer;}
+a:visited{text-decoration: none}
+a:focus{text-decoration: none}
+a:active{text-decoration: none}
+a:hover{text-decoration: none}
+
+h2.blind {display:none; font-size:0; letter-spacing:-9999px;}
+
+.file_list img {padding-left:3px;}
+
+
+/* 에디터 속성 재정의*/
+.view_cont div, .view_cont dl, .view_cont dt, .view_cont dd, .view_cont ul, .view_cont ol, .view_cont li, .view_cont h1, .view_cont h2, .view_cont h3, .view_cont h4, .view_cont h5, .view_cont h6, .view_cont pre, .view_cont code, .view_cont p, .view_cont th, .view_cont td, .view_cont input, .view_cont select, .view_cont button {margin:auto;padding:initial;color:inherit;}
+.view_cont i, .view_cont em {font-style:italic;color:initial;}
+.view_cont em {font-weight:inherit;}
+.view_cont dl, .view_cont ul, .view_cont ul li {list-style:disc;list-style-position:inside;}
+.view_cont ol, .view_cont ol li {list-style:decimal;list-style-position:inside;}
+.view_cont sup, .view_cont sub {font-size:x-small;}
+.view_cont table {border-spacing:initial;border-width:inherit;}
+.view_cont th, .view_cont td {border-spacing:initial;border-width:inherit;}
+
+/* custom */
+:root{
+    --trans-color:transparent;
+    --point-white:#fff;
+    --point-color01:#347BF7;
+	--point-color02:#E34659;
+	--point-color03:#34BCF7;
+	--point-color04:#83CC3A;
+    --point-color05:#4083F7;
+    --point-color06:#AECAFC;
+    --point-color07:#9370DB;
+	--border-color01:#ddd;
+    --border-color02:#ccc;
+    --border-color03:#d9d9d9;
+    --black-color00:#000;
+    --black-color01:#111;
+    --black-color02:#222;
+    --black-color03:#333;
+    --black-color04:#444;
+    --black-color05:#555;
+    --black-color06:#666;
+    --black-color07:#777;
+    --black-color08:#888;
+    --black-color09:#999;
+    --black-color10:#aaa;
+    --gray-bg01:#F5F5F5;
+    --gray-bg02:#F8F8F8;
+    --gray-bg03:#FAFAFA;
+    --gray-bg04:#F3F8FB;
+    --gray-bg05:#F5F8FA;
+    --gray-bg06:#F7F7F7;
+    --font-type01:'play', 'Pretendard', '맑은 고딕', dotum, sans-serif;
+    --font-type02:'Pretendard', '맑은 고딕', dotum, sans-serif;
+    --filter-white:brightness(0) invert(1);
+    --filter-black:brightness(0);
+	--polygon-path01:polygon(calc(50% - 1px) 0, calc(50% - 1px) calc(50% - 1px), 0 calc(50% - 1px), 0 calc(50% + 1px), calc(50% - 1px) calc(50% + 1px), calc(50% - 1px) 100%, calc(50% + 1px) 100%, calc(50% + 1px) calc(50% + 1px), 100% calc(50% + 1px), 100% calc(50% - 1px), calc(50% + 1px) calc(50% - 1px), calc(50% + 1px) 0);
+    --shadow-01:0 0 30px rgba(41, 86, 234, 0.10);
+    --shadow-02:18px 10px 54px rgba(21, 95, 205, 0.15);
+    --shadow-03:0 0 50px rgba(52, 123, 247, 0.10);
+    --shadow-04:10px 10px 30px rgba(0, 0, 0, 0.15);
+    --radius-40:40px;
+    --radius-30:30px;
+    --radius-20:20px;
+    --radius-16:16px;
+    --radius-15:15px;
+    --radius-14:14px;
+    --radius-10:10px;
+    --radius-06:6px;
+    --radius-04:4px;
+	--title-90:90px;
+    --title-20:20px;
+    --title-19:19px;
+    --title-18:18px;
+    --title-17:17px;
+    --title-16:16px;
+    --title-15:15px;
+    --title-14:14px;
+}
+
+@media (max-width:1023px){
+    :root{
+		--title-90:8vw;
+        --title-20:19px;
+        --title-19:18px;
+        --title-18:17px;
+        --title-17:16px;
+        --title-16:15px;
+        --title-15:14px;
+        --title-14:13px;
+    }
+}
+@media (max-width:860px){
+    :root{
+        --radius-40:30px;
+        --radius-30:20px;
+        --radius-20:15px;
+        --radius-16:12px;
+        --radius-15:11px;
+        --radius-14:10px;
+        --radius-10:7px;
+        --shadow-03:0 0 35px rgba(52, 123, 247, 0.10);
+        --title-20:18px;
+        --title-19:17px;
+        --title-18:16px;
+        --title-17:15px;
+        --title-16:14px;
+        --title-15:13px;
+        --title-14:12px;
+    }
+}
+@media (max-width:640px){
+    :root{
+        --shadow-01:0 0 15px rgba(41, 86, 234, 0.10);
+        --shadow-02:9px 5px 27px rgba(21, 95, 205, 0.15);
+        --shadow-03:0 0 25px rgba(52, 123, 247, 0.10);
+        --shadow-04:5px 5px 15px rgba(0, 0, 0, 0.15);
+        --radius-40:20px;
+        --radius-30:15px;
+        --radius-20:10px;
+        --radius-16:8px;
+        --radius-15:7.5px;
+        --radius-14:7px;
+        --radius-10:5px;
+        --radius-06:3px;
+        --radius-04:2px;
+		--title-90:9vw;
+        --title-20:17px;
+        --title-19:16px;
+        --title-18:15px;
+        --title-17:14px;
+        --title-16:13px;
+        --title-15:12px;
+    }
+}
+@media (max-width:479px){
+    :root{
+        --title-20:16px;
+        --title-19:15px;
+        --title-18:14px;
+        --title-17:13px;
+    }
+}

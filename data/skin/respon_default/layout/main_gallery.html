@@ -1,0 +1,26 @@
+<!--{ ? gallery_info['mainview'] == 'y' }-->
+<ul class="swiper-wrapper">
+	<!--{ ? isset(gallery_list['board_list']) }-->
+	<!--{ @ gallery_list['board_list'] }-->
+	<!--{ ? .display_read == 'y'}-->
+	<li class="swiper-slide">
+		<!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" alt="{.title}"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" alt="{.title}"><!--{ / }--></a>
+		<div class="thumb">
+			<!--{ ? .preface }--><div class="pre" title="{.preface}"><span>{.preface}</span></div><!--{ / }-->
+			<div class="img">
+				<img src="{C._UPLOAD}/board/{.upload_path}/{ .board_file.thumbnail[0]['fname'] }" alt="{.title}" onerror="this.src='../../respon_default/images/common/noimg.gif'">	
+			</div>
+		</div>
+		<div class="txt">
+			<strong class="title">{.title}</strong>
+			<p class="des">{=strip_tags(htmlspecialchars_decode(.content))}</p>
+			<p class="date">{=date("Y.m.d", strtotime(.regdt_date))}</p>
+		</div>
+	</li>
+	<!--{ / }-->
+	<!--{ / }-->
+	<!--{ : }-->
+	<li>게시글이 없습니다.</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }--> 

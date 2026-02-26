@@ -1,0 +1,49 @@
+<!--{ ? video_info['mainview'] == 'y' }-->
+<ul class="video_list mainList">
+	<!--{ ? isset(video_list['board_list']) }-->
+	<!--{ @ video_list['board_list'] }-->
+	<li>
+		<!--{ ? .is_read == 's' }-->
+		<a href="/board/board_secret?code={.code}&no={.no}&page=view" alt="{.title}" data-video="{ .video_url }">
+		<!--{ : }-->
+		<a href="/board/board_view?code={.code}&no={.no}" alt="{.title}" data-video="{ .video_url }">
+		<!--{ / }-->
+			<div class="thumb">
+				<!--{ ? .video_thumbnail_url }-->
+				<img src="{.video_thumbnail_url}" alt="{.title}" onerror="this.src='../../images/common/noimg.gif'">
+				<!--{ : }-->
+				<img src="../../images/common/noimg.gif" onerror="this.src='../../images/common/noimg.gif'" alt="no image">
+				<!--{ / }-->
+			</div>
+			<div class="txt_info">
+				<div class="title">{.title}</div>
+				<div class="sub"><p>{=strip_tags(htmlspecialchars_decode(.content))}</p></div>
+			</div>
+		</a>
+	</li>
+	<!--{ / }-->
+	<!--{ : }-->
+	<li>게시글이 없습니다.</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }-->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".video_list > li a").on("click", function(e) {
+		e.preventDefault();
+		var video = $(this).data("video");
+		var regexp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+		var match = video.match(regexp);
+		if(match[2].length == 11) {
+			$("#viddd").attr("src", "https://www.youtube.com/embed/" + match[2]);
+			$(".layer_dim, .video_layer").addClass("on");
+		}
+		return false;
+	});
+	$(".btn_closed").on("click", function() {
+		$(".layer_dim, .video_layer").removeClass("on");
+		$("#video").attr("src", "");
+	});
+});
+</script>

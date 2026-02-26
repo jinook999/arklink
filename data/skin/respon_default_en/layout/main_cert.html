@@ -1,0 +1,60 @@
+<!--{ ? cert_info['mainview'] == 'y' }-->
+<!-- <div class="img_box" data-aos="fade-up">
+	<ul>
+		<li class="on" id="award01">
+			<div class="img"><img src="./images/skin/main_award01.png" alt="main_award01"></div>
+			<p>디지털 이노베이션 IT/보안 부문 대상</p>
+		</li>
+		<li id="award02">
+			<div class="img"><img src="./images/skin/main_award02.png" alt="main_award02"></div>
+			<p>한국을 이끄는 혁신 리더 경영혁신 부문</p>
+		</li>
+		<li id="award03">
+			<div class="img"><img src="./images/skin/main_award03.png" alt="main_award03"></div>
+			<p>KBS N 브랜드 어워즈 디지털 보안 및 몸캠피싱 해결 부문</p>
+		</li>
+		<li id="award04">
+			<div class="img"><img src="./images/skin/main_award04.png" alt="main_award04"></div>
+			<p>2025 혁신리더대상 국회의원 표창장 수상</p>
+		</li>
+	</ul>
+</div>		
+<ul class="list ver_pc" data-aos="fade-up">
+	<li class="on" data-tab="award01"><span>디지털 이노베이션 IT/보안 부문 대상</span></li>
+	<li data-tab="award02"><span>한국을 이끄는 혁신 리더 경영혁신 부문</span></li>
+	<li data-tab="award03"><span>KBS N 브랜드 어워즈 디지털 보안 및 몸캠피싱 해결 부문</span></li>
+	<li data-tab="award04"><span>2025 혁신리더대상 국회의원 표창장 수상</span></li>
+</ul>
+<div class="list_container ver_m swiper-container" data-aos="fade-up">
+	<ul class="list swiper-wrapper">
+		<li class="on" data-tab="award01"><span>디지털 이노베이션 IT/보안 부문 대상</span></li>
+		<li data-tab="award02"><span>한국을 이끄는 혁신 리더 경영혁신 부문</span></li>
+		<li data-tab="award03"><span>KBS N 브랜드 어워즈 디지털 보안 및 몸캠피싱 해결 부문</span></li>
+		<li data-tab="award04"><span>2025 혁신리더대상 국회의원 표창장 수상</span></li>
+	</ul>	
+</div> -->
+<ul class="swiper-wrapper">
+	<!--{ ? isset(cert_list['board_list']) }-->
+	<!--{ @ cert_list['board_list'] }-->
+	<!--{ ? .display_read == 'y'}-->
+	<li class="swiper-slide">
+		<!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" alt="{.title}"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" alt="{.title}"><!--{ / }--></a>
+		<div class="thumb">
+			<!--{ ? .preface }--><div class="pre" title="{.preface}"><span>{.preface}</span></div><!--{ / }-->
+			<div class="img">
+				<img src="{C._UPLOAD}/board/{.upload_path}/{ .board_file.thumbnail[0]['fname'] }" alt="{.title}" onerror="this.src='../../respon_default/images/common/noimg.gif'">	
+			</div>
+		</div>
+		<div class="txt">
+			<strong class="title">{.title}</strong>
+			<p class="des">{=strip_tags(htmlspecialchars_decode(.content))}</p>
+			<p class="date">{=date("Y.m.d", strtotime(.regdt_date))}</p>
+		</div>
+	</li>
+	<!--{ / }-->
+	<!--{ / }-->
+	<!--{ : }-->
+	<li>게시글이 없습니다.</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }--> 

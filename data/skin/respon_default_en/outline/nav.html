@@ -1,0 +1,265 @@
+<div id="header" class="">
+	<div class="header_cont">
+		<h1 class="hd_logo"><a href="/en" title="Logo">{cfg_site.compName}</a></h1>
+		<ul class="hd_lnb">
+			<!--{ ? isset(cfg_menu)}-->
+			<!--{ @ cfg_menu}-->
+			<!--{ ? .use == 'y'}-->
+			<li class="{? (.index_+1) == '1' }infoLocation{/}">
+				<a href="{.url}" class="">{.name}</a>
+			</li>
+			<!--{ / }-->
+			<!--{ / }-->
+			<!--{ / }-->
+		</ul>
+		<div class="hd_right">
+			<ul class="hd_lang">
+				<li><a href="/">kor</a></li>
+				<li><a href="/en">eng</a></li>
+				<li><a href="/cn">chn</a></li>
+				<li><a href="/jp">jpn</a></li>
+			</ul>
+			<ul class="hd_gnb">
+				<!--{ ? defined('_IS_LOGIN') }-->
+				<li><a href="/en/member/logout">logout</a></li>
+				<li><a href="/en/member/mypage">modify</a></li>
+				<!--{ : }-->
+				<li><a href="/en/member/login">login</a></li> 
+				<li><a href="/en/member/join_agreement">join</a></li>
+				<!--{ / }-->
+			</ul>
+			<a class="menu-trigger" href="#">
+				<span></span>
+				<span></span>
+				<span></span>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="aside_bg dn"></div>
+<aside id="aside">
+	<div class="aside_box for_pc">
+		<div class="btn_aside_close"><a class="menu-trigger2 active-1" href="#"><span></span><span></span><span></span></a></div>
+		<h1 class="aside_logo"><a href="/en">{cfg_site['title']}</a></h1>
+		<!--{ ? isset(cfg_menu)}-->
+		<ul class="aside_menu">
+			<!--{ @ cfg_menu}-->
+			<!--{ ? .use == 'y'}-->
+			<li class="dep1_li"><a href="{.url}" class="dep1_a">{.name}</a>
+				<!--{ ? isset(.menu) }-->
+				<ul class="dep2">
+					<!--{ @ .menu}-->
+					<!--{ ? ..use == 'y'}-->
+					<li><a href="{..url}">{..name}</a></li>
+					<!--{ / }-->
+					<!--{ / }-->
+				</ul>
+				<!--{ / }-->
+			</li>
+			<!--{ / }-->
+			<!--{ / }-->
+		</ul><!--slidemenu-->
+		<!--{ / }-->
+		<div class="aside_btm">
+			<div class="aside_call">{cfg_site.compPhone}</div>
+		</div><!--/ gnb -->
+	</div>
+	<div class="aside_box for_m">
+		<div class="btn_aside_close"><a class="menu-trigger2 active-1" href="#"><span></span><span></span><span></span></a></div>
+		<h1 class="aside_logo"><a href="/en">{cfg_site['title']}</a></h1>
+		<ul class="aside_gnb">
+			<!--{ ? defined('_IS_LOGIN') }-->
+			<li class=""><a href="/en/member/logout" class="">LOGOUT</a></li>
+			<!--{ : }-->
+			<li><a href="/en/member/login">LOGIN</a></li>
+			<li><a href="/en/member/join_agreement">JOIN</a></li>
+			<!--{ / }-->
+			<li class=""><a href="/en/member/mypage" class="">MODIFY</a></li>
+		</ul><!--/ gnb -->
+		{ ? multilingual }
+		<ul class="aside_lang">
+			<!--{ @ cfg_site['languagelink'] }-->
+			<li><a href="/?language={.key_}">{ .key_ }</a></li>
+			<!--{ / }-->
+		</ul>
+		{ / }
+		<div class="aside_search">
+			<form name="" action="/goods/goods_search">
+				<fieldset>
+				<legend>카테고리 상품 검색</legend>
+				<label for="search" class="dn">검색어 입력박스</label>
+				<input id="search" type="text" name="search" placeholder="" class="search_input">
+				<button type="submit" class="search_enter"></button>
+				</fieldset>
+			</form>
+		</div><!--/ aside_search -->
+		<div class="aside_tab_wrap">
+			<ul class="aside_tab">
+				<li class="on"><span>category</span></li>
+				<li><span>product</span></li>
+			</ul>
+			<div class="aside_tab0">
+				<!--{ ? isset(cfg_menu)}-->
+				<ul class="slide menu slidemenu">
+					<!--{ @ cfg_menu}-->
+						<!--{? .use == 'y'}-->
+						<!--{ ? isset(.menu) }-->
+						<li class="group_tit dep1_li"><a href="{.url}" class="dep1_a">{.name}</a>
+						<ul class="depth2 depth">
+							<li><a href="{.url}">전체보기</a></li>
+							<!--{ @ .menu}-->
+								<!--{? ..use == 'y'}-->
+								<!--{? isset(..menu)}-->
+								<li class="group_tit"><a href="{..url}">{..name}</a>
+								<ul class="depth3 depth">
+										<li><a href="{..url}">전체보기</a></li>
+									<!--{ @ ..menu}-->
+										<!--{? ...use == 'y'}-->
+										<!--{ ? isset(...menu) }-->
+										<li class="group_tit"><a href="{...url}">{...name}</a>
+										<ul class="depth4 depth">
+												<li><a href="{...url}">전체보기</a></li>
+											<!--{ @ ...menu}-->
+												<!--{? ....use == 'y'}-->
+												<li><a href="{....url}">{....name}</a></li>
+												<!--{ / }-->
+											<!--{ / }-->
+										</ul>
+										<!--{ / }-->
+										</li>
+										<!--{ / }-->
+									<!--{ / }-->
+								</ul>
+								<!--{ : }-->
+								<li class=""><a href="{..url}">{..name}</a><!-- 하위메뉴 없을 때 -->
+								<!--{ / }-->
+								</li>
+								<!--{ / }-->
+							<!--{ / }-->
+						</ul>
+						<!--{ : }-->
+						<li class="dep1_li"><a href="{.url}" class="dep1_a">{.name}</a><!-- 하위메뉴 없을 때 -->
+						<!--{ / }-->
+						</li>
+						<!--{ / }-->
+					<!--{ / }-->
+				</ul>
+				<!--{ / }-->
+			</div>
+			<div class="aside_tab1">
+				<ul class="slide menu slidemenu">
+				<!--{ ? isset(categories['top_category_list'])}-->
+					<!--{ @ categories['top_category_list']}-->
+					<li class="group_tit dep1_li">
+						<a href="/goods/goods_list?cate={.category}&display_type={display_type}" class="dep1_a">
+						<!--{ ? .multi_category }-->
+						{.multi_category}
+						<!--{ : }-->
+						{.categorynm}
+						<!--{ / }-->
+						</a>
+					</li>
+					<!--{ / }-->
+				<!--{ / }-->
+				</ul>
+			</div>
+		</div>
+	</div>
+</aside><!-- #aside 상단영역 -->
+
+<script>
+$(document).ready(function(){
+
+	var itval;
+
+	// aside close 
+		function aside_close() {
+			$('#aside').removeClass('on');
+			$('.aside_bg').removeClass('on');
+			clearTimeout(itval);
+			itval = setTimeout(function () {
+				$('.aside_bg').addClass('dn');
+				$('body').css({'overflow':'inherit','height':'auto'});
+			}, 800);
+		}
+	
+	// aside open
+		function aside_open() {
+			$('#aside').addClass('on');
+			$('.aside_bg').removeClass('dn');
+			clearTimeout(itval);
+			$('body').css({'overflow':'hidden','height':'100%'});
+			itval = setTimeout(function () {
+				$('.aside_bg').addClass('on');
+			}, 20);
+		}
+	
+	// aside on/off 
+		$('.menu-trigger, .btn_aside_close').each(function(index){
+			$(this).on('click', function(e){
+				e.preventDefault();
+				$('.menu-trigger').toggleClass('active-1');
+				if ($('#aside').hasClass('on')) {
+					aside_close();
+				} else {
+					aside_open();
+				}
+			});
+			$('.aside_bg').click(function(){
+				$('.menu-trigger').removeClass('active-1');
+				aside_close();
+			});
+		});
+		
+	// aside category on/off
+		$("li.group_tit a").on("click", function(e) {
+			//e.preventDefault();
+			$(this).parent().siblings().children().next().slideUp(function() {
+				$(this).siblings("a").removeClass("on");
+			});
+			$(this).addClass("on");
+			$(this).siblings("ul").slideToggle(function() {
+				if($(this).is(":visible") == false) $(this).siblings("a").removeClass("on");
+			});
+			
+			if($(this).parent().closest('li').find('ul').children().length == 0) {
+				return true;	
+			} else {
+				return false;
+			}	
+		});
+
+	// aside tab 
+		var tabmenu_idx = 0;
+		$('.aside_tab_wrap .aside_tab li').on({
+			'click':function(){
+				var idx = $(this).index();
+				if(tabmenu_idx == idx) return; 
+				tabmenu_idx = idx;
+				$('.aside_tab_wrap .aside_tab li').removeClass('on');
+				$(this).addClass('on');
+				$('.aside_tab_wrap .aside_tab0, .aside_tab1').hide();
+				$('.aside_tab_wrap .aside_tab'+idx).fadeIn('fast', function(){
+				});
+				
+				
+			}
+		});
+
+
+	// container top padding 
+		var hd_h = $('#wrap #header').outerHeight();
+		$('#wrap #container').css({'padding-top':hd_h});
+	
+	// header animate 
+		$('#wrap #header').addClass('hd_move');
+
+	$(window).resize(function() {
+		// 컨텐츠 상단 padding 
+			var hd_h = $('#wrap #header').outerHeight();
+			$('#wrap #container').css({'padding-top':hd_h});
+	});
+
+
+});
+</script>

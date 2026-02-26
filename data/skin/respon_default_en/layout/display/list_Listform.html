@@ -1,0 +1,20 @@
+<!--{ ? isset(display_main_data['display_main_list']) }-->
+<!-- 리스트타입 -->
+display name : { display_main_data.display_main.theme_name }<br/>display description : { display_main_data.display_main.theme_description }
+<div class="list_cont list_Listform">
+	<ul>
+		<!--{ @ display_main_data['display_main_list'] }-->
+		<li>
+			<a href="/goods/goods_view?no={.no}">
+				<div class="thumb"><img src="/upload/goods/img2/{.img2}" onerror="this.src='../../images/board/noimg.gif'" alt="{.name}"></div>
+				<div class="info">
+					<p class="name">{.name}</em>
+				</div>
+			</a>
+		</li>
+		<!--{ / }-->
+	</ul>
+</div><!-- .list_Listform -->
+<!--{ : }-->
+<div class="list_no"><div class="no_data">There are no products.</div></div>
+<!--{ / }-->

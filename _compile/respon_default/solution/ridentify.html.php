@@ -1,0 +1,53 @@
+<?php /* Template_ 2.2.8 2025/09/18 17:19:44 /gcsd33_arklink/www/data/skin/respon_default/solution/ridentify.html 000003089 */ ?>
+<?php $this->print_("header",$TPL_SCP,1);?>
+
+<style>
+    #container { padding-bottom: 0; }
+    #contents_wrap { width: 100%; max-width: 100%; }
+</style>
+<div class="sub_content sub_ridentify sub_solution">
+    <div class="w_custom">
+        <div class="flex_des">
+            <div class="img" data-aos="fade-up">
+                <img src="/data/skin/respon_default/images/sub/img_ridentify.gif" alt="ridentify 애니메이션">
+            </div>
+            <div class="info_wrap" data-aos="fade-up">
+                <div class="ico">
+                    <img src="/data/skin/respon_default/images/skin/main_solution03.svg" alt="solution03">
+                </div>
+                <p>사회 인식 조정을 통한 인격 보호 솔루션</p>
+                <h3>Ridentify</h3>
+                <span>자체개발 안면인식 기술을 통해 타인의 시선을 재규정, 재정의하여 <br class="del">
+                    피해자에 대한 부적절한 시선으로부터 의뢰인의 인격을 보호합니다.</span>
+            </div>
+        </div>
+    </div>
+    <div class="chk_con">
+        <div class="w_custom">
+            <ul class="chk_list">
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>어떻게 작동하나요?</dt>
+                        <dd>Ridentify는 안면인식 기술을 활용해 의뢰인에 대한 타인의 인지가 달라지도록 유도하여 의뢰인의 존엄성과 인격, 그리고 일상을 보호합니다. <br>
+                            사회통념상 부주의한 행동으로 인한 피해가 아닌 무차별적으로 갑작스럽게 피해를 입은 것으로 인식되도록 유도합니다.</dd>
+                    </dl>
+                </li>
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>왜 필요한가요?</dt>
+                        <dd>딥페이크 범죄, 몰래카메라 유포, SNS 사진 악용 등 얼굴을 기반으로 한 디지털 피해는 점점 더 교묘해져가고 있습니다. <br>
+                            Ridentify는 피해를 입은 의뢰인에 대한 타인의 인지가 달라지도록 유도하여 의뢰인의 존엄성과 인격, 그리고 일상을 보호합니다.</dd>
+                    </dl>
+                </li>
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>인격과 존엄성을 보호하기 위해</dt>
+                        <dd>Ridentify는 단순한 프라이버시 보호가 아니라, 인간 관계에서의 존엄과 인격을 지켜주는 것에 목적이 있습니다. <br>
+                            누구도 함부로 나를 판단하거나 소비하지 못하도록, 당신의 이미지에 새로운 정의를 부여하여 인격을 보호합니다.</dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<?php $this->print_("footer",$TPL_SCP,1);?>

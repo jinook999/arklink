@@ -1,0 +1,17 @@
+<!--{ ? inquiry_info['mainview'] == 'y' }-->
+<ul class="swiper-wrapper">
+	<!--{ ? isset(inquiry_list['board_list']) }-->
+	<!--{ @ inquiry_list['board_list'] }-->
+	<li class="swiper-slide">
+		<!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" alt="{.title}"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" alt="{.title}"><!--{ / }--></a>
+		<div class="txt">
+			<strong>{.title}</strong>
+			<p>{=date("y.m.d", strtotime(.regdt_date))} </p>
+		</div>
+	</li>
+	<!--{ / }-->
+	<!--{ : }-->
+	<li>게시글이 없습니다.</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }--> 

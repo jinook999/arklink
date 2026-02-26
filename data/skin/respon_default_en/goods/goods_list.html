@@ -1,0 +1,43 @@
+{#header}
+<!-- <script type="text/javascript" src="/lib/js/common_goods.js"></script> -->
+<script type="text/javascript" src="{js}/js/common_goods.js"></script>
+<script type="text/javascript">
+	var Common_Goods = new common_goods({
+		is_login : "{=defined('_IS_LOGIN')}"
+	});
+</script>
+
+<div class="sub_content">
+	<!--{ ? isset(category_list['same_category_list']) || isset(category_list['low_category_list'])}-->
+	<div class="sub_cate_wrap">
+		<ul class="sub_cate clear lower-category">
+			<!--{ @ category_list['low_category_list']}-->
+			<li class="menu0{.index_+1} <!--{ ? category_info['category'] == .category }-->on<!--{ / }-->">
+				<a href="goods_list?cate={.category}&display_type={display_type}"><!--{ ? .multi_category }-->{.multi_category}<!--{ : }-->{.categorynm}<!--{ / }--></a>
+			</li>
+			<!--{ : }-->
+				<!--{ @ category_list['same_category_list']}-->
+			<li class="menu0{.index_+1} <!--{ ? category_info['category'] == .category }-->on<!--{ / }-->">
+				<a href="goods_list?cate={.category}&display_type={display_type}"><!--{ ? .multi_category }-->{.multi_category}<!--{ : }-->{.categorynm}<!--{ / }--></a>
+			</li>
+				<!--{ / }-->
+			<!--{ / }-->
+		</ul>
+	</div>
+	<!--{ / }-->
+	<div class="sub_list">
+		<div class="list_array">
+			<div class="list_count">There are total of <span>{goods_list['total_rows']}</span>products.</div>
+			<ul>
+				<li class="typeA <!--{ ? display_type == 'gallery' }-->on<!--{ / }-->" onclick="Common_Goods.goods_list_type('gallery');">Gallery-type</li>
+				<li class="typeB <!--{ ? !display_type || display_type == 'list' }-->on<!--{ / }-->" onclick="Common_Goods.goods_list_type('list');">List-type</li>
+			</ul>
+			{=form_open(form_attribute['action'], form_attribute['attribute'], form_attribute['hidden'])}{=form_close()}
+		</div><!-- .list_array -->
+		<div class="list">
+		{#goods_display}
+		</div><!-- .list -->
+	</div><!--sub_list-->
+	{goods_list["pagination"]}
+</div><!-- .sub_content -->
+{#footer}

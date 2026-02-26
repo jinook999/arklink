@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>{cfg_site['title']}</title>
+<link rel="shortcut icon" href="{C._UPLOAD +'/conf/'+ cfg_site['favicon']}" type="image/x-icon" />
+<link rel="icon" href="{=C._UPLOAD +'/conf/'+ cfg_site['favicon']}" type="image/x-icon" />
+
+<meta charset="UTF-8">
+<meta name="title" content="{cfg_site['title']}" />
+<meta name="keywords" content="{ seo['keywords'] }">
+<meta name="description" content="{ seo['description'] }">
+<meta name="author" content="{ seo['author'] }">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<meta name="format-detection" content="telephone=no" /><!--애플전화번호링크자동설정해제-->
+<meta property="og:title" content="{ seo['og_title'] }" />
+<meta property="og:description" content="{ seo['description'] }" />
+<meta property="og:image" content="<!--{ ? seo['og_image'] }-->{ seo['og_image'] }<!--{ / }-->" />
+<meta property="twitter:title" content="{ seo['og_title'] }" />
+<meta property="twitter:description" content="{ seo['description'] }" />
+<meta property="twitter:image" content="<!--{ ? seo['og_image'] }-->{ seo['og_image'] }<!--{ / }-->" />
+
+<link rel="stylesheet" type="text/css" href="/lib/css/common.css" />
+<link rel="stylesheet" type="text/css" href="../css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../css/aos.css" />
+<link rel="stylesheet" type="text/css" href="../css/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/common.css" /><!-- 서브 공통 css ｜ custom 금지 css -->
+<link rel="stylesheet" type="text/css" href="../css/sub.css" /><!-- 서브 공통 custom 요소 css ｜ 개별페이지 css -->
+<link rel="stylesheet" type="text/css" href="../css/skin.css" /><!-- 스킨 css ｜ 상하단·메인 -->
+
+{*
+  * 루트 lib/js
+  *}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/lib/js/jquery.validate.min.js"></script>
+<script src="/lib/js/common.js"></script>
+<script src="/lib/js/jquery-ui.min.js"></script>
+<script src="/lib/js/moment-with-locales.min.js"></script>
+<script src="{ ? defined('_IS_SSL') }//ssl.daumcdn.net/dmaps{ : }//dmaps.daum.net{ / }/map_js_init/postcode.v2.js"></script>
+{*
+  * 스킨 파일내 js
+  *}
+<link rel="stylesheet" type="text/css" href="../css/slick.css">
+<script src="{js}/js/slick.js"></script>
+<script src="{js}/js/aos.js"></script>
+<script src="{js}/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script type="text/javascript">
+	var CURRENT_DATE = "{C.CURRENT_DATE}";
+	$(function() {
+		$.validator.setDefaults({
+			onkeyup: false,
+			onclick: false,
+			onfocusout: false,
+			ignore : '.ignore',
+			showErrors: function(errorMap, errorList) {
+				if(errorList.length < 1) {
+					return;
+				}
+				alert(errorList[0].message);
+				errorList[0].element.focus();
+			}
+		});
+
+		//데이터 피커
+		$(".startdate").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			showButtonPanel: true,
+			showMonthAfterYear: true,
+			dateFormat: "yy-mm-dd",
+			monthNames : ['1Month', 'February', 'March', 'April', 'May', 'June', 'July', 'August', '9Month', 'October', 'November', 'December'],
+			monthNamesShort : ['1Month', 'February', 'March', 'April', 'May', 'June', 'July', 'August', '9Month', 'October', 'November', 'December'],
+			dayNames : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat'],
+			dayNamesShort : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat'],
+			dayNamesMin : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat'],
+			onClose : function (selectedDate){
+				$(".enddate").datepicker( 'option', 'minDate', selectedDate );
+			}
+		});
+
+		$(".enddate").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			showButtonPanel: true,
+			showMonthAfterYear: true,
+			dateFormat: "yy-mm-dd",
+			monthNames : ['1Month', 'February', 'March', 'April', 'May', 'June', 'July', 'August', '9Month', 'October', 'November', 'December'],
+			monthNamesShort : ['1Month', 'February', 'March', 'April', 'May', 'June', 'July', 'August', '9Month', 'October', 'November', 'December'],
+			dayNames : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat'],
+			dayNamesShort : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat'],
+			dayNamesMin : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat'],
+			onClose : function(selectedDate) {
+				$(".startdate").datepicker( "option", "maxDate", selectedDate );
+			}
+		});
+
+		$(".datepicker").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			showButtonPanel: true,
+			showMonthAfterYear: true,
+			dateFormat: "yy-mm-dd",
+			monthNames : ['1Month', 'February', 'March', 'April', 'May', 'June', 'July', 'August', '9Month', 'October', 'November', 'December'],
+			monthNamesShort : ['1Month', 'February', 'March', 'April', 'May', 'June', 'July', 'August', '9Month', 'October', 'November', 'December'],
+			dayNames : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat'],
+			dayNamesShort : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat'],
+			dayNamesMin : ['Sun', 'Month', 'Tue', 'Wed', 'Throat', 'Fri', 'Sat']
+		});
+	});
+</script>
+<link rel="stylesheet" type="text/css" href="../css/cssreset-context-min.css"><!-- 에디터 css -->
+
+</head>
+<body>
+<div class="skip_nav">
+	<a href="#header" class="skip_nav_link">Top menu shortcut</a>
+	<a href="#content" class="skip_nav_link">Go to Body</a>
+	<a href="#sub_nav" class="skip_nav_link">Body Submenu Shortcut</a>
+	<a href="#footer" class="skip_nav_link">Bottom</a>
+</div><!-- 웹접근성용 바로가기 링크 모음 -->
+<article id="wrap" class="clear { ? CI->uri->rsegments[1] == 'board' }sub_board sub_{board_info['code']}{ : CI->uri->rsegments[1] != 'index_' } sub_{CI->uri->rsegments[1]} {CI->uri->rsegments[1]}_{CI->uri->rsegments[2]} {:}main_index{/}">
+	<!--{ ? header_hidden != 'y' }-->
+	{#nav}
+	<!--{ / }-->
+		
+	<!-- ** layout정리190513  ** -->
+	<article id="container" class="clear">
+		<div id="contents_wrap" class="clear">
+			<!-- 측면 시작 #aside -->
+				<!--{ ? CI->uri->rsegments[1] != "index_" }-->
+				<!--{ ? CI->uri->uri_string != "goods/goods_search" }-->
+				<div id="side_box" class="dn">
+					<!--{ ? CI->uri->rsegments[1] == "member" || CI->uri->rsegments[1] == "service" }-->
+					{#left_member}
+					<!--{ : CI->uri->rsegments[1] == "goods" }-->
+					{#left_goods}
+					<!--{ : }-->
+					{#left_bbs}
+					<!--{ / }-->
+				</div><!-- #aside -->
+				<!--{ / }-->
+				<!--{ / }-->
+			<!-- 측면 끝 #aside -->
+			<div id="contents_box">
+				<!-- #네비게이션 시작 .nav_wrap -->
+					<!--{ ? CI->uri->rsegments[1] != "index_" }-->
+					<!-- outline/header -->
+					<div class="nav_wrap">
+						<div class="nav_box">
+							<h2><!--{ ? page_title }-->{ page_title }<!--{ : }-->{ current_page_name }<!--{ / }--></h2>
+							<!--{ ? CI->uri->rsegments[1] != "goods" }-->
+							<p>
+								<!--{ ? CI->uri->rsegments[1] == "company" }-->
+									This is { current_page_name } page.
+								<!--{ : CI->uri->rsegments[1] == "board" }-->
+									This is { board_info['name'] } board.
+								<!--{ : CI->uri->uri_string == "member/login" }-->
+									If you are not a member, please use it after signing up.
+								<!--{ : CI->uri->uri_string == "member/find_id" }-->
+									Did you forget your ID? Please enter the information entered at the time of signing up.
+								<!--{ : CI->uri->uri_string == "member/find_pw" }-->
+									Did you forget your password? Please enter the information entered at the time of signing up.
+								<!--{ : CI->uri->uri_string == "service/usepolicy" }-->
+									This is the privacy policy page.
+								<!--{ : CI->uri->uri_string == "service/agreement" }-->
+									This is the Terms and Conditions page.
+								<!--{ / }-->
+							</p>
+							<!--{ / }-->
+							<ul>
+								<li><a href="/en" class="home">Home</a> ></li>
+								<!--{ ? CI->uri->rsegments[1] !== "member" }-->
+									<!--{ ? CI->uri->rsegments[1] !== "service" }-->
+									<!--{ ? lm.menu }-->
+									<li><a href="<!--{ @ lm.menu }--><!--{ ? .key_ == '0' }-->{.url}<!--{ / }--><!--{ / }-->">{ lm.name }</a> > </li>
+									<!--{ / }-->
+									<!--{ / }-->
+								<!--{ / }-->
+								<li>
+									<strong>
+									<!--{ ? CI->uri->rsegments[1] == "goods" }-->
+										<!--{ ? CI->uri->uri_string !== "goods/goods_search" }-->
+										<div class="navi_select">
+											<strong class="navi_tit">{category_info['categorynm']}<!-- 카테고리명 노출 --></strong>
+											<ul>
+												<!--{ @ category_list['top_category_list']}-->
+												<li class="">
+													<a href="/en/goods/goods_list?cate={.category}&display_type={display_type}">
+													<!--{ ? .multi_category }-->
+													{.multi_category}
+													<!--{ : }-->
+													{.categorynm}
+													<!--{ / }-->
+													</a>
+												</li>
+												<!--{ / }-->
+											</ul>
+										</div>
+										<!--{ / }-->
+									<!--{ : page_title }-->
+									{ page_title }
+									<!--{ : }-->
+									{ current_page_name }
+									<!--{ / }-->
+									</strong>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--{ / }-->
+				<!-- #네비게이션 끝 .nav_wrap -->
+
+				<!-- 컨텐츠 시작 #contents -->
+				<div id="content" class="clear ">
+					<!-- #공통 상단요소 시작 -->
+					<!--{ ? CI->uri->rsegments[1] == "board" }-->
+						{#bbs_top}
+					<!--{ : CI->uri->rsegments[1] == "goods" }-->
+						<!--{ ? CI->uri->uri_string == "goods/goods_list" || CI->uri->uri_string == "goods/goods_view" }-->
+						<!--{ : CI->uri->uri_string == "goods/goods_search" }-->
+						<!--{ / }-->
+					<!--{ / }-->
+					<!-- #공통 상단요소 끝 -->
+
+					
+
+					<!-- #서브 컨텐츠 시작 -->
+
+<!-- ** layout정리190513  ** -->

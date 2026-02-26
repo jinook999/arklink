@@ -1,0 +1,60 @@
+{#header}
+<script type="text/javascript">
+$(function() {
+	$("form[name='frm']").validate({
+		submitHandler: function(form) {
+			form.submit();
+		}, rules : {
+			old_password : {required : true},
+			password : {required : true, rangelength : [10, 16], equalTo : "#password2", passwordValid : true},
+			password2 : {required : true, rangelength : [10, 16], passwordValid : true}
+		}, messages : {
+			old_password : {required : "{memberField['name'][cfg_site['language']]['password']}를 입력해주세요."},
+			password : {required : "새 {memberField['name'][cfg_site['language']]['password']}를 입력해주세요.", rangelength: $.validator.format("{memberField['name'][cfg_site['language']]['password']}는 {0}~{1}자입니다."), equalTo : "새 {memberField['name'][cfg_site['language']]['password']}가 일치하지 않습니다.", passwordValid : "{memberField['name'][cfg_site['language']]['password']}는 영어/숫자/특수문자를 2종류 이상 혼용하여 사용해야 합니다."},
+			password2 : {required : "새 {memberField['name'][cfg_site['language']]['password']} 확인을 입력해주세요.", rangelength: $.validator.format("{memberField['name'][cfg_site['language']]['password']}는 {0}~{1}자입니다."), passwordValid : "{memberField['name'][cfg_site['language']]['password']}는 영어/숫자/특수문자를 2종류 이상 혼용하여 사용해야 합니다."}
+		}
+	});
+})
+
+function change_chk(form) {
+	if(!$(form).valid()){
+		return false;
+	}
+	form.submit();
+	return true;
+}
+</script>
+<div class="sub_content">
+	<h2 class="bbs_write_title">Change Member Password</h2>
+	<div class="sub_agree change_pw">
+		{=form_open('en/member/change_pw', 'name=frm')}
+		<table class="bbs_write" summary="비밀번호 변경" style="">
+			<caption>Change Member Password</caption>
+			<colgroup>
+				<col width="15%">
+				<col >
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row">Password</th>
+					<td><input type="password" id="changepw1" name="old_password" value=""><label for="changepw1" class="dn">Password</label></td>
+				</tr>
+				<tr>
+					<th scope="row">New Password</th>
+					<td><input type="password" id="changepw2" name="password" value=""><label for="changepw2" class="dn">New Password</label></td>
+				</tr>
+				<tr>
+					<th scope="row">Confirm New Password</th>
+					<td><input type="password" id="password2" name="password2" value=""><label for="changepw3" class="dn">Confirm New Password</label></td>
+				</tr>
+			</tbody>
+		</table><!-- .bbs_write -->
+		<p class="bbs_write_info">Please change your password for safe privacy.</p>
+		<div class="btn_wrap ta_center">
+			<button onclick="return change_chk(this.form);"><a href="javascript://" class="btn_point btn">OK</a></button>
+			<button onclick="location.href='mypage'"><a href="javascript://" class="btn btn_basic">Cancel</a></button>
+		</div><!--btn_center-->
+		{=form_close()}
+	 </div>
+</div><!--sub_content-->
+{#footer}

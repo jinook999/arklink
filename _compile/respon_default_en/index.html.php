@@ -1,0 +1,508 @@
+<?php /* Template_ 2.2.8 2025/06/25 09:01:07 /gcsd33_arklink/www/data/skin/respon_default_en/index.html 000018512 */ ?>
+<?php $this->print_("header",$TPL_SCP,1);?>
+
+<?php $this->print_("popup_open",$TPL_SCP,1);?>
+
+
+<style>
+#contents_wrap {width:100%;padding-left:0 !important;padding-right:0 !important;}
+#contents_wrap #contents_box {padding:0;}
+#wrap {padding-top:0;}
+</style>
+<!-- 메인 이미지 슬라이드 -->
+<div class="visual_wrapper" >
+	<div class="main_visual">
+		<div class="visual_ul">
+		</div>
+		<!-- 타입 A : 화살표, 프로그래스바, 페이지(1/3), play/pause --> 
+		<div class="visual_btn_wrap type_A">
+			<div class="control_box">
+				<button type="button" class="slick-prev slick-arrow prev">Previous</button>
+				<div class="play_btn_box">
+					<div id="slickBtn" class="slickBtn slickPause">pause</div>
+				</div>
+				<button type="button" class="slick-next slick-arrow next">Next</button>
+			</div>
+			<div class="slider-progress"><div class="progress"></div></div>
+				<div class="slideController">
+				<span class="slideCountItem"></span>
+				<span>&nbsp;/&nbsp;</span>
+				<span class="slideCountAll"></span>
+			</div>
+		</div>
+		<!-- 타입 B : 화살표, 도트, play/pause -->
+		<!-- <div class="arw_box type_B">
+			<button class="slick-arrow slick-prev prev">prev</button>
+			<button class="slick-arrow slick-next next">next</button>
+		</div>
+		<div class="visual_btn_wrap type_B">
+			<div class="play_btn_box">
+				<div id="slickBtn" class="slickBtn slickPause">pause</div>
+			</div>
+		</div> -->
+		<!-- 타입 C : 화살표, 도트, play/pause -->
+		<!-- <div class="arw_box type_C">
+			<button class="slick-arrow slick-prev prev">prev</button>
+			<button class="slick-arrow slick-next next">next</button>
+		</div>
+		<div class="visual_btn_wrap type_C">
+			<div class="play_btn_box">
+				<div id="slickBtn" class="slickBtn slickPause">pause</div>
+			</div>
+		</div> -->
+	</div>
+</div>
+<script type="text/javascript">
+	var confData = JSON.parse('<?php echo json_encode($TPL_VAR["main_image_slide"]["pc"][$TPL_VAR["lang"]])?>');
+		confData.files = confData.files || {};
+	$(window).resize(function() {
+		// 팝업 이벤트 호출
+<?php if(isset($TPL_VAR["popup_list"]['popup_list'])){?>
+			var winWidth = $(window).width();
+<?php if(is_array($TPL_R1=$TPL_VAR["popup_list"]['popup_list'])&&!empty($TPL_R1)){foreach($TPL_R1 as $TPL_V1){?>
+<?php if(get_cookie('popup_'.$TPL_V1["no"],true)!='y'){?>
+					var popupWidth = 0, popupHeight = 0, popupToppx = 0, popupLeftpx = 0;
+					var isMobile = false;
+					var agentInitial = '';
+<?php if($TPL_V1["popupform"]=="responsive"){?>
+						if(winWidth >= Number(<?php echo $TPL_V1["recognition_pc"]?>)){
+							popupWidth = Number(<?php echo $TPL_V1["width_responsive_pc"]?>);
+							popupHeight = Number(<?php echo $TPL_V1["height_responsive_pc"]?>);
+							popupToppx = Number(<?php echo $TPL_V1["toppx_responsive_pc"]?>);
+							popupLeftpx = Number(<?php echo $TPL_V1["leftpx_responsive_pc"]?>);
+							agentInitial = 'pc';
+						} else if(winWidth >= Number(<?php echo $TPL_V1["recognition_tablet"]?>)){
+							popupWidth = Number(<?php echo $TPL_V1["width_responsive_tablet"]?>);
+							popupHeight = Number(<?php echo $TPL_V1["height_responsive_tablet"]?>);
+							popupToppx = Number(<?php echo $TPL_V1["toppx_responsive_tablet"]?>);
+							popupLeftpx = Number(<?php echo $TPL_V1["leftpx_responsive_tablet"]?>);
+							agentInitial = 't';
+						}else {
+							popupWidth = Number(<?php echo $TPL_V1["width_responsive_mobile"]?>);
+							popupHeight = Number(<?php echo $TPL_V1["height_responsive_mobile"]?>);
+							popupToppx = Number(<?php echo $TPL_V1["toppx_responsive_mobile"]?>);
+							popupLeftpx = Number(<?php echo $TPL_V1["leftpx_responsive_mobile"]?>);
+							isMobile = true;
+							agentInitial = 'm';
+						}
+
+<?php if($TPL_V1["type"]=='1'){?>
+							if($('#popup_<?php echo $TPL_V1["no"]?>').length > 0){
+								var popupObj = $('#popup_<?php echo $TPL_V1["no"]?>');
+
+								if (isMobile){
+									if(popupObj.css('width') != popupWidth+'px'){
+										popupObj.css('width', popupWidth + '%');
+									}
+								}else{
+									if(popupObj.css('width') != popupWidth+'px'){
+										popupObj.css('width', popupWidth + 'px');
+									}
+								}
+
+								/*if (isMobile){	
+									if(popupObj.css('height') != popupHeight+'px'){
+									}
+								}else{
+									if(popupObj.css('height') != popupHeight+'px'){
+										popupObj.css('height', popupHeight + 'px');
+									}
+								}*/
+
+								if(popupObj.css('top') != popupToppx+'px'){
+									popupObj.css('top', popupToppx + 'px');
+								}
+
+								if (isMobile){
+									popupObj.css('left', '50%');
+									popupObj.css('height', 'auto');
+								}else{
+									if(popupObj.css('left') != popupLeftpx+'px'){
+										popupObj.css('left', popupLeftpx + 'px');
+									}
+								}
+
+								if (popupObj.hasClass('layer_pc')){
+									popupObj.removeClass('layer_pc');
+								}else if(popupObj.hasClass('layer_t')){
+									popupObj.removeClass('layer_t');
+								}else if(popupObj.hasClass('layer_m')){
+									popupObj.removeClass('layer_m');
+								}
+								popupObj.addClass('layer_'+agentInitial);
+							}
+<?php }else{?>
+							var popup_options = 'width='+popupWidth+',height='+popupHeight+',top='+popupToppx+',left='+popupLeftpx+',status=no,resizable=no,scrollbars=yes'; 
+							var popup_html = '<?php echo addslashes(htmlspecialchars_decode($TPL_V1["content"]))?>';
+							popup_html += '<div style="float:right; margin-bottom:5px; margin-right:15px;">';
+							popup_html += '	<label><input type="checkbox" value="<?php echo $TPL_V1["no"]?>" onChange="opener.noShow(this);">하루 동안 보지않기</label> <a href="javascript:this.close();">닫기</a>';
+							popup_html += '</div>';
+							if(typeof(popup_<?php echo $TPL_V1["no"]?>) == 'object') {
+								var addressHeight = popup_<?php echo $TPL_V1["no"]?>.outerHeight - popup_<?php echo $TPL_V1["no"]?>.innerHeight;//주소 표시줄 높이
+								popup_<?php echo $TPL_V1["no"]?>.resizeTo(popupWidth+(popup_<?php echo $TPL_V1["no"]?>.outerWidth - popup_<?php echo $TPL_V1["no"]?>.innerWidth), popupHeight+addressHeight);
+								popup_<?php echo $TPL_V1["no"]?>.moveTo(popupToppx, popupLeftpx);
+								console.log(popup_options);
+							}
+<?php }?>
+<?php }?>
+<?php }?>
+<?php }}?>
+<?php }?>
+	});
+	// 메인 슬라이드 관련 소스
+		$(document).ready(function($) {
+<?php if($TPL_VAR["main_image_slide"]["pc"][$TPL_VAR["lang"]]["form"]=='responsive'){?>//반응형 js
+				//기본 기능 정의
+					// confData.responsive 가 없을경우 초기화
+					confData.responsive = confData.responsive || {};
+					confData.responsive.pc = confData.responsive.pc || {};
+					confData.responsive.tablet = confData.responsive.tablet || {};
+					confData.responsive.mobile = confData.responsive.mobile || {};
+					confData.files.responsive = confData.files.responsive || {};
+					var currMod = '';
+
+					var width = $(window).width();
+					var mode = 'mobile';
+					if(width >= Number(confData.responsive.pc.width)){
+						mode = 'pc';
+					} else if(width >= Number(confData.responsive.tablet.width)){
+						mode = 'tablet';
+					}	
+				//슬라이드 변수 
+					//슬라이드 공통 변수
+						var $imageSlider;
+						$imageSlider = $('.visual_ul');
+					//재생, 일시정지 변수 정의
+						var isPause;
+					//프로그래스바 사용시 변수 정의
+						var visusltime = Number(confData.responsive[mode].time || 3);
+						var $bar,
+							tick,
+							percentTime;
+						$bar = $('.visual_wrapper .slider-progress .progress');
+				//슬라이드 반응형 (*리사이즈시 반복재실행됨)
+					function slideResize(){
+						var width = $(window).width();
+						var mode = 'mobile';
+						if(width >= Number(confData.responsive.pc.width)){
+							mode = 'pc';
+						} else if(width >= Number(confData.responsive.tablet.width)){
+							mode = 'tablet';
+						}
+
+						//add class active
+						if((confData.responsive[mode].mode === 'fade')){
+							$imageSlider.on('init',function (event, slick) {
+								setTimeout(function  () {
+									$(".slick-slide").eq(0).addClass("active");
+								},500);
+							});
+
+							$imageSlider.on('afterChange',function  (event, slick, currentSlide) {
+								$(".slick-slide").removeClass("active");
+								$(this).find(".slick-slide").eq(currentSlide).addClass("active");
+							});
+
+						}
+						else{
+							$imageSlider.on('init',function (event, slick) {
+								setTimeout(function  () {
+									$(".slick-slide").eq(1).addClass("active");
+								},500);
+							});
+
+							$imageSlider.on('afterChange',function  (event, slick, currentSlide) {
+								$(".slick-slide").removeClass("active");
+								$(this).find(".slick-slide").eq(currentSlide + 1).addClass("active");
+							});
+						}
+
+
+						$imageSlider.on('init reInit afterChange', function (event, slick, currentSlide, nextSlide) {//currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
+							var i = (currentSlide ? currentSlide : 0) + 1;
+							$('.visual_wrapper').find('.slideCountItem').html('' + i + '');
+							$('.visual_wrapper').find('.slideCountAll').html('0' + slick.slideCount + '');
+						});//페이지 넘길때, 숫자 카운트
+
+						if(currMod !== mode){
+							if(currMod !== ''){
+								$imageSlider.slick('unslick');
+							}
+							currMod = mode;
+							$imageSlider.html(makeLiTag(mode, (confData.files.responsive[mode] || [])));
+							$imageSlider.one('init', function(event, slick) { })
+
+							$imageSlider.slick({
+								vertical: (confData.responsive[mode].mode === 'vertical'),
+								fade: (confData.responsive[mode].mode === 'fade'),
+								// -- 아래에 추가옵션을 입력해주세요
+								infinite: true,
+								speed: Number(confData.responsive[mode].speed || 1000),
+								autoplaySpeed: Number(confData.responsive[mode].time || 3) * 1000,
+								arrows: true,
+								prevArrow: $('.main_visual .prev'),
+								nextArrow: $('.main_visual .next'),
+								dots: false,
+								autoplay: false,//progress bar 사용시 false 값으로 두어야 오류가 없습니다. false 값이어도 progress bar 설정되어있으면 자동롤링이 됩니다. 타입B, 타입C 사용시 true로 변경
+								pauseOnHover:false,
+							}).on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+								$('.visual_wrapper').find('.slideCountItem').html(nextSlide + 1);
+							});//페이지 넘길때, 숫자 카운트
+
+							//재생, 일시정지 버튼
+							$(".visual_wrapper .slickBtn").click(function() {
+								$(this).toggleClass("play");
+								if ($(this).hasClass("play")) {
+									isPause = true;
+									$(this).removeClass('slickPause').addClass('slickPlay').html('play');
+									$imageSlider.slick('slickPause');
+									$bar.css({
+										width: 100 + "%"
+									});//재생, 일시정지 버튼 작동시 프로그래스바
+								} else {
+									isPause = false;
+									$(this).removeClass('slickPlay').addClass('slickPause').html('pause');
+									$imageSlider.slick('slickPlay');
+								}
+							});
+							//재생, 일시정지 버튼
+						}
+					}			
+					slideResize();
+				//슬라이드 프로그래스바 (*리사이즈 반복실행 안되게 막기위해 별도로 slideResize 외부에 작성) 타입B, 타입C 사용시 삭제
+					function startProgressbar() {
+						resetProgressbar();
+						percentTime = 0;
+						isPause = false;
+						tick = setInterval(interval, 10);
+					}
+					function interval() {
+						if ($(".visual_wrapper .slickBtn").hasClass("play")) {
+							isPause = true;
+						}
+						if (isPause === false) {
+							percentTime += 1 / (visusltime + 0.1);
+							$bar.css({
+								width: percentTime + "%"
+							});
+							if (percentTime >= 100) {
+								$imageSlider.slick('slickNext');
+								startProgressbar();
+							}
+						}
+					}
+					function resetProgressbar() {
+						$bar.css({
+							width: 0 + '%'
+						});
+						clearTimeout(tick);
+					}
+					$('.visual_wrapper .slick-next, .visual_wrapper .slick-prev').click(function() {
+						startProgressbar();
+					});
+					startProgressbar();
+					$imageSlider.on("beforeChange", function() {
+						resetProgressbar();
+						startProgressbar();
+						$bar.css({
+							width: 100 + "%"
+						});
+					});
+					var itval;
+				//리사이즈 슬라이드 재실행
+					$(window).resize(function() {
+<?php if($TPL_VAR["main_image_slide"]["pc"][$TPL_VAR["lang"]]["form"]=='responsive'){?>
+							slideResize();
+<?php }?>
+					});
+<?php }else{?>//고정형 js
+				//기본 기능 정의
+					// confData.fixed 가 없을경우 초기화
+					confData.fixed = confData.fixed || {};
+					$imageSlider.html(makeLiTag('fixed', (confData.files.fixed || [])));
+				//슬라이드 적응형
+					$imageSlider.slick({
+						vertical: (confData.fixed.mode === 'vertical'),
+						fade: (confData.fixed.mode === 'fade'),
+						// -- 아래에 추가옵션을 입력해주세요
+						autoplay: true,
+						dots: true,
+						arrows: false
+					});
+<?php }?>
+		});
+
+	// 메인 슬라이드 슬라이드 컷 내부
+		function makeLiTag(type, file){
+			var path = '/upload/main/imageSlide/<?php echo $TPL_VAR["lang"]?>/' + (['pc', 'tablet', 'mobile'].indexOf(type) > -1? 'responsive/' + type + '/' : 'fixed/');
+			var li = '';
+			var txt = ["<p>Plant A Tree</p>"];
+			var txt2 = ["<b>Plant a new life</b>"];
+			var txt3 = ["<span>As your click-through-rate ruses, your website’s time-on-site will likely<br/>incarease as well.</span>"];
+			for(var i=0; i<file.length; i++) {
+				var lnk = file[i].link ? file[i].link : "#";
+				li += '<li>';
+				li += '<a href="' + lnk + '" style="background:url(' + path + file[i].fname + ')no-repeat center;background-size:cover;"></a>';
+				li += '<div class="txt_box">'+ txt + txt2 + txt3;
+				li += '</div>';
+				li += '</li>';
+			}
+			return li;
+		}
+
+</script>
+</script>
+<!--타입 B, C일때 활성화-->
+<!-- <script>
+	$(document).ready(function(){
+		/*타입 B*/
+		var visDots = $('.main_visual .slick-dots').width();
+		//console.log(visDots);
+
+		$('.main_visual .visual_btn_wrap.type_B').css('padding-left', visDots);
+
+		$(window).resize(function() {
+			var visDots = $('.main_visual .slick-dots').width();
+			console.log(visDots);
+
+			$('.main_visual .visual_btn_wrap.type_B').css('padding-left', visDots);
+		});
+
+		/*타입 C*/
+		var visDots = $('.main_visual .slick-dots').width();
+
+		$('.main_visual .visual_btn_wrap.type_C').css('padding-left', visDots);
+
+		$(window).resize(function() {
+			var visDots = $('.main_visual .slick-dots').width();
+			console.log(visDots);
+
+			$('.main_visual .visual_btn_wrap.type_C').css('padding-left', visDots);
+		});
+	});
+</script> -->
+<!-- //메인 이미지 슬라이드 -->
+<div class="main">
+	<div class="w_set">
+		<?php echo include_display_main('display_main','35')?>
+
+		<?php echo include_display_main('display_main','31')?>
+
+	</div>
+	<div class="main_txt w_set">
+		<div class="top_txt">
+			<span data-aos="fade-up" data-aos-offset="0" >BRAND STORY</span>
+			<strong data-aos="fade-up" data-aos-offset="100" data-aos-delay="200" data-aos-duration="400">KEEP CLEAN AND GREEN</strong>
+			<p data-aos="fade-up" data-aos-offset="200" data-aos-delay="400" data-aos-duration="800">PLONEERS OF<br>ECO-FRIENDLY LAUNDRY</p>
+		</div>
+		<div class="btm_txt">
+			<ul>
+				<li data-aos="zoom-in" data-aos-delay="100" data-aos-duration="300">
+					<strong>Keep</strong>
+					<p>친환경적인 세탁으로<br>섬유를 더욱 오래도록 보호합니다.</p>
+				</li>
+				<li data-aos="zoom-in" data-aos-delay="300" data-aos-duration="300">
+					<strong>Clean</strong>
+					<p>철저한 위생 관념으로<br>세탁 환경을 더욱 깨끗하게 유지합니다.</p>
+				</li>
+				<li data-aos="zoom-in" data-aos-delay="600" data-aos-duration="300">
+					<strong>Green</strong>
+					<p><?php echo $TPL_VAR["cfg_site"]["compName"]?>은 환경과 자원 그리고<br>고객의 건강까지 생각합니다.</p>
+				</li>
+			</ul>
+			<a href="/company/index" class="link">VIEW MORE</a>
+		</div>
+	</div><!--/ main_txt -->
+	<div class="main_gallery w_set">
+		<h3 class="tit" data-aos="fade-down" data-aos-offset="100" data-aos-delay="50">Gallery</h3>
+<?php $this->print_("gallery_display",$TPL_SCP,1);?>
+
+	</div><!--/ main_gallery -->
+	<div class="main_bar">
+		<div class="txt">
+			<p data-aos="fade-down" data-aos-offset="300" data-aos-delay="200" data-aos-duration="800"><strong>PROJECT DESCRIPTION</strong>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, <br>totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+		</div>
+		<div class="img" data-aos="fade-up" data-aos-offset="200" data-aos-delay="50"></div>
+	</div><!--/ main_bar -->
+	<div class="main_notice w_set" data-aos="fade-up" data-aos-offset="300" data-aos-delay="200" data-aos-duration="800">
+		<h3 class="tit">Notice <a href="#" class="btn_more"><span>View More</span></a></h3>
+<?php $this->print_("notice_display",$TPL_SCP,1);?>
+
+	</div><!--/ main_notice -->
+</div>
+<?php $this->print_("footer",$TPL_SCP,1);?>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	//메인 애니메이션
+		AOS.init({
+		  debounceDelay: 50, 
+		  throttleDelay: 99, 
+		  easing: 'ease-in-quart', 
+		});
+
+	// visual pause btn 
+		$('#pause-btn').on('click',function() {
+			$('.main_visual .visual_ul').slick('slickPause');
+		});
+
+	// header on
+		$('#header').addClass('main');
+		$('#header').removeClass('on');
+		$(window).scroll(function(){
+			if ( $(this).scrollTop() > 1 ) {
+				$('#header').addClass('on');
+			} else {
+				$('#header').removeClass('on');
+			}
+		});	
+		
+	// gallery board sld 
+		$('.main_gallery .board_ul').slick({
+			dots: true,
+			infinite: false,
+			speed: 300,
+			slidesToShow: 3,
+			slidesToScroll: 1,
+			responsive: [
+			{
+			breakpoint: 861,
+			settings: {
+				slidesToShow: 2,
+				slidesToScroll: 1,
+				infinite: true,
+				arrows:false,
+				dots: true
+				}
+			},
+			{
+			breakpoint: 549,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				arrows:false,
+			}
+			}
+			]
+		});
+
+
+	winH = $(window).height(),
+	winW = $(window).width();
+	$('.main_visual').height(winH);
+	$('.main_visual .slick-slide').height(winH);
+
+
+	$(window).resize(function(){
+		winH = $(window).height(),
+		winW = $(window).width();
+		// visual height 
+			$('.main_visual').height(winH);
+			$('.main_visual .slick-slide').height(winH);
+	});
+
+});
+
+</script>

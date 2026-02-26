@@ -1,0 +1,56 @@
+<?php /* Template_ 2.2.8 2025/09/18 17:19:44 /gcsd33_arklink/www/data/skin/respon_default/solution/deteros.html 000003355 */ ?>
+<?php $this->print_("header",$TPL_SCP,1);?>
+
+<style>
+    #container { padding-bottom: 0; }
+    #contents_wrap { width: 100%; max-width: 100%; }
+</style>
+<div class="sub_content sub_deteros sub_solution">
+    <div class="w_custom">
+        <div class="flex_des">
+            <div class="img" data-aos="fade-up">
+                <img src="/data/skin/respon_default/images/sub/img_deteros.gif" alt="deteros 애니메이션">
+            </div>
+            <div class="info_wrap" data-aos="fade-up">
+                <div class="ico">
+                    <img src="/data/skin/respon_default/images/skin/main_solution04.svg" alt="solution04">
+                </div>
+                <p>악의적 메시지 차단기제 활성화 유도</p>
+                <h3>DeterOS</h3>
+                <span>유포 대상이 피해 데이터를 수신했을 때 열람하지 않고 차단하도록 <br class="del">
+                    사회 심리 기반의 기술을 통해 사전에 차단기제를 활성화시킵니다.</span>
+            </div>
+        </div>
+    </div>
+    <div class="chk_con">
+        <div class="w_custom">
+            <ul class="chk_list">
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>어떻게 작동하나요?</dt>
+                        <dd>DeterOS는 대중 및 개인의 심리 패턴을 기반으로 데이터를 받은 상대가 내용을 열람하기 전에 차단 기제를 작동시킵니다. <br>
+                            유포 데이터를 수신한 대상에게 의심, 불안, 경고를 유발하는 요소들을 삽입하여 심리적 진입 장벽을 부여함으로써 열람을 방해합니다. <br>
+                            그 결과, 궁극적으로 유포 대상에게 도달한 데이터가 열람되지 않고 폐기되거나 무시되도록 설계됩니다.</dd>
+                    </dl>
+                </li>
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>왜 필요한가요?</dt>
+                        <dd>몸캠피싱 · 불법 영상 유포 등 디지털 범죄는 피해자뿐 아니라 유포 대상의 반응까지 예측하며 조작됩니다. <br>
+                            단순한 전송 차단만으로는 복제, 유출, 공유의 위험을 완전히 막기는 어렵습니다 <br>
+                            유포에 대한 우려가 있을 때, 유포 대상이 피해 데이터를 열람하지 못하도록 하는 조치도 필요합니다. <br>
+                            DeterOS는 심리적 · 기술적 이중 차단 메커니즘으로 피해 데이터 열람이나 2차 확산을 사전에 대응합니다.
+                            </dd>
+                    </dl>
+                </li>
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>심리학과 기술의 융합으로 만들어낸 예방 솔루션</dt>
+                        <dd>DeterOS는 보안 기술에 사회 심리 분석을 접목하여, 가해 흐름을 차단하는 새로운 방식을 제시합니다.</dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<?php $this->print_("footer",$TPL_SCP,1);?>

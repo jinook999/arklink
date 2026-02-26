@@ -1,0 +1,23 @@
+<!--{ ? isset(goods_list['goods_list']) }-->
+<!-- 리스트타입 -->
+<div id="tab2" class="list_cont list_Listform">
+	<ul>
+		<!--{ @ goods_list['goods_list'] }-->
+		<li>
+			<a href="/goods/goods_view?no={.no}">
+				<dl>
+					<dt><img src="/upload/goods/img2/{.img2}" onerror="this.src='../../images/common/noimg.gif'" alt="{.name}"></dt>
+					<dd>
+						{? .name}<h3>{.name}</h3>{/}
+						ex1 : { .ex1 }<br>
+						ex2 : { .ex2 }
+					</dd>
+				</dl>
+			</a>
+		</li>
+		<!--{ / }-->
+	</ul>
+</div><!-- .list_Listform -->
+<!--{ : }-->
+<div class="list_no"><div class="no_data"><!--{ ? category_info['category'] }-->제품이 없습니다.<!--{ : }-->검색된 결과가 없습니다.<!--{ / }--></div></div>
+<!--{ / }-->

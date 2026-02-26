@@ -1,0 +1,61 @@
+<!--{ ? isset(board_list['notice_list']) }-->
+<!--{ ? count(board_list['notice_list']) > 0 }-->
+<ul class="gallery_notice">
+	<!--{ @ board_list['notice_list'] }-->
+	<li class="<!--{ ? ((.index_%3)+1) == '3' }-->last<!--{ / }--> ">
+		<!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" alt="{.title}"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" alt="{.title}"><!--{ / }--></a>
+		<div class="thumb">
+			<img src="{C._UPLOAD}/board/{.upload_path}/{ .board_file.thumbnail[0]['fname'] }" alt="{.title}" onerror="this.src='../../images/common/noimg.gif'">
+		</div>
+		<div class="txt_info">
+			<b>공지</b>
+			<div class="board_tit">
+				<div class="board_ico">
+					<!--{ ? .display_read == 's' }--><img src="../../images/common/icon_secret.gif" alt="비밀글"><!--{ / }-->
+					<!--{ ? count(.board_file['file']) > 0 }--><img src="/lib/images/icon_attach_file.png" alt="첨부파일"><!--{ / }-->
+				</div>
+				<h3>
+					<strong><!--{ ? .preface }-->[{.preface}]<!--{ / }--> {=mb_strimwidth((.title), 0, 150, "...")}</strong>
+					<!--{ ? board_info['comment'] == 'y' }-->
+						<!--{ ? .comment > '0' }-->[{.comment}]<!--{ / }-->
+					<!--{ / }-->
+				</h3>
+			</div>
+			<p>{.name}<span></span>{.regdt_date}</p>
+		</div>
+	</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }-->
+<!--{ / }-->
+<!--{ ? isset(board_list['board_list']) }-->
+<ul class="bbs_gallery gallery_list_top">
+	<!--{ @ board_list['board_list'] }-->
+	<li class="<!--{ ? ((.index_%3)+1) == '3' }-->last<!--{ / }--> ">
+		<!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" alt="{.title}"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" alt="{.title}"><!--{ / }--></a>
+		<div class="thumb">
+			<img src="{C._UPLOAD}/board/{.upload_path}/{ .board_file.thumbnail[0]['fname'] }" alt="{.title}" onerror="this.src='../../images/common/noimg.gif'">
+		</div>
+		<div class="txt_info">
+			<div class="board_tit">
+				<div class="board_ico">
+					<!--{ ? .display_read == 's' }--><img src="../../images/common/icon_secret.gif" alt="비밀글"><!--{ / }-->
+					<!--{ ? count(.board_file['file']) > 0 }--><img src="/lib/images/icon_attach_file.png" alt="첨부파일"><!--{ / }-->
+				</div>
+				<h3>
+					<strong><!--{ ? .preface }-->[{.preface}]<!--{ / }--> {=mb_strimwidth((.title), 0, 70, "...")}</strong>
+					<!--{ ? board_info['comment'] == 'y' }-->
+						<!--{ ? .comment > '0' }-->[{.comment}]<!--{ / }-->
+					<!--{ / }-->
+				</h3>
+			</div>
+			<p>{.name}<span></span>{.regdt_date}</p>
+		</div>
+	</li>
+	<!--{ / }-->
+</ul><!--gallery_list-->
+<!--{ : }-->
+<!--{ ? count(board_list['notice_list']) < 1 }-->
+<ul class="gallery_list gallery_list_top ta_center">게시글이 없습니다.</ul>
+<!--{ / }-->
+<!--{ / }-->

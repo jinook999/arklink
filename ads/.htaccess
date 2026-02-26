@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# .html 확장자가 붙은 URL을 확장자 없는 URL로 리다이렉트
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# .html 확장자 없이 접근 가능하게
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]

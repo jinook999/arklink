@@ -1,0 +1,70 @@
+<!--{ ? isset(board_list['notice_list']) }-->
+<!--{ ? count(board_list['notice_list']) > 0 }-->
+<ul class="gallery_notice">
+	<!--{ @ board_list['notice_list'] }-->
+	<li class="<!--{ ? ((.index_%3)+1) == '3' }-->last<!--{ / }--> ">
+		<!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" alt="{.title}"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" alt="{.title}"><!--{ / }--></a>
+		<div class="thumb">
+			<!--{ ? .video_thumbnail_url }-->
+			<img src="{.video_thumbnail_url}" alt="{.title}" onerror="this.src='../../images/common/noimg.gif'">
+			<!--{ : }-->
+			<img src="../../images/common/noimg.gif" onerror="this.src='../../images/common/noimg.gif'" alt="no image">
+			<!--{ / }-->
+		</div>
+		<div class="txt_info">
+			<b>NOTICE</b>
+			<div class="board_tit">
+				<div class="board_ico">
+					<!--{ ? .display_read == 's' }--><img src="../../images/common/icon_secret.gif" alt="Secret post"><!--{ / }-->
+					<!--{ ? count(.board_file['file']) > 0 }--><img src="/lib/images/icon_attach_file.png" alt="Attachments"><!--{ / }-->
+				</div>
+				<h3>
+					<strong>{=mb_strimwidth((.title), 0, 150, "...")}</strong>
+					<!--{ ? board_info['comment'] == 'y' }-->
+						<!--{ ? .comment > '0' }-->[{.comment}]<!--{ / }-->
+					<!--{ / }-->
+				</h3>
+			</div>
+			<p>{.name}<span></span>{.regdt_date}</p>
+		</div>
+	</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }-->
+<!--{ / }-->
+<!--{ ? isset(board_list['board_list']) }-->
+<ul class="bbs_gallery gallery_list_top">
+	<!--{ @ board_list['board_list'] }-->
+	<li class="<!--{ ? ((.index_%3)+1) == '3' }-->last<!--{ / }--> ">
+		<!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" alt="{.title}"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" alt="{.title}"><!--{ / }--></a>
+		<div class="thumb">
+			<!--{ ? .video_thumbnail_url }-->
+			<img src="{.video_thumbnail_url}" alt="{.title}" onerror="this.src='../../images/common/noimg.gif'">
+			<!--{ : }-->
+			<img src="../../images/common/noimg.gif" onerror="this.src='../../images/common/noimg.gif'" alt="no image">
+			<!--{ / }-->
+		</div>
+		<div class="txt_info">
+			<div class="board_tit">
+				<div class="board_ico">
+					<!--{ ? .clevel > '0'}--><img src="../../images/common/icon_re.gif" alt="reply"><!--{ / }-->
+					<!--{ ? .display_read == 's' }--><img src="../../images/common/icon_secret.gif" alt="Secret post"><!--{ / }-->
+					<!--{ ? count(.board_file['file']) > 0 }--><img src="/lib/images/icon_attach_file.png" alt="Attachments"><!--{ / }-->
+				</div>
+				<h3>
+					<strong>{=mb_strimwidth((.title), 0, 70, "...")}</strong>
+					<!--{ ? board_info['comment'] == 'y' }-->
+						<!--{ ? .comment > '0' }-->[{.comment}]<!--{ / }-->
+					<!--{ / }-->
+				</h3>
+			</div>
+			<p>{.name}<span></span>{.regdt_date}</p>
+		</div>
+	</li>
+	<!--{ / }-->
+</ul><!--gallery_list-->
+<!--{ : }-->
+<!--{ ? count(board_list['notice_list']) < 1 }-->
+<ul class="gallery_list gallery_list_top ta_center">No posts found.</ul>
+<!--{ / }-->
+<!--{ / }-->

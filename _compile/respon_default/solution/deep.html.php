@@ -1,0 +1,53 @@
+<?php /* Template_ 2.2.8 2025/09/18 17:19:44 /gcsd33_arklink/www/data/skin/respon_default/solution/deep.html 000002852 */ ?>
+<?php $this->print_("header",$TPL_SCP,1);?>
+
+<style>
+    #container { padding-bottom: 0; }
+    #contents_wrap { width: 100%; max-width: 100%; }
+</style>
+<div class="sub_content sub_deep sub_solution">
+    <div class="w_custom">
+        <div class="flex_des">
+            <div class="img" data-aos="fade-up">
+                <img src="/data/skin/respon_default/images/sub/img_deep.gif" alt="deep_coding 애니메이션">
+            </div>
+            <div class="info_wrap" data-aos="fade-up">
+                <div class="ico">
+                    <img src="/data/skin/respon_default/images/skin/main_solution01.svg" alt="solution01">
+                </div>
+                <p>악성코드 심층 분석 및 방어기제 파훼 솔루션</p>
+                <h3>Deep-Coding</h3>
+                <span>자체 개발 자동 심층 분석 알고리즘을 통해 악성 앱 전체를 스캔합니다. <br>
+                    악성 앱의 취약점을 파악하고 방어 기제를 파훼하여 솔루션을 적용합니다.</span>
+            </div>
+        </div>
+    </div>
+    <div class="chk_con">
+        <div class="w_custom">
+            <ul class="chk_list">
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>어떻게 작동하나요?</dt>
+                        <dd>Deep-Coding은 자체개발 심층분석 알고리즘으로 앱 전체를 분석하는 솔루션입니다. <br>
+                            앱 속에 숨어 있는 위험한 기능이나 취약한 부분을 찾아내고, 숨겨진 방어 기제도 무력화합니다.</dd>
+                    </dl>
+                </li>
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>무엇이 다른가요?</dt>
+                        <dd>범행 수법의 발전에 따라 악성 앱도 여러 방어기제를 탑재하고 있습니다. <br>
+                            Deep-Coding을 통해 전체 코드의 흐름을 분석하여 내제된 방어기제를 탐지하고 파훼해냅니다.</dd>
+                    </dl>
+                </li>
+                <li data-aos="fade-up">
+                    <dl>
+                        <dt>믿을 수 있는 이유</dt>
+                        <dd>아크링크는 발전하는 범행 수법에 대응하기 위해 Deep-Coding을 개발하여 수많은 악성 앱을 탐지하고 방어기제를 파훼하여 솔루션을 적용하고 있습니다. <br>
+                            단순한 ‘분석’을 넘어 실질적 적용, 그리고 예방과 대응까지 함께합니다.</dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<?php $this->print_("footer",$TPL_SCP,1);?>

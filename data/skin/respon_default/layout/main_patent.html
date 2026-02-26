@@ -1,0 +1,29 @@
+<!--{ ? patent_info['mainview'] == 'y' }-->
+<!--{ ? isset(patent_list['board_list']) }-->
+<div class="img_box" data-aos="fade-up">
+	<ul>
+		<!--{ @ patent_list['board_list'] }-->
+		<!--{ ? .display_read == 'y'}-->
+		<li class="{? .index_ == '0'}on{/}" id="certificate0{.index_ + 1}">
+			<div class="img"><img src="{C._UPLOAD}/board/{.upload_path}/{ .board_file.thumbnail[0]['fname'] }" alt="{.title}" onerror="this.src='../../respon_default/images/common/noimg.gif'">	</div>
+			<p>{.title}</p>
+		</li>
+		<!--{ / }-->
+		<!--{ : }-->
+		<li>게시글이 없습니다.</li>
+		<!--{ / }-->
+	</ul>
+</div>
+<ul class="list ver_pc" data-aos="fade-up">
+	<!--{ @ patent_list['board_list'] }-->
+	<!--{ ? .display_read == 'y'}-->
+	<li class="{? .index_ == '0'}on{/}" data-tab="certificate0{.index_ + 1}"><span>{.title}</span></li>
+	<!--{ / }-->
+	<!--{ : }-->
+	<li>게시글이 없습니다.</li>
+	<!--{ / }-->
+</ul>
+<!--{/}-->
+<!--{/}-->
+
+
