@@ -680,7 +680,7 @@ class Auth extends ADMIN_Controller {
 						*/
                         //$set_data['preface'] = implode(",",$filterPreface);
 						foreach(['kor', 'eng', 'chn', 'jpn'] as $lang) {
-							$set_data['preface_'.$lang] = count($set_data[$lang]) > 0 ? implode(',', $set_data[$lang]) : '';
+							$set_data['preface_'.$lang] = !empty($set_data[$lang]) && is_array($set_data[$lang]) ? implode(',', $set_data[$lang]) : '';
 						}
 
 						// extraField 재가공
@@ -1708,7 +1708,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["default_country_Info"] = $this->config->item("default_country_Info");
  				$get_data["mode"] = "register";
 
-				if(!count($get_data["default_country_Info"]) > 0) {
+				if(empty($get_data["default_country_Info"]) || !is_array($get_data["default_country_Info"])) {
 
 					$default_country_name['eng'] = array('Albania','Algeria','Argentina','Armenia','Australia','Austria','Azerbaijan','Bahrain','Bangladesh','Belarus','Belgium','Bhutan','Bosnia and Herzegovina','Botswana','Brazil','Brunei Darussalam','Bulgaria','Burma (Myanmar)','Cambodia','Canada','Cape Verde','Chile','China','Costa Rica','Croatia (Hrvatska)','Cuba','Cyprus','Czech Republic','Denmark','Djibouti','Dominican Republic','Ecuador','Egypt','Estonia','Ethiopia','Fiji','Finland','France','Georgia','Germany','Greece','Hong Kong','Hungary','India','Indonesia','Iran','Ireland','Israel','Japan','Jordan','Kazakhstan','Kenya','Laos','Latvia','Luxembourg','Macau','Macedonia','Malaysia','Maldives','Mauritius','Mexico','Mongolia','Morocco','Mozambique','Nepal','Netherlands','Netherlands Antilles','New Zealand (Aotearoa)','Nigeria','Norway','Oman','Pakistan','Panama','Peru','Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda','Saudi Arabia','Singapore','Slovak Republic','Slovenia','Spain','Sri Lanka','Sweden','Switzerland','Taiwan','Tanzania','Thailand','Tunisia','Turkey','Ukraine','United Arab Emirates','United Kingdom','United States','Uzbekistan','Viet Nam','Zambia');
 

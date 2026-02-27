@@ -77,7 +77,7 @@ $(function() {
 								</div>
 							</span>
 							<?php
-							if(count($v1['sub']) > 0) :
+							if(!empty($v1['sub']) && is_array($v1['sub'])) :
 								echo '<ul class="menu_tree">';
 								foreach($v1['sub'] as $k2 => $v2) :
 									$selected = $get['category'] === $v2['category'] ? ' class="selected"' : '';
@@ -94,7 +94,7 @@ $(function() {
 										</div>
 									</span>
 									<?php
-									if(count($v2['sub']) > 0) :
+									if(!empty($v2['sub']) && is_array($v2['sub'])) :
 										echo '<ul class="menu_tree">';
 										foreach($v2['sub'] as $k3 => $v3) :
 											$selected = $get['category'] === $v3['category'] ? ' class="selected"' : '';
@@ -111,7 +111,7 @@ $(function() {
 												</div>
 											</span>
 											<?php
-											if(count($v3['sub']) > 0) :
+											if(!empty($v3['sub']) && is_array($v3['sub'])) :
 												echo '<ul class="menu_tree">';
 												foreach($v3['sub'] as $k4 => $v4) :
 													$selected = $get['category'] === $v4['category'] ? ' class="selected"' : '';
@@ -128,7 +128,7 @@ $(function() {
 														</div>
 													</span>
 													<?php
-													if(count($v4['sub']) > 0) :
+													if(!empty($v4['sub']) && is_array($v4['sub'])) :
 														echo '<ul class="menu_tree">';
 														foreach($v4['sub'] as $k5 => $v5) :
 															$selected = $get['category'] === $v5['category'] ? ' class="selected"' : '';

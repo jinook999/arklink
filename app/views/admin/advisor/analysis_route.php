@@ -1,6 +1,6 @@
 <?php
 $type = $this->input->get("type", true) == "g" ? "g" : "ng";
-$total = count($total);
+$total = count($total ?? []);
 $day = $this->input->get("dayselect", true);
 ?>
 <style>
