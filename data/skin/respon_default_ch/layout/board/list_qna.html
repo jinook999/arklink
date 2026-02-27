@@ -1,7 +1,7 @@
 
 <!--{ ? isset(board_list['notice_list']) }-->
 <ul class="qa_list">
-    <!--{ ? count(board_list['notice_list']) > 0 }-->
+    <!--{ ? !empty(board_list['notice_list']) }-->
     <!--{ @ board_list['notice_list'] }-->
     <li>
         <!--{ ? .is_read == 's' }--><a href="/board/board_secret?code={.code}&no={.no}&page=view" title="{.title}" class="link"><!--{ : }--><a href="/board/board_view?code={.code}&no={.no}" title="{.title}" class="link"><!--{ / }--></a>

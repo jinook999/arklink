@@ -14,7 +14,7 @@
 	</thead>
 	<tbody>
 		<!--{ ? isset(board_list['notice_list']) }-->
-		<!--{ ? count(board_list['notice_list']) > 0 }-->
+		<!--{ ? !empty(board_list['notice_list']) }-->
 		<!--{ @ board_list['notice_list'] }-->
 		<tr class="board_notice">
 			<td>공지</td>
@@ -43,7 +43,7 @@
 		</tr>
 		<!--{ / }-->
 		<!--{ : }-->
-		<!--{ ? count(board_list['notice_list']) < 1 }-->
+		<!--{ ? empty(board_list['notice_list']) }-->
 		<tr>
 			<td colspan="3">게시글이 없습니다.</td>
 		</tr>

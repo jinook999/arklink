@@ -92,7 +92,7 @@
 				<div class="view_video">{=htmlspecialchars_decode(board_view['board_view']['video_html'])}</div>
 				<!--{ / }-->
 				<!--{ ? board_info['thumbnail'] == 'y' }-->
-					<!--{ ? count(board_view['board_view']['board_file']['thumbnail']) }-->
+					<!--{ ? !empty(board_view['board_view']['board_file']['thumbnail']) }-->
 						<div class="thumb_img_wrap">
 							<!--{ @ board_view['board_view']['board_file']['thumbnail'] }-->
 								<!--{ ? board_view['board_view']['board_file']['thumbnail'][.key_]['fname'] == board_view['board_view']['thumbnail_image']}--><!-- //대표 썸네일 제외시 사용 -->
@@ -107,7 +107,7 @@
 				{=htmlspecialchars_decode(board_view['board_view']['content'])}
 			</div>
 			<!--{ ? board_info['thumbnail'] == 'y' }-->
-				<!--{ ? count(board_view['board_view']['board_file']['thumbnail']) }-->
+				<!--{ ? !empty(board_view['board_view']['board_file']['thumbnail']) }-->
 				<h4 class="dn">
 					<span>썸네일</span>
 					<!--{ @ board_view['board_view']['board_file']['thumbnail'] }-->
@@ -118,7 +118,7 @@
 			<!--{ / }-->
 		
 			<!--{ ? board_info['files'] == 'y' }-->
-				<!--{ ? count(board_view['board_view']['board_file']['file']) }-->
+				<!--{ ? !empty(board_view['board_view']['board_file']['file']) }-->
 					<div class="extra_editor_wrap">
 						<h4>File Attachments</h4>
 						<div class="extra_cont">

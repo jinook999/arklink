@@ -257,7 +257,7 @@
 							<!--{ / }-->
 						</th>
 						<td>
-							<!--{ ? count(country_info) > 1 }-->
+							<!--{ ? is_array(country_info) && count(country_info) > 1 }-->
 							<select name="country" title="select">
 								<!--{ @ country_info }-->
 									<option value="{.name[cfg_site['language']]}{.mark}" { ? mypage['member_view']['country'] == .name[cfg_site['language']] +""+ .mark }selected{ / } >{.name[cfg_site['language']]}{.mark}</option>
@@ -369,7 +369,7 @@
 						</th>
 						<td>
 							
-							<!--{ ? count(country_info) > 1 }-->
+							<!--{ ? is_array(country_info) && count(country_info) > 1 }-->
 							<select name="mobile_country_code" title="select">
 								<!--{ @ country_info }-->
 									<option value="{.name[cfg_site['language']]}{.code}" { ? mypage['member_view']['mobile_country_code'] == .name[cfg_site['language']] +""+ .code }selected{ / }>{.name[cfg_site['language']]}{.code}</option>

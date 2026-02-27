@@ -100,7 +100,7 @@
 
 <div class="sub_cont">
 	<!--{ ? board_info['code'] == 'content'}-->
-	<!--{ ? count(preface) > 0 }-->
+	<!--{ ? !empty(preface) }-->
 	<ul class="sub_nav">
 		<li><a href="/board/board_list?code=content">전체</a></li>
 		<!--{ @ preface }-->
@@ -117,7 +117,7 @@
                 <legend>게시글 검색</legend>
                 <input type="hidden" name="code" value="{board_info['code']}" />
                 <!--{ ? board_info['code'] != 'content'}-->
-                <!--{ ? count(preface) > 0 }-->
+                <!--{ ? !empty(preface) }-->
                 <ul class="preface_list">
                     <li><a href="/board/board_list?code={board_info['code']}">전체</a></li>
                     <!--{ @ preface }-->

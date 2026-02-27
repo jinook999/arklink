@@ -266,7 +266,7 @@
 							<!--{ / }-->
 						</th>
 						<td>
-							<!--{ ? count(country_info) > 1 }-->
+							<!--{ ? is_array(country_info) && count(country_info) > 1 }-->
 							<select name="country" title="select">
 								<!--{ @ country_info }-->
 										<option value="{.name[cfg_site['language']]}{.mark}">{.name[cfg_site['language']]}{.mark}</option>
@@ -378,7 +378,7 @@
 						<th class="join_tit" scope="row">{memberField['name'][cfg_site['language']]['mobile']} <!--{ ? isset(memberField['require'][cfg_site['language']]['mobile']) && memberField['require'][cfg_site['language']]['mobile'] == "checked" }--><span class="require_dot"></span><!--{ / }--></th>
 						<td>
 							
-							<!--{ ? count(country_info) > 1 }-->
+							<!--{ ? is_array(country_info) && count(country_info) > 1 }-->
 							<select name="mobile_country_code" title="select">
 								<option value="">Country code</option>
 								<!--{ @ country_info }-->

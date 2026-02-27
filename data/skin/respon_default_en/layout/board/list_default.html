@@ -13,7 +13,7 @@
 	</thead>
 	<tbody>
 		<!--{ ? isset(board_list['notice_list']) }-->
-		<!--{ ? count(board_list['notice_list']) > 0 }-->
+		<!--{ ? !empty(board_list['notice_list']) }-->
 		<!--{ @ board_list['notice_list'] }-->
 		<tr class="board_notice">
 			<td>Notice</td>
@@ -22,7 +22,7 @@
 					<!--{ ? .is_read == 's' }--><a href="board_secret?code={.code}&no={.no}&page=view"><!--{ : }--><a href="board_view?code={.code}&no={.no}"><!--{ / }-->
 						<div class="board_ico">
 							<!--{ ? .display_read == 's' }--><img src="../../images/common/icon_secret.gif" alt="Secret post"><!--{ / }-->
-							<!--{ ? count(.board_file['file']) > 0 }--><img src="/lib/images/icon_attach_file.png" alt="Attachments"><!--{ / }-->
+							<!--{ ? !empty(.board_file['file']) }--><img src="/lib/images/icon_attach_file.png" alt="Attachments"><!--{ / }-->
 						</div>
 						<h3>
 							<strong>{.title} </strong>
@@ -47,7 +47,7 @@
 						<div class="board_ico">
 							<!--{ ? .clevel > '0'}--><img src="../../images/common/icon_re.gif" alt="reply"><!--{ / }-->
 							<!--{ ? .display_read == 's' }--><img src="../../images/common/icon_secret.gif" alt="Secret post"><!--{ / }-->
-							<!--{ ? count(.board_file['file']) > 0 }--><img src="/lib/images/icon_attach_file.png" alt="Attachments"><!--{ / }-->
+							<!--{ ? !empty(.board_file['file']) }--><img src="/lib/images/icon_attach_file.png" alt="Attachments"><!--{ / }-->
 						</div>
 						<h3>
 							<strong>{.title} </strong>
@@ -61,7 +61,7 @@
 		</tr>
 		<!--{ / }-->
 		<!--{ : }-->
-		<!--{ ? count(board_list['notice_list']) < 1 }-->
+		<!--{ ? empty(board_list['notice_list']) }-->
 		<tr>
 			<td colspan="2">No posts found.</td>
 		</tr>
