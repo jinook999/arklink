@@ -437,7 +437,7 @@ class Board extends FRONT_Controller {
 										'attachment' => $attachment,
 									]
 								]);
-							} catch(\Exception $e) {
+							} catch(\Throwable $e) {
 								log_message('error', 'Inquiry mail send failed: ' . $e->getMessage());
 							}
 							}
@@ -466,7 +466,7 @@ class Board extends FRONT_Controller {
 						msg(validation_errors());
 					}
 				}
-			} catch(Exception $e) {
+			} catch(\Throwable $e) {
 				msg($e->getMessage(), -1, "parent");
 			}
 		} else {

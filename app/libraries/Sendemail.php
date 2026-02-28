@@ -49,7 +49,7 @@ class Sendemail extends PHPMailer {
 
         try {
             $this->send();
-        } catch(\Exception $e) {
+        } catch(\Throwable $e) {
             log_message('error', 'Mail send failed: ' . $e->getMessage());
         }
         $this->clearAddresses();
