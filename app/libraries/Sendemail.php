@@ -21,7 +21,8 @@ class Sendemail extends PHPMailer {
         $this->isHTML(true);
         $this->CharSet = 'utf8';
         $this->Encoding = 'base64';
-        $this->SMTPDebug = 4;
+        $this->SMTPDebug = 0;
+        $this->Timeout = 5;
 	}
 
     /*
@@ -46,7 +47,11 @@ class Sendemail extends PHPMailer {
         $this->Body = $data['mail_body'] ? $data['mail_body'] : $this->_body($data);
         if($data['attachment']) $this->mail_attachment($data['attachment']);
 
-        $this->send();
+        try {
+            $this->send();
+        } catch(\Exception $e) {
+            log_message('error', 'Mail send failed: ' . $e->getMessage());
+        }
         $this->clearAddresses();
     }
 

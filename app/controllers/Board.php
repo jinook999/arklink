@@ -403,6 +403,7 @@ class Board extends FRONT_Controller {
 					if($no) {
 						if($mode == 'write') {
 							if($this->_board['yn_admin_email'] == 'y') {
+							try {
 								$this->load->library('Sendemail');
 								$title = $data['preface'] ? '['.$data['preface'].']'.$data['title'] : $data['title'];
 								$attachment = [];
@@ -436,6 +437,9 @@ class Board extends FRONT_Controller {
 										'attachment' => $attachment,
 									]
 								]);
+							} catch(\Exception $e) {
+								log_message('error', 'Inquiry mail send failed: ' . $e->getMessage());
+							}
 							}
 						}
 						// 리스트 노출이 사용일때
