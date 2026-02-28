@@ -371,7 +371,7 @@ class Board extends FRONT_Controller {
 
 				if($this->form_validation->run()){
 					$data = $this->input->post(null, false);
-					$is_secret = $this->input->post("is_secret", is_secret);
+					$is_secret = $this->input->post("is_secret", true);
 					if($is_secret == 'y') {
 						$data['is_secret'] = $is_secret;
  					}
