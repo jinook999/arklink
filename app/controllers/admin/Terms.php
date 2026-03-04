@@ -17,7 +17,7 @@ class Terms extends ADMIN_Controller {
 				$get_data["terms"][] = parse_ini_file(APPPATH ."/config/". $value, true);
 			}
 			$this->set_view("admin/terms/terms_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -61,7 +61,7 @@ class Terms extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/terms/terms_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}

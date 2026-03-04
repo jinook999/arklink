@@ -10,7 +10,7 @@ class Schedule extends MY_Controller {
 	public function run() {
 		try {
 			$this->scheduleproc->run();
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			weblog($e->getMessage(), "schedule");
 		}
 	}

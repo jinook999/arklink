@@ -96,7 +96,7 @@ class Member extends ADMIN_Controller {
 			$this->pagination->initialize($config);
 			$get_data["pagination"] = $this->pagination->create_links();
 			$this->set_view("admin/member/member_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -311,7 +311,7 @@ class Member extends ADMIN_Controller {
 				$get_data['ref'] = http_build_query($this->input->get(null, true));
 				$this->set_view("admin/member/member_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage());
 		}
 	}
@@ -333,7 +333,7 @@ class Member extends ADMIN_Controller {
 			} else {
 				throw new Exception("회원 삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 
@@ -345,7 +345,7 @@ class Member extends ADMIN_Controller {
 			$arr_where[] = array("level < ", 80);
 			$get_data["member_grade_list"] = get_list_member_grade($arr_where);
 			$this->set_view("admin/member/member_grade", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -415,7 +415,7 @@ class Member extends ADMIN_Controller {
 				$get_data['get'] = $this->input->get(null, true);
 				$this->set_view("admin/member/member_grade_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -438,7 +438,7 @@ class Member extends ADMIN_Controller {
 			} else {
 				throw new Exception(validation_errors());
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -515,7 +515,7 @@ class Member extends ADMIN_Controller {
 			$this->pagination->initialize($config);
 			$get_data["pagination"] = $this->pagination->create_links();
 			$this->set_view('admin/member/admin_list', $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -567,7 +567,7 @@ class Member extends ADMIN_Controller {
 				$this->dm->remove('da_member', ['userid' => $get['userid']]);
 				msg('정상적으로 삭제되었습니다.', 'admin_list');
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -590,7 +590,7 @@ class Member extends ADMIN_Controller {
 			$arr_where[] = ['level <= ', $this->_admin_member['level']];
 			$get_data["member_grade_list"] = get_list_member_grade($arr_where);
 			$this->set_view("admin/member/admin_grade", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -720,7 +720,7 @@ class Member extends ADMIN_Controller {
 				$get_data['get'] = $this->input->get(null, true);
 				$this->set_view("admin/member/admin_grade_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -765,7 +765,7 @@ class Member extends ADMIN_Controller {
 			} else {
 				throw new Exception(validation_errors());
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -940,7 +940,7 @@ class Member extends ADMIN_Controller {
 			$this->pagination->initialize($config);
 			$get_data["pagination"] = $this->pagination->create_links();
 			$this->set_view("admin/member/member_dormant_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -968,7 +968,7 @@ class Member extends ADMIN_Controller {
 
 			$get_data["memberField"] = $this->config->item("memberField");
 			$this->set_view("admin/member/member_dormant_view", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1001,7 +1001,7 @@ class Member extends ADMIN_Controller {
 			$get_data["pagination"] = $this->pagination->create_links();
 
 			$this->set_view("admin/member/member_withdrawal_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1069,7 +1069,7 @@ class Member extends ADMIN_Controller {
 				$page = $this->_admin_member['userid'] === 'superman' ? 'set_menu_auth' : 'set_menu_auth2';
 				$this->load->view('admin/member/'.$page, $data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), 'close');
 		}
 	}

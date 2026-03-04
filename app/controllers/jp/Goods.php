@@ -93,7 +93,7 @@ class Goods extends FRONT_Controller {
 			$this->template_->assign("goods_list", $goods_list);
 			$this->template_->define("goods_display", $this->_skin ."/layout/goods/". $goods_display);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -197,7 +197,7 @@ class Goods extends FRONT_Controller {
 			$this->template_->define("goods_display", $this->_skin ."/layout/goods/". $goods_display);
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language]['search']);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -318,7 +318,7 @@ class Goods extends FRONT_Controller {
 			$this->template_->assign("goods_view", $goods_view);
 			$this->template_->assign("page_title", $category_info['categorynm']);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			if($e->getCode() == 50) {
 				msg($e->getMessage(), '/');
 			}else{

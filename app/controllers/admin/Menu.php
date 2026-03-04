@@ -113,7 +113,7 @@ class Menu extends ADMIN_Controller {
 				$get_data["conf"] = $this->config->item("cfg_mainImageSlide");
 				$this->set_view("admin/menu/main_image_slide", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}

@@ -42,7 +42,7 @@ class Board extends ADMIN_Controller {
 					if(in_array($this->_admin_member['userid'], $is_allowed) === false) throw new Exception(print_language('do_not_have_permission'));
 				}
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -130,7 +130,7 @@ class Board extends ADMIN_Controller {
             $get_data['manage'] = $manage;
 
 			$this->set_view("admin/board/board_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -176,7 +176,7 @@ class Board extends ADMIN_Controller {
 			$get_data['ref'] = implode("&", $ref);
 
 			$this->set_view("admin/board/board_view", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -338,7 +338,7 @@ class Board extends ADMIN_Controller {
 						msg(validation_errors());
 					}
 				}
-			} catch(Exception $e) {
+			} catch(\Throwable $e) {
 				msg($e->getMessage(), -1, "parent");
 			}
 		} else {
@@ -406,7 +406,7 @@ class Board extends ADMIN_Controller {
 				$get_data['ref'] = http_build_query($this->input->get(null, true));
 
 				$this->set_view("admin/board/board_write", $get_data);
-			} catch(Exception $e) {
+			} catch(\Throwable $e) {
 				msg($e->getMessage(), -1);
 			}
 		}
@@ -440,7 +440,7 @@ class Board extends ADMIN_Controller {
 			} else {
 				throw new Exception("게시글의 삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -475,7 +475,7 @@ class Board extends ADMIN_Controller {
 				}
 			}
 
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}
@@ -508,7 +508,7 @@ class Board extends ADMIN_Controller {
 					throw new Exception(validation_errors());
 				}
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}
@@ -527,7 +527,7 @@ class Board extends ADMIN_Controller {
 				throw new Exception("게시판의 정보를 찾을 수 없습니다.");
 			}
 
-			if(!proc_type) {
+			if(!$proc_type) {
 				throw new Exception("게시판의 정보를 찾을 수 없습니다.");
 			}
 
@@ -712,7 +712,7 @@ class Board extends ADMIN_Controller {
 					throw new Exception("게시글의 삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 				}
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -725,7 +725,7 @@ class Board extends ADMIN_Controller {
             $result = array_filter($temp);
             $this->dm->update('da_manage', ['no' => 1], ['blocked_ip' => implode('|', $result)]);
             msg('해당 아이피를 정상적으로 차단하였습니다.', 'board_list?code='.$post['code'].'&'.$post['qs']);
-        } catch(Exception $e) {
+        } catch(\Throwable $e) {
             msg($e->getMessage(), -1);
         }
     }
@@ -795,7 +795,7 @@ class Board extends ADMIN_Controller {
 			$this->db->update($table, ['sort_order' => $cur_order], ['no' => $tgt_no]);
 
 			echo json_encode(['code' => true]);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(['code' => false, 'msg' => $e->getMessage()]);
 		}
 	}

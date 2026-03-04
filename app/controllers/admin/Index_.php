@@ -32,7 +32,7 @@ class Index_ extends ADMIN_Controller {
 
 			if(isset($this->_admin_member) === true) go('admin/main');
 			$this->set_view("admin/index");
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e);
 		}
 	}
@@ -152,7 +152,7 @@ class Index_ extends ADMIN_Controller {
 				}
 				throw new Exception("로그인 정보가 없습니다.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
             $this->load->model('Member_model', 'mm');
             $this->mm->count_login($post['userid'], 'fail');
 			msg($e->getMessage(), -1);

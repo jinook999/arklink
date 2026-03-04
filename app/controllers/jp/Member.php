@@ -165,7 +165,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_->assign("return_url", urlencode($this->input->get("return_url", true)));
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -183,7 +183,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("memberField", $this->memberField);
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -195,7 +195,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("memberField", $this->memberField);
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -289,7 +289,7 @@ class Member extends FRONT_Controller {
 				}
 				throw new Exception(print_language("no_member_information_found"));
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -333,7 +333,7 @@ class Member extends FRONT_Controller {
 			} else {
 				throw new Exception(print_language("no_member_information_found"));
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -375,7 +375,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("terms", $terms);
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -434,7 +434,7 @@ class Member extends FRONT_Controller {
 
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -535,7 +535,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 				$this->template_print($this->template_path());
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage());
 		}
 	}
@@ -668,7 +668,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_print($this->template_path());
 
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -715,7 +715,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("memberField", $this->memberField);
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -756,7 +756,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("memberField", $this->memberField);
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -834,7 +834,7 @@ class Member extends FRONT_Controller {
 			$this->template_->assign("memberField", $this->memberField);
 			$this->template_->assign("page_title", $this->pageTitles[$this->_site_language][__FUNCTION__]);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -948,7 +948,7 @@ class Member extends FRONT_Controller {
 				$set_data = array("code" => false, "dormant" => false);
 			}
 			echo json_encode($set_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -975,7 +975,7 @@ class Member extends FRONT_Controller {
 				$set_data = array("code" => false, "error" => print_langauge("dormant_release_process_fail") ."\n". print_langauge("please_try_again"));
 			}
 			echo json_encode($set_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}

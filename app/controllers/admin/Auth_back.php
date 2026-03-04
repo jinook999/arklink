@@ -80,7 +80,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/language_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -242,7 +242,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/member_field", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -396,7 +396,7 @@ class Auth extends ADMIN_Controller {
 				];
 				$this->set_view("admin/auth/goods_field", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -430,7 +430,7 @@ class Auth extends ADMIN_Controller {
 			$get_data["pagination"] = $this->pagination->create_links();
 
 			$this->set_view("admin/auth/board_manage", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -567,7 +567,7 @@ class Auth extends ADMIN_Controller {
 
 				$this->set_view("admin/auth/board_manage_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -590,7 +590,7 @@ class Auth extends ADMIN_Controller {
 			} else {
 				throw new Exception("게시판의 삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -624,7 +624,7 @@ class Auth extends ADMIN_Controller {
 				}
 				throw new Exception("게시판 정보가 없습니다.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -654,7 +654,7 @@ class Auth extends ADMIN_Controller {
 				}
 				throw new Exception("게시판 정보가 없습니다.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -703,7 +703,7 @@ class Auth extends ADMIN_Controller {
 				}
 				throw new Exception("게시판 정보가 없습니다.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -856,7 +856,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/menu_manage", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -898,7 +898,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/debug_mode", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -960,7 +960,7 @@ class Auth extends ADMIN_Controller {
 
 				$this->set_view("admin/auth/conf_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -978,7 +978,7 @@ class Auth extends ADMIN_Controller {
 			$get_data["terms"] = $this->Terms_model->getTermsList();
 
 			$this->set_view("admin/auth/terms_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1019,7 +1019,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/terms_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1078,7 +1078,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/search_engine_opt", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1128,7 +1128,7 @@ class Auth extends ADMIN_Controller {
 			$get_data["offset"] = $search;
 
 			$this->set_view("admin/auth/display_main_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1204,7 +1204,7 @@ class Auth extends ADMIN_Controller {
 
 				$this->set_view("admin/auth/display_main_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1229,7 +1229,7 @@ class Auth extends ADMIN_Controller {
 			} else {
 				throw new Exception("상품진열의 삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 

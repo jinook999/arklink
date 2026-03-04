@@ -19,7 +19,7 @@ class Main extends ADMIN_Controller {
 			if($this->_main_notice_auth['popup']) {
 				$this->load->model("Admin_Popup_model");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 
@@ -44,7 +44,7 @@ class Main extends ADMIN_Controller {
                 ];
 			}
 			$this->set_view("admin/main/index", $data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -80,7 +80,7 @@ class Main extends ADMIN_Controller {
 
 			echo json_encode($returnData);
 
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}

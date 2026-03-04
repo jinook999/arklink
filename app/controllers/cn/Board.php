@@ -10,7 +10,7 @@ class Board extends FRONT_Controller {
 		try {
 			$this->Front_Board_model->initialize();
 			$this->_board = $this->Front_Board_model->get_board();
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			if($e->getCode() == 50) {
 				msg($e->getMessage(), '/cn');
 			}else{
@@ -110,7 +110,7 @@ class Board extends FRONT_Controller {
 			$this->template_->assign("board_list", $board_list);
 			$this->template_->assign("page_title", $this->_board['name']);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -236,7 +236,7 @@ class Board extends FRONT_Controller {
 			$this->template_->assign("board_view", $board_view);
 			$this->template_->assign("page_title", $this->_board['name']);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			if($e->getCode() == 50) {
 				msg($e->getMessage(), '/');
 			}else{
@@ -278,7 +278,7 @@ class Board extends FRONT_Controller {
 			$this->template_->assign("form_attribute", $form_attribute);
 			$this->template_->assign("page_title", $this->_board['name']);
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -439,7 +439,7 @@ class Board extends FRONT_Controller {
 						msg(validation_errors());
 					}
 				}
-			} catch(Exception $e) {
+			} catch(\Throwable $e) {
 				msg($e->getMessage(), -1, "parent");
 			}
 		} else {
@@ -549,7 +549,7 @@ class Board extends FRONT_Controller {
 
 				$this->template_->assign("page_title", $this->_board['name']);
 				$this->template_print($this->template_path());
-			} catch(Exception $e) {
+			} catch(\Throwable $e) {
 				msg($e->getMessage(), -1);
 			}
 		}
@@ -606,7 +606,7 @@ class Board extends FRONT_Controller {
 			} else {
 				throw new Exception(print_language("failed_to_delete_post") ."\n\n". print_language("please_try_again"));
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -651,7 +651,7 @@ class Board extends FRONT_Controller {
 					throw new Exception(validation_errors());
 				}
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}
@@ -688,7 +688,7 @@ class Board extends FRONT_Controller {
 					throw new Exception(validation_errors());
 				}
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}
@@ -722,7 +722,7 @@ class Board extends FRONT_Controller {
 					throw new Exception(validation_errors());
 				}
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}

@@ -97,7 +97,7 @@ class Goods extends ADMIN_Controller {
 			$get_data['categories'] = $this->dm->get('da_category', [], [], [], [], ['category' => 'ASC']);
 			$this->set_view("admin/goods/goods_list", $get_data);
 
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -281,7 +281,7 @@ class Goods extends ADMIN_Controller {
 				$this->set_view("admin/goods/goods_field", $get_data);
 
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -500,7 +500,7 @@ class Goods extends ADMIN_Controller {
 				$get_data['ref'] = http_build_query($this->input->get(null, true));
 				$this->set_view("admin/goods/goods_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -526,7 +526,7 @@ class Goods extends ADMIN_Controller {
 			} else {
 				throw new Exception("상품의 삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 
@@ -562,7 +562,7 @@ class Goods extends ADMIN_Controller {
 				throw new Exception($error["message"]);
 			}
 
-		}catch(Exception $e){
+		}catch(\Throwable $e){
 			msg($e->getMessage(),-1);
 		}
 	}
@@ -624,7 +624,7 @@ class Goods extends ADMIN_Controller {
 
 				$this->set_view("admin/goods/category_list", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -683,7 +683,7 @@ class Goods extends ADMIN_Controller {
 
 				$this->set_view("admin/goods/category_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -725,7 +725,7 @@ class Goods extends ADMIN_Controller {
 				throw new Exception(validation_errors());
 			}
 			throw new Exception("카테고리 정보가 없습니다.");
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -744,7 +744,7 @@ class Goods extends ADMIN_Controller {
 			$get_data = array();
 			$get_data["cnt"] = $this->Admin_Goods_model->goods_count_check($arr_where);
 			echo json_encode(array("code" => true, "data" => $get_data));
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}
@@ -764,7 +764,7 @@ class Goods extends ADMIN_Controller {
 
 			$get_data = $this->category_model->get_select_category($cate, $level);
 			echo json_encode(array("code" => true, "data" => $get_data));
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}
@@ -778,7 +778,7 @@ class Goods extends ADMIN_Controller {
 			$cate = $this->input->post_get("category", true);
 			$this->category_model->initialize($cate);
 			echo json_encode(array("code" => true, "data" => $this->category_model->get_category()));
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}
@@ -804,7 +804,7 @@ class Goods extends ADMIN_Controller {
 				$error = $this->db->error();
 				throw new Exception($error["message"]);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			echo json_encode(array("code" => false, "error" => $e->getMessage()));
 		}
 	}

@@ -96,7 +96,7 @@ class Index_ extends FRONT_Controller {
 			}
 
 			$this->template_print($this->template_path());
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage());
 		}
 	}

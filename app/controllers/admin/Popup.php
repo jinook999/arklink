@@ -49,7 +49,7 @@ class Popup extends ADMIN_Controller {
 			$this->pagination->initialize($config);
 			$get_data["pagination"] = $this->pagination->create_links();
 			$this->set_view("admin/popup/popup_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -154,7 +154,7 @@ class Popup extends ADMIN_Controller {
 			}
 
 
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -186,7 +186,7 @@ class Popup extends ADMIN_Controller {
 			}
 			echo json_encode(array("code" => false, "error" => "팝업 정보가 없습니다."));
 			exit;
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -217,7 +217,7 @@ class Popup extends ADMIN_Controller {
 			}
 			echo json_encode(array("code" => false, "error" => "팝업 정보가 없습니다."));
 			exit;
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -246,7 +246,7 @@ class Popup extends ADMIN_Controller {
 				throw new Exception("삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 			}
 
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}

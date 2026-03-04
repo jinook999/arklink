@@ -50,7 +50,7 @@ class Design extends ADMIN_Controller {
 			];
 			$this->dm->insert('da_banner', $data);
 			echo '<script>alert("정상적으로 등록되었습니다."); opener.location.reload(); window.close();</script>';
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -77,7 +77,7 @@ class Design extends ADMIN_Controller {
 			if(file_exists(FCPATH.$banner['image_rename']) === true) unlink(FCPATH.$banner['image_rename']);
 			$this->dm->remove('da_banner', ['no' => $get['no']]);
 			msg('정상적으로 삭제되었습니다.', 'banner_list');
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}

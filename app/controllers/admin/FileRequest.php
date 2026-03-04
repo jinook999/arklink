@@ -152,7 +152,7 @@ class FileRequest extends ADMIN_Controller {
 			} else {
 				throw new Exception(print_language("inaccessible_pages"), -1);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), 1);
 		}
 	}
@@ -193,7 +193,7 @@ class FileRequest extends ADMIN_Controller {
 				echo json_encode("success: ".$file_path);
 				exit;
 			}
-		}catch(Exception $e) {
+		}catch(\Throwable $e) {
 			echo json_encode($e->getMessage());
 			exit;
 		}
@@ -241,7 +241,7 @@ class FileRequest extends ADMIN_Controller {
 
 			$this->load->helper("download");
 			force_download($save_name, file_get_contents($download_file));
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage());
 		}
 	}

@@ -82,7 +82,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/language_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -434,7 +434,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/member_field", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -568,7 +568,7 @@ class Auth extends ADMIN_Controller {
 
 				$this->set_view("admin/auth/board_field", $get_data);
 			}
-		}catch(Exception $e){
+		}catch(\Throwable $e){
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -603,7 +603,7 @@ class Auth extends ADMIN_Controller {
 			$get_data["pagination"] = $this->pagination->create_links();
 
 			$this->set_view("admin/auth/board_manage", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -854,7 +854,7 @@ class Auth extends ADMIN_Controller {
 
 				$this->set_view("admin/auth/board_manage_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -877,7 +877,7 @@ class Auth extends ADMIN_Controller {
 			} else {
 				throw new Exception("게시판의 삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -911,7 +911,7 @@ class Auth extends ADMIN_Controller {
 				}
 				throw new Exception("게시판 정보가 없습니다.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -941,7 +941,7 @@ class Auth extends ADMIN_Controller {
 				}
 				throw new Exception("게시판 정보가 없습니다.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -990,7 +990,7 @@ class Auth extends ADMIN_Controller {
 				}
 				throw new Exception("게시판 정보가 없습니다.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1164,7 +1164,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/menu_manage", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), "/admin/auth/menu_manage");
 		}
 	}
@@ -1197,7 +1197,7 @@ class Auth extends ADMIN_Controller {
 			}
 			$get_data['menus'] = $menus;
 			$this->set_view("admin/auth/menu_manage2", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), "/admin/auth/menu_manage2");
 		}
 	}
@@ -1239,7 +1239,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/debug_mode", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1338,7 +1338,7 @@ class Auth extends ADMIN_Controller {
 				$get_data['smtp'] = $this->dm->get('da_manage')[0];
 				$this->set_view("admin/auth/conf_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1361,7 +1361,7 @@ class Auth extends ADMIN_Controller {
 			$get_data["terms"] = $this->Terms_model->getTermsList();
 
 			$this->set_view("admin/auth/terms_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1402,7 +1402,7 @@ class Auth extends ADMIN_Controller {
 				$get_data["mode"] = "register";
 				$this->set_view("admin/auth/terms_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1434,7 +1434,7 @@ class Auth extends ADMIN_Controller {
                 $data = $this->dm->get('da_seo', [], ['language' => $language])[0];
 				$this->set_view("admin/auth/search_engine_opt", $data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1484,7 +1484,7 @@ class Auth extends ADMIN_Controller {
 			$get_data["offset"] = $search;
 
 			$this->set_view("admin/auth/display_main_list", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1585,7 +1585,7 @@ class Auth extends ADMIN_Controller {
 				$get_data['categories'] = $this->Etc_model->get_1st_category();
 				$this->set_view("admin/auth/display_main_reg", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -1610,7 +1610,7 @@ class Auth extends ADMIN_Controller {
 			} else {
 				throw new Exception("상품진열의 삭제를 실패하였습니다.\n\n잠시후 다시 시도해주세요.");
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 
@@ -1733,7 +1733,7 @@ class Auth extends ADMIN_Controller {
 				}
 				$this->set_view("admin/auth/country_manage", $get_data);
 			}
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 
@@ -1943,7 +1943,7 @@ class Auth extends ADMIN_Controller {
             $get_data['title'] = $title;
             $get_data['body'] = $message;
             $this->load->view('admin/auth/view_skin', $get_data);
-        } catch(Exception $e) {
+        } catch(\Throwable $e) {
             msg($e->getMessage(), 'close');
         }
     }
@@ -1979,7 +1979,7 @@ class Auth extends ADMIN_Controller {
             $this->qfile->write(implode('', $html));
             $this->qfile->close();
             msg('정상적으로 수정되었습니다.', 'close');
-        } catch(Exception $e) {
+        } catch(\Throwable $e) {
             msg($e->getMessage(), -1);
         }
     }
@@ -2129,7 +2129,7 @@ class Auth extends ADMIN_Controller {
             if(count($is_blocked) > 0) throw new Exception('이미 차단된 아이피입니다.\n차단일 : '.$is_blocked['regdate']);
             $this->dm->insert('da_ip_blocked', ['ip' => $get['ip'], 'regdate' => date('Y-m-d H:i:s')]);
             msg('정상적으로 차단이 되었습니다.', $ret_url);
-        } catch(Exception $e) {
+        } catch(\Throwable $e) {
             msg($e->getMessage(), $ret_url);
         }
     }
@@ -2140,7 +2140,7 @@ class Auth extends ADMIN_Controller {
             $get = $this->input->get(null, true);
             $this->dm->remove('da_'.$get['table'], ['no' => $get['no']]);
             msg('정상적으로 삭제되었습니다.', 'manage_access');
-        } catch(Exception $e) {
+        } catch(\Throwable $e) {
             msg($e->getMessage(), -1);
         }
     }

@@ -97,7 +97,7 @@ class Advisor extends ADMIN_Controller {
 			$get_data['limit'] = $limit;
 			$get_data['host'] = $host;
 			$this->set_view('admin/advisor/analysis_route', $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -110,7 +110,7 @@ class Advisor extends ADMIN_Controller {
 			$cond['e'] = $this->input->get("endDate", true) ? $this->input->get("endDate", true) : date('Y-m-d');
 			$get_data = $this->Statistics_model->get_data($cond);
 			$this->set_view("admin/advisor/analysis_device", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
@@ -124,7 +124,7 @@ class Advisor extends ADMIN_Controller {
 			$cond['e'] = $this->input->get("endDate", true) ? $this->input->get("endDate", true) : date('Y-m-d');
 			$get_data = $this->Statistics_model->get_data($cond);
 			$this->set_view("admin/advisor/analysis_keyword", $get_data);
-		} catch(Exception $e) {
+		} catch(\Throwable $e) {
 			msg($e->getMessage(), -1);
 		}
 	}
