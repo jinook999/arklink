@@ -44,8 +44,8 @@ class Sendemail extends PHPMailer {
         }
 
         if(!isset($data['skin'])) $data['skin'] = FCPATH.'data/mail_form/'.$data['language'].'/'.$get_info['file'];
-        $this->Body = $data['mail_body'] ? $data['mail_body'] : $this->_body($data);
-        if($data['attachment']) $this->mail_attachment($data['attachment']);
+        $this->Body = isset($data['mail_body']) && $data['mail_body'] ? $data['mail_body'] : $this->_body($data);
+        if(isset($data['attachment']) && $data['attachment']) $this->mail_attachment($data['attachment']);
 
         try {
             $this->send();
@@ -64,7 +64,8 @@ class Sendemail extends PHPMailer {
             'title' => $data['extrainfos']['title']
         ];
         foreach($subject as $key => $value) {
-            $temp_subject = str_replace("{\$".$key."}", $value, $temp_subject);
+            if(!is_string($value) && !is_numeric($value)) $value = '';
+            $temp_subject = str_replace("{\$".$key."}", (string)$value, $temp_subject);
         }
         return $temp_subject;
     }
@@ -89,7 +90,8 @@ class Sendemail extends PHPMailer {
         ];
         $temp = array_merge($data['extrainfos'], $copyright);
         foreach($temp as $key => $value) {
-            $content = str_replace("{\$".$key."}", $value, $content);
+            if(!is_string($value) && !is_numeric($value)) $value = '';
+            $content = str_replace("{\$".$key."}", (string)$value, $content);
         }
         return $content;
     }
