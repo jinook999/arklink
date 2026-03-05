@@ -701,6 +701,35 @@ class Board_model extends CI_Model {
                 'name' => $set_data['name'],
                 'regdate' => date('Y-m-d H:i:s'),
             ]);
+
+            // 피해진단/실시간문의 게시판 신규 글 작성 시 관리자 알림 이메일 발송
+            if($mode == "write" && in_array($this->_board['code'], ['diagnosis', 'inquiry'])) {
+                try {
+                    $this->config->load('cfg_site');
+                    $admin_email = $this->config->item('cfg_site')['kor']['adminEmail'];
+                    $mail_body = '
+<div style="font-family:\'Malgun Gothic\',sans-serif;max-width:600px;margin:0 auto;padding:20px;border:1px solid #ddd;">
+  <h2 style="color:#333;border-bottom:2px solid #e74c3c;padding-bottom:10px;">피해진단 신규 접수 알림</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:15px;">
+    <tr><td style="padding:8px;background:#f5f5f5;font-weight:bold;width:30%;">작성자</td><td style="padding:8px;border-bottom:1px solid #eee;">'.htmlspecialchars($set_data['name']).'</td></tr>
+    <tr><td style="padding:8px;background:#f5f5f5;font-weight:bold;">연락처</td><td style="padding:8px;border-bottom:1px solid #eee;">'.htmlspecialchars($set_data['mobile']).'</td></tr>
+    <tr><td style="padding:8px;background:#f5f5f5;font-weight:bold;">이메일</td><td style="padding:8px;border-bottom:1px solid #eee;">'.htmlspecialchars($set_data['email']).'</td></tr>
+    <tr><td style="padding:8px;background:#f5f5f5;font-weight:bold;">제목</td><td style="padding:8px;border-bottom:1px solid #eee;">'.htmlspecialchars($set_data['title']).'</td></tr>
+    <tr><td style="padding:8px;background:#f5f5f5;font-weight:bold;">내용</td><td style="padding:8px;">'.nl2br(htmlspecialchars(strip_tags($set_data['content']))).'</td></tr>
+  </table>
+  <p style="margin-top:20px;color:#888;font-size:12px;">접수 시각: '.date('Y-m-d H:i:s').'</p>
+</div>';
+                    $this->load->library('Sendemail');
+                    $board_label = $this->_board['code'] == 'diagnosis' ? '피해진단' : '실시간문의';
+                    $this->sendemail->addAddress($admin_email, '아크링크 관리자');
+                    $this->sendemail->Subject = '['.$board_label.' 접수] '.$set_data['title'];
+                    $this->sendemail->Body = $mail_body;
+                    $this->sendemail->send();
+                    $this->sendemail->clearAddresses();
+                } catch(\Throwable $e) {
+                    log_message('error', 'Diagnosis admin mail failed: '.$e->getMessage());
+                }
+            }
 		} else if($mode == "modify"){ // 수정
 			$set_data["fixed"] = array_key_exists("fixed", $data) ? $data["fixed"] : "0";
 			$set_data["updatedt"] = date('Y-m-d H:i:s');
