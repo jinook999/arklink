@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<script src="https://serpering.com/api/v1/iseeyou/t.js?sid=c54281aa6af195e4" data-sid="c54281aa6af195e4"></script>
+<script async src="https://serpering.com/api/v1/iseeyou/t.js?sid=c54281aa6af195e4" data-sid="c54281aa6af195e4"></script>
 <title>{cfg_site['title']}</title>
 <link rel="shortcut icon" href="{C._UPLOAD +'/conf/'+ cfg_site['favicon']}" type="image/x-icon" />
 <link rel="icon" href="{=C._UPLOAD +'/conf/'+ cfg_site['favicon']}" type="image/x-icon" />
@@ -36,7 +36,7 @@
 <script src="/lib/js/common.js"></script>
 <script src="/lib/js/jquery-ui.min.js"></script>
 <script src="/lib/js/moment-with-locales.min.js"></script>
-<script src="{ ? defined('_IS_SSL') }//ssl.daumcdn.net/dmaps{ : }//dmaps.daum.net{ / }/map_js_init/postcode.v2.js"></script>
+<script defer src="{ ? defined('_IS_SSL') }//ssl.daumcdn.net/dmaps{ : }//dmaps.daum.net{ / }/map_js_init/postcode.v2.js"></script>
 {*
   * 스킨 파일내 js
   *}

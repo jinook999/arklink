@@ -9,7 +9,7 @@
   })(window,document,'script','dataLayer','GTM-WQ2Z2JV2');</script>
   <!-- End Google Tag Manager -->
 
-  <script src="https://serpering.com/api/v1/iseeyou/t.js?sid=c8ad22d1fd8644cb" data-sid="c8ad22d1fd8644cb"></script>
+  <script async src="https://serpering.com/api/v1/iseeyou/t.js?sid=c8ad22d1fd8644cb" data-sid="c8ad22d1fd8644cb"></script>
 
   <meta name="google-site-verification" content="ZfPL_UJpDW3KnGlSPzh0CEXdIkxc6ZbgEBfvqcPVVqA" />
 
@@ -23,18 +23,9 @@
     }
   </script>
 
-  <!-- Naver Analytics -->
-  <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+  <!-- Naver Analytics (비동기 로딩) -->
   <script type="text/javascript">
-    if (!wcs_add) var wcs_add = {};
-    wcs_add["wa"] = "s_503125a9c9a9";
-    if (!_nasa) var _nasa = {};
-    if (window.wcs) {
-      wcs.inflow();
-      wcs_do();
-    }
-
-    // 네이버 전환 추적 함수
+    // 네이버 전환 추적 함수 (wcs 로드 전에도 호출 가능하도록 선언)
     function naver_conversion(type) {
       if (window.wcs) {
         var _conv = {};
@@ -42,6 +33,22 @@
         wcs.trans(_conv);
       }
     }
+
+    (function() {
+      var s = document.createElement('script');
+      s.src = '//wcs.naver.net/wcslog.js';
+      s.async = true;
+      s.onload = function() {
+        if (!wcs_add) var wcs_add = {};
+        wcs_add["wa"] = "s_503125a9c9a9";
+        if (!_nasa) var _nasa = {};
+        if (window.wcs) {
+          wcs.inflow();
+          wcs_do();
+        }
+      };
+      document.head.appendChild(s);
+    })();
   </script>
 
   <meta charset="UTF-8">

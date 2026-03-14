@@ -2,7 +2,6 @@
 <html lang="ko">
 
 <head>
-	<script src="https://serpering.com/api/v1/iseeyou/t.js?sid=c54281aa6af195e4" data-sid="c54281aa6af195e4"></script>
 	<!-- Google Tag Manager -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -62,16 +61,23 @@
 		}
 	</script>
 
-	<!-- Naver Analytics Script -->
-	<script type="text/javascript" src="//wcs.naver.net/wcslog.js"> </script>
+	<!-- Naver Analytics Script (비동기 로딩) -->
 	<script type="text/javascript">
-		if (!wcs_add) var wcs_add = {};
-		wcs_add["wa"] = "s_503125a9c9a9";
-		if (!_nasa) var _nasa = {};
-		if (window.wcs) {
-			wcs.inflow();
-			wcs_do();
-		}
+		(function() {
+			var s = document.createElement('script');
+			s.src = '//wcs.naver.net/wcslog.js';
+			s.async = true;
+			s.onload = function() {
+				if (!wcs_add) var wcs_add = {};
+				wcs_add["wa"] = "s_503125a9c9a9";
+				if (!_nasa) var _nasa = {};
+				if (window.wcs) {
+					wcs.inflow();
+					wcs_do();
+				}
+			};
+			document.head.appendChild(s);
+		})();
 	</script>
 
 	<title><!--{ ? seo['title'] }-->{ seo['title'] }<!--{ : }-->{cfg_site['title']}<!--{ / }--></title>
@@ -127,7 +133,7 @@
 	<script src="/lib/js/common.js"></script>
 	<!-- <script src="/lib/js/jquery-ui.min.js"></script> -->
 	<script src="/lib/js/moment-with-locales.min.js"></script>
-	<script
+	<script defer
 		src="{ ? defined('_IS_SSL') }//ssl.daumcdn.net/dmaps{ : }//dmaps.daum.net{ / }/map_js_init/postcode.v2.js"></script>
 	{*
 	* 스킨 파일내 js
@@ -227,15 +233,16 @@
 	</script>
 	<link rel="stylesheet" type="text/css" href="../css/cssreset-context-min.css"><!-- 에디터 css -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-	<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+	<script defer src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
 	<!-- BORAWARE LOG SCRIPT. -->
 	<script type="text/javascript">
 		var protect_id = 'h501';
 	</script>
 	<script async type="text/javascript" src="//script.boraware.kr/protect_script_v2.js"></script>
 	<!-- END OF BORAWARE LOG SCRIPT -->
+	<script async src="https://serpering.com/api/v1/iseeyou/t.js?sid=c54281aa6af195e4" data-sid="c54281aa6af195e4"></script>
 </head>
 
 <body>

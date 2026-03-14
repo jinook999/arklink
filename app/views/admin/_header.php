@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 <head>
-<script src="https://serpering.com/api/v1/iseeyou/t.js?sid=c54281aa6af195e4" data-sid="c54281aa6af195e4"></script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -28,7 +27,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <script src="/lib/js/jquery-2.2.4.min.js"></script>
 <script src="/lib/js/jquery-ui.min.js"></script>
-<script src="<?=$_SERVER['SERVER_PORT'] == 443 ? "https://ssl.daumcdn.net/dmaps" : "http://dmaps.daum.net"?>/map_js_init/postcode.v2.js"></script>
+<script defer src="<?=$_SERVER['SERVER_PORT'] == 443 ? "https://ssl.daumcdn.net/dmaps" : "http://dmaps.daum.net"?>/map_js_init/postcode.v2.js"></script>
 <script src="/lib/js/underscore.js"></script>
 <script src="/lib/js/jquery.validate.min.js"></script>
 <script src="/lib/js/tooltipster.bundle.min.js"></script>
@@ -111,6 +110,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		$('#contents').css({'padding-top':tit_h});
 	});
 </script>
+<script async src="https://serpering.com/api/v1/iseeyou/t.js?sid=c54281aa6af195e4" data-sid="c54281aa6af195e4"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
