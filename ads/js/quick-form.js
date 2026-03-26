@@ -1,162 +1,115 @@
 /**
- * 상단 간편 상담 폼 처리
+ * 간편 상담 폼 처리 (상단 배너 + 모바일 모달)
+ * FormSubmit 전통 form POST 방식 사용
  */
 
 (function() {
   'use strict';
 
+  var CHANNEL_URL = 'https://formsubmit.co/channel@arklink.co.kr';
+  var MARKETING_URL = 'https://formsubmit.co/ajax/marketing@arklink.co.kr';
+  var NEXT_URL = 'https://arklink.co.kr/ads/complete';
+
   function initQuickForm() {
-    const form = document.getElementById('quickInquiryForm');
+    var form = document.getElementById('quickInquiryForm');
     if (form) form.addEventListener('submit', handleQuickSubmit);
 
-    // 모바일 모달 폼
-    const modalForm = document.getElementById('modalQuickForm');
+    var modalForm = document.getElementById('modalQuickForm');
     if (modalForm) modalForm.addEventListener('submit', handleModalSubmit);
   }
 
-  async function handleModalSubmit(event) {
+  /**
+   * 숨겨진 form을 생성해서 FormSubmit으로 POST 전송
+   * AJAX 대신 전통 방식으로 확실하게 메일 전송
+   */
+  function submitViaForm(fields, formType) {
+    var now = new Date().toISOString();
+    var dtype = fields.damageType || '미선택';
+
+    // marketing@ 비동기 전송 (실패 무시)
+    try {
+      fetch(MARKETING_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          damageType: dtype, message: '내용 없음', submittedAt: now,
+          _subject: '[아크링크] 간편 상담 신청', _template: 'table'
+        }),
+        keepalive: true
+      }).catch(function() {});
+    } catch(e) {}
+
+    // channel@ 전통 form POST
+    var hiddenForm = document.createElement('form');
+    hiddenForm.method = 'POST';
+    hiddenForm.action = CHANNEL_URL;
+    hiddenForm.style.display = 'none';
+
+    var data = {
+      name: fields.name,
+      contact: fields.contact,
+      damageType: dtype,
+      message: '내용 없음',
+      type: formType,
+      submittedAt: now,
+      _subject: '[아크링크] 간편 상담 신청',
+      _template: 'table',
+      _captcha: 'false',
+      _next: NEXT_URL
+    };
+
+    for (var key in data) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = data[key];
+      hiddenForm.appendChild(input);
+    }
+
+    document.body.appendChild(hiddenForm);
+    hiddenForm.submit();
+  }
+
+  function handleModalSubmit(event) {
     event.preventDefault();
 
-    const form = event.target;
-    const name = form.querySelector('#modal-name').value.trim();
-    const contact = form.querySelector('#modal-contact').value.trim();
-    const damageType = form.querySelector('#modal-damageType').value;
-    const privacy = form.querySelector('#modal-privacy').checked;
+    var form = event.target;
+    var name = form.querySelector('#modal-name').value.trim();
+    var contact = form.querySelector('#modal-contact').value.trim();
+    var damageType = form.querySelector('#modal-damageType').value;
+    var privacy = form.querySelector('#modal-privacy').checked;
 
     if (!name) { alert('이름을 입력해주세요.'); form.querySelector('#modal-name').focus(); return; }
     if (!contact) { alert('연락처를 입력해주세요.'); form.querySelector('#modal-contact').focus(); return; }
     if (!privacy) { alert('개인정보 수집 및 이용에 동의해주세요.'); return; }
 
-    const submitBtn = form.querySelector('.btn-submit');
-    const originalText = submitBtn.innerHTML;
+    var submitBtn = form.querySelector('.btn-submit');
     submitBtn.disabled = true;
     submitBtn.innerHTML = '신청 중...';
 
-    try {
-      const now = new Date().toISOString();
-      const dtype = damageType || '미선택';
-
-      const channelData = {
-        name: name, contact: contact, damageType: dtype,
-        message: '내용 없음', type: '모바일간편상담', submittedAt: now,
-        _subject: '[아크링크] 간편 상담 신청', _template: 'table'
-      };
-      const marketingData = {
-        damageType: dtype, message: '내용 없음', submittedAt: now,
-        _subject: '[아크링크] 간편 상담 신청', _template: 'table'
-      };
-
-      const channelRes = await fetch('https://formsubmit.co/ajax/channel@arklink.co.kr', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(channelData)
-      });
-
-      fetch('https://formsubmit.co/ajax/marketing@arklink.co.kr', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(marketingData)
-      }).catch(function() {});
-
-      if (channelRes.ok) {
-        window.location.href = '/ads/complete';
-      } else {
-        throw new Error('서버 오류');
-      }
-    } catch (error) {
-      alert('신청 중 오류가 발생했습니다.\n전화로 문의해주세요: 1666-5706');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
-    }
+    submitViaForm({ name: name, contact: contact, damageType: damageType }, '모바일간편상담');
   }
 
-  async function handleQuickSubmit(event) {
+  function handleQuickSubmit(event) {
     event.preventDefault();
-    
-    const form = event.target;
-    const name = form.querySelector('#quick-name').value.trim();
-    const contact = form.querySelector('#quick-contact').value.trim();
-    const damageType = form.querySelector('#quick-damageType').value;
-    const privacy = form.querySelector('#quick-privacy').checked;
 
-    // 유효성 검사
-    if (!name) {
-      alert('이름을 입력해주세요.');
-      form.querySelector('#quick-name').focus();
-      return;
-    }
+    var form = event.target;
+    var name = form.querySelector('#quick-name').value.trim();
+    var contact = form.querySelector('#quick-contact').value.trim();
+    var damageType = form.querySelector('#quick-damageType').value;
+    var privacy = form.querySelector('#quick-privacy').checked;
 
-    if (!contact) {
-      alert('연락처를 입력해주세요.');
-      form.querySelector('#quick-contact').focus();
-      return;
-    }
+    if (!name) { alert('이름을 입력해주세요.'); form.querySelector('#quick-name').focus(); return; }
+    if (!contact) { alert('연락처를 입력해주세요.'); form.querySelector('#quick-contact').focus(); return; }
+    if (!privacy) { alert('개인정보 수집 및 이용에 동의해주세요.'); return; }
 
-    if (!privacy) {
-      alert('개인정보 수집 및 이용에 동의해주세요.');
-      return;
-    }
-
-    // 제출 버튼 비활성화
-    const submitBtn = form.querySelector('.banner-btn');
-    const originalText = submitBtn.innerHTML;
+    var submitBtn = form.querySelector('.banner-btn');
     submitBtn.disabled = true;
     submitBtn.innerHTML = '신청 중...';
 
-    try {
-      const now = new Date().toISOString();
-      const dtype = damageType || '미선택';
-
-      // channel@ 전체 데이터
-      const channelData = {
-        name: name,
-        contact: contact,
-        damageType: dtype,
-        message: '내용 없음',
-        type: '간편상담',
-        submittedAt: now,
-        _subject: '[아크링크] 간편 상담 신청',
-        _template: 'table'
-      };
-
-      // marketing@ 필요한 필드만
-      const marketingData = {
-        damageType: dtype,
-        message: '내용 없음',
-        submittedAt: now,
-        _subject: '[아크링크] 간편 상담 신청',
-        _template: 'table'
-      };
-
-      const channelRes = await fetch('https://formsubmit.co/ajax/channel@arklink.co.kr', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(channelData)
-      });
-
-      // 마케팅 전송은 별도 처리 (실패 무시)
-      fetch('https://formsubmit.co/ajax/marketing@arklink.co.kr', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(marketingData)
-      }).catch(function() {});
-
-      if (channelRes.ok) {
-        // 신청완료 페이지로 이동
-        window.location.href = '/ads/complete';
-      } else {
-        throw new Error('서버 오류');
-      }
-    } catch (error) {
-      alert('신청 중 오류가 발생했습니다.\n전화로 문의해주세요: 1666-5706');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
-    }
+    submitViaForm({ name: name, contact: contact, damageType: damageType }, '간편상담');
   }
 
-  // DOM 로드 후 초기화
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initQuickForm);
   } else {

@@ -173,7 +173,8 @@ const FormSubmit = {
       fetch(this.MARKETING_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(marketingData)
+        body: JSON.stringify(marketingData),
+        keepalive: true
       }).catch(function() {});
 
       if (channelRes.ok) {
