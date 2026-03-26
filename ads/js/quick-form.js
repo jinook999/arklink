@@ -7,9 +7,68 @@
 
   function initQuickForm() {
     const form = document.getElementById('quickInquiryForm');
-    if (!form) return;
+    if (form) form.addEventListener('submit', handleQuickSubmit);
 
-    form.addEventListener('submit', handleQuickSubmit);
+    // 모바일 모달 폼
+    const modalForm = document.getElementById('modalQuickForm');
+    if (modalForm) modalForm.addEventListener('submit', handleModalSubmit);
+  }
+
+  async function handleModalSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const name = form.querySelector('#modal-name').value.trim();
+    const contact = form.querySelector('#modal-contact').value.trim();
+    const damageType = form.querySelector('#modal-damageType').value;
+    const privacy = form.querySelector('#modal-privacy').checked;
+
+    if (!name) { alert('이름을 입력해주세요.'); form.querySelector('#modal-name').focus(); return; }
+    if (!contact) { alert('연락처를 입력해주세요.'); form.querySelector('#modal-contact').focus(); return; }
+    if (!privacy) { alert('개인정보 수집 및 이용에 동의해주세요.'); return; }
+
+    const submitBtn = form.querySelector('.btn-submit');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '신청 중...';
+
+    try {
+      const now = new Date().toISOString();
+      const dtype = damageType || '미선택';
+
+      const channelData = {
+        name: name, contact: contact, damageType: dtype,
+        message: '내용 없음', type: '모바일간편상담', submittedAt: now,
+        _subject: '[아크링크] 간편 상담 신청', _template: 'table'
+      };
+      const marketingData = {
+        damageType: dtype, message: '내용 없음', submittedAt: now,
+        _subject: '[아크링크] 간편 상담 신청', _template: 'table'
+      };
+
+      const channelRes = await fetch('https://formsubmit.co/ajax/channel@arklink.co.kr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(channelData)
+      });
+
+      fetch('https://formsubmit.co/ajax/marketing@arklink.co.kr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(marketingData)
+      }).catch(function() {});
+
+      if (channelRes.ok) {
+        window.location.href = '/ads/complete';
+      } else {
+        throw new Error('서버 오류');
+      }
+    } catch (error) {
+      alert('신청 중 오류가 발생했습니다.\n전화로 문의해주세요: 1666-5706');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
   }
 
   async function handleQuickSubmit(event) {
