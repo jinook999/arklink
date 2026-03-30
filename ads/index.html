@@ -16,10 +16,9 @@
   <!-- Google Ads 전화 전환 추적 -->
   <script>
     function gtag_report_conversion(url) {
-      gtag('event', 'conversion', {
-        'send_to': 'AW-16708640716/Ouq5CM3sxN8bEMy_pp8-'
-      });
-      return true;
+      var callback = function () { if (typeof(url) != 'undefined') { window.location = url; } };
+      gtag('event', 'conversion', {'send_to': 'AW-16708640716/Ouq5CM3sxN8bEMy_pp8-', 'event_callback': callback});
+      return false;
     }
   </script>
 
