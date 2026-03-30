@@ -27,12 +27,8 @@ if($bSuccessUpload) {
 			$folder = "/". $_REQUEST["folder"];
 		}
 		$uploadDir = $_SERVER['DOCUMENT_ROOT'] ."/upload/smarteditor". $folder;
-		$check = '';
-		foreach(explode("/", $uploadDir) as $path){
-			$check .= "/".$path;
-			if(!is_dir($check)){
-				@mkdir($check, 0777);
-			}
+		if(!is_dir($uploadDir)){
+			@mkdir($uploadDir, 0777, true);
 		}
 
 		$file_name = date('YmdHis').'_'.mt_rand(1000 ,9999) .".". $filename_ext;
