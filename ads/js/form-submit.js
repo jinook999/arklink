@@ -137,72 +137,45 @@ const FormSubmit = {
   },
 
   /**
-   * 폼 데이터 서버로 전송
-   * FormSubmit 서비스 또는 자체 API 사용
+   * 폼 데이터 서버로 전송 (hidden form POST 방식 - CORS 우회)
    */
   submitForm: async function(formData) {
-    // channel@ 전체 데이터
-    const channelData = {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://formsubmit.co/channel@arklink.co.kr';
+    form.style.display = 'none';
+
+    const fields = {
       name: formData.name,
       contact: formData.contact,
       damageType: formData.damageType || '미선택',
       message: formData.message || '내용 없음',
       submittedAt: new Date().toISOString(),
       _subject: '[아크링크] 새로운 상담 신청',
-      _template: 'table'
+      _template: 'table',
+      _cc: 'marketing@arklink.co.kr',
+      _next: window.location.origin + '/ads/complete'
     };
 
-    // marketing@ 필요한 필드만
-    const marketingData = {
-      damageType: formData.damageType || '미선택',
-      message: formData.message || '내용 없음',
-      submittedAt: new Date().toISOString(),
-      _subject: '[아크링크] 새로운 상담 신청',
-      _template: 'table'
-    };
+    Object.keys(fields).forEach(function(key) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields[key];
+      form.appendChild(input);
+    });
 
-    try {
-      // 마케팅 전송은 실패해도 메인 폼에 영향 없도록 분리
-      const channelRes = await fetch(this.FORMSUBMIT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(channelData)
-      });
+    document.body.appendChild(form);
+    form.submit();
 
-      // 마케팅 전송은 별도 처리 (실패 무시)
-      fetch(this.MARKETING_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(marketingData),
-        keepalive: true
-      }).catch(function() {});
-
-      if (channelRes.ok) {
-        const data = await channelRes.json();
-        return { success: true, data: data };
-      } else {
-        return { 
-          success: false, 
-          error: '서버 오류가 발생했습니다.' 
-        };
-      }
-    } catch (error) {
-      if (!navigator.onLine) {
-        return { 
-          success: false, 
-          error: '인터넷 연결을 확인해주세요.' 
-        };
-      }
-      throw error;
-    }
+    // form.submit()은 페이지를 이동시키므로 여기 이후 코드는 실행되지 않음
+    return { success: true };
   },
 
   /**
    * 성공 메시지 표시
-   * 요구사항 7.4: 접수 완료 확인 메시지 표시
    */
   showSuccessMessage: function() {
-    // 신청완료 페이지로 이동
     window.location.href = '/ads/complete';
   },
 
